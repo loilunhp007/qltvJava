@@ -48,3 +48,13 @@ CREATE TABLE IF NOT EXISTS Lending_detail(
      CONSTRAINT Lending_key FOREIGN KEY (lendID) REFERENCES BookLending (lendID),
     CONSTRAINT Lending_Book FOREIGN KEY (bookID) REFERENCES Book_detail (bookID)
 );
+CREATE TABLE IF NOT EXISTS Author(
+	authorID int not null primary key,
+    authorName varchar(50) not null,
+    authorGender varchar(5) not null,
+    authotdob varchar(50) not null,
+    authorEmail varchar(50) not null
+);
+ALTER TABLE Account ADD userAddr varchar(50);
+ALTER TABLE Account CHANGE userAnser  userAnswer varchar(50) not null;
+
