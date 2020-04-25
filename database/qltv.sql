@@ -18,22 +18,18 @@ CREATE TABLE IF NOT EXISTS Account(
 	userID int not null primary key,
 	userName varchar(50) not null,
     userPassword varchar(20) not null,
-    userFullName varchar(50) not null,
-    userGender varchar(05) not null,
-    userEmail varchar(50) not null,
-    userAddress varchar(50) not null,
-    userPhone varchar(12) not null,
-    userSec_q varchar (50) not null,
-    userAnswer varchar (50) not null
+    startDay varchar(20) not null,
+    outofDay varchar(20) not null
 );
 DROP TABLE Account;
 CREATE TABLE IF NOT EXISTS Staff(
-	staffID int not null primary key auto_increment,
+	staffID int not null primary key,
     staffName varchar(50) not null,
     staffdob varchar(50) not null,
     staffAddr varchar(50) not null,
     staffGender varchar(5) not null,
-    staffPhone varchar(12) not null
+    staffPhone varchar(12) not null,
+    staffAccountID int not null
 );
 DROP TABLE Staff;
 CREATE TABLE IF NOT EXISTS BookLending(
@@ -62,19 +58,46 @@ CREATE TABLE IF NOT EXISTS Author(
 	authorID int not null primary key,
     authorName varchar(50) not null,
     authorGender varchar(5) not null,
-    authotdob varchar(50) not null,
+	authorDOB varchar(50) not null,
     authorEmail varchar(50) 
 );
 CREATE TABLE IF NOT EXISTS Categories(
 	categoryID int not null primary key,
     categoryName varchar(50) not null
 );
+CREATE TABLE IF NOT EXISTS Student(
+ studentID int not null primary key,
+ studentName varchar(50) not null,
+ studenDOB varchar(50) not null,
+ studenEmail varchar(50) not null,
+ studentClass varchar(10) not null,
+ accountID int not null
+);
+DROP TABLE Student;
+CREATE TABLE IF NOT EXISTS Role(
+	roleID int not null primary key,
+    roleName varchar(50) not null
+);
+CREATE TABLE IF NOT EXISTS AccountRole(
+	roleID int not null,
+    accountID int not null,
+    constraint Accountrole_role foreign key (roleID) references Role(roleID),
+    constraint Accountrole_Account foreign key (accountID) references Account(userID),
+    primary key(roleID,accountID)
+)
 DROP TABLE Caterogies;
+ALTER TABLE Student DROP CONSTRAINT Student_Account;
+ALTER TABLE BookLending DROP CONSTRAINT Lending_Staff;
+ALTER TABLE BookLending DROP CONSTRAINT Lending_account;
 ALTER TABLE Lending_detail DROP CONSTRAINT Lending_Book;
 ALTER TABLE Lending_detail DROP CONSTRAINT Lending_key;
 ALTER TABLE BookLending DROP CONSTRAINT Lending_account;
 ALTER TABLE BookLending DROP CONSTRAINT Lending_Staff;
 ALTER TABLE Book_detail DROP CONSTRAINT Book_Categories;
 ALTER TABLE Book_detail ADD CONSTRAINT Book_Categories foreign key(bookCategoryID) REFERENCES Categories (categoryID);
-ALTER TABLE Book_detail ADD CONSTRAINT Book_Authot FOREIGN KEY(bookAuthorID) REFERENCES Author(authorID);
+ALTER TABLE BookLending ADD CONSTRAINT Lending_account foreign key(lendUserID) REFERENCES Account(userID);
+ALTER TABLE BookLending ADD CONSTRAINT Lending_Staff foreign key(Issued_by) REFERENCES Staff(staffID);
+ALTER TABLE Book_detail ADD CONSTRAINT Book_Author FOREIGN KEY(bookAuthorID) REFERENCES Author(authorID);
+ALTER TABLE Student ADD CONSTRAINT Student_Account FOREIGN KEY(accountID) REFERENCES Account(userID);
+ALTER TABLE Staff ADD CONSTRAINT Staff_Account foreign key(staffAccountID) references Account(userID);
 
