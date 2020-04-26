@@ -100,4 +100,6 @@ ALTER TABLE BookLending ADD CONSTRAINT Lending_Staff foreign key(Issued_by) REFE
 ALTER TABLE Book_detail ADD CONSTRAINT Book_Author FOREIGN KEY(bookAuthorID) REFERENCES Author(authorID);
 ALTER TABLE Student ADD CONSTRAINT Student_Account FOREIGN KEY(accountID) REFERENCES Account(userID);
 ALTER TABLE Staff ADD CONSTRAINT Staff_Account foreign key(staffAccountID) references Account(userID);
-
+SELECT ac.userName,ac.userPassword,s.staffName 
+FROM Staff s Join account ac on s.staffAccountID = ac.userID
+WHERE  s.staffAccountID = ac.userID
