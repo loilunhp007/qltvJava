@@ -1,7 +1,7 @@
 package Model;
 
 public class Book {
-    private int bookID,bookPrice,bookPages
+    private int bookID,bookPrice,bookPages;
     private String bookName,bookAuthor,bookCaterogies,bookPublisher;
 
     public Book(int bookID) {
@@ -60,10 +60,6 @@ public class Book {
 
     public String getBookCaterogies() {
         return bookCaterogies;
-    }
-
-    public void setBookID(String bookID) {
-        this.bookID = bookID;
     }
 
     public void setBookName(String bookName) {
