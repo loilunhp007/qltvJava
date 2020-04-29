@@ -1,28 +1,31 @@
 package Model;
 
 public class Book {
-    private int bookID,bookPrice,bookPages;
-    private String bookName,bookAuthor,bookCaterogies,bookPublisher;
+    private  int bookPrice,bookPages;
+    private String bookName,bookAuthor,bookCaterogies,bookPublisher,bookID;
 
-    public Book(int bookID) {
+    public Book() {
+    }
+
+    public Book(String bookID) {
         this.bookID = bookID;
     }
 
-    public Book(int bookID, int bookPrice, int bookPages, String bookName, String bookAuthor, String bookCaterogies, String bookPublisher) {
+    public Book(String bookID,String bookName, String bookAuthor, String bookCaterogies, String bookPublisher,int bookPrice,int bookPages) {
         this.bookID = bookID;
-        this.bookPrice = bookPrice;
-        this.bookPages = bookPages;
         this.bookName = bookName;
         this.bookAuthor = bookAuthor;
         this.bookCaterogies = bookCaterogies;
         this.bookPublisher = bookPublisher;
+        this.bookPrice = bookPrice;
+        this.bookPages = bookPages;
     }
 
-    public int getBookID() {
+    public String getBookID() {
         return bookID;
     }
 
-    public void setBookID(int bookID) {
+    public void setBookID(String bookID) {
         this.bookID = bookID;
     }
 

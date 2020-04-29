@@ -1,24 +1,26 @@
 package Model;
 
 public class Account {
-    private int userID;
-    private String userName,userPassword;
+    private String userID,userName,userPassword;
 
-    public Account(int userID) {
+    public Account() {
+    }
+
+    public Account(String userID) {
         this.userID = userID;
     }
 
-    public Account(int userID, String userName, String userPassword) {
+    public Account(String userID, String userName, String userPassword) {
         this.userID = userID;
         this.userName = userName;
         this.userPassword = userPassword;
     }
 
-    public int getUserID() {
+    public String getUserID() {
         return userID;
     }
 
-    public void setUserID(int userID) {
+    public void setUserID(String userID) {
         this.userID = userID;
     }
 

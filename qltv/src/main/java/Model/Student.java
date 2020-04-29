@@ -1,13 +1,15 @@
 package Model;
 public class Student {
-    private int studenID,accountID;
-    private String studentName,StudentDOB,studenEmail,StudentClass;
+    private String studenID,accountID,studentName,StudentDOB,studenEmail,StudentClass;
 
-    public Student(int studenID) {
+    public Student() {
+    }
+
+    public Student(String studenID) {
         this.studenID = studenID;
     }
 
-    public Student(int studenID, String studentName, String studentDOB, String studenEmail, String studentClass, int accountID) {
+    public Student(String studenID, String studentName, String studentDOB, String studenEmail, String studentClass, String accountID) {
         this.studenID = studenID;
         this.studentName = studentName;
         StudentDOB = studentDOB;
@@ -16,11 +18,11 @@ public class Student {
         this.accountID = accountID;
     }
 
-    public int getStudenID() {
+    public String getStudenID() {
         return studenID;
     }
 
-    public void setStudenID(int studenID) {
+    public void setStudenID(String studenID) {
         this.studenID = studenID;
     }
 
@@ -56,11 +58,11 @@ public class Student {
         StudentClass = studentClass;
     }
 
-    public int getAccountID() {
+    public String getAccountID() {
         return accountID;
     }
 
-    public void setAccountID(int accountID) {
+    public void setAccountID(String accountID) {
         this.accountID = accountID;
     }
 }
