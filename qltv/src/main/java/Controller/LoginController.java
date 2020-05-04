@@ -14,7 +14,7 @@ public class LoginController {
      *
      * @author Anh Quan
      */
-    public static class LoginController implements Initializable {
+    public static class LoginFormUIController implements Initializable {
 
         @FXML
         private TextField usr;
