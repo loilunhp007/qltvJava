@@ -1,26 +1,27 @@
 package Model;
 
 public class Account {
-    private String userID,userName,userPassword;
+    private int userID;
+    private String userName,userPassword;
 
     public Account() {
     }
 
-    public Account(String userID) {
+    public Account(int userID) {
         this.userID = userID;
     }
 
-    public Account(String userID, String userName, String userPassword) {
+    public Account(int userID, String userName, String userPassword) {
         this.userID = userID;
         this.userName = userName;
         this.userPassword = userPassword;
     }
 
-    public String getUserID() {
+    public int getUserID() {
         return userID;
     }
 
-    public void setUserID(String userID) {
+    public void setUserID(int userID) {
         this.userID = userID;
     }
 
@@ -38,5 +39,14 @@ public class Account {
 
     public void setUserPassword(String userPassword) {
         this.userPassword = userPassword;
+    }
+
+    @Override
+    public String toString() {
+        return "Account{" +
+                "userID=" + userID +
+                ", userName='" + userName + '\'' +
+                ", userPassword='" + userPassword + '\'' +
+                '}';
     }
 }

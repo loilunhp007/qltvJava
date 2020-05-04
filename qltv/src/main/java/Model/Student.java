@@ -1,15 +1,16 @@
 package Model;
 public class Student {
-    private String studenID,accountID,studentName,StudentDOB,studenEmail,StudentClass;
+    private int studenID,accountID;
+    private String studentName,StudentDOB,studenEmail,StudentClass;
 
     public Student() {
     }
 
-    public Student(String studenID) {
+    public Student(int studenID) {
         this.studenID = studenID;
     }
 
-    public Student(String studenID, String studentName, String studentDOB, String studenEmail, String studentClass, String accountID) {
+    public Student(int studenID, String studentName, String studentDOB, String studenEmail, String studentClass, int accountID) {
         this.studenID = studenID;
         this.studentName = studentName;
         StudentDOB = studentDOB;
@@ -18,11 +19,11 @@ public class Student {
         this.accountID = accountID;
     }
 
-    public String getStudenID() {
+    public int getStudenID() {
         return studenID;
     }
 
-    public void setStudenID(String studenID) {
+    public void setStudenID(int studenID) {
         this.studenID = studenID;
     }
 
@@ -58,11 +59,23 @@ public class Student {
         StudentClass = studentClass;
     }
 
-    public String getAccountID() {
+    public int getAccountID() {
         return accountID;
     }
 
-    public void setAccountID(String accountID) {
+    public void setAccountID(int accountID) {
         this.accountID = accountID;
+    }
+
+    @Override
+    public String toString() {
+        return "Student{" +
+                "studenID=" + studenID +
+                ", accountID=" + accountID +
+                ", studentName='" + studentName + '\'' +
+                ", StudentDOB='" + StudentDOB + '\'' +
+                ", studenEmail='" + studenEmail + '\'' +
+                ", StudentClass='" + StudentClass + '\'' +
+                '}';
     }
 }

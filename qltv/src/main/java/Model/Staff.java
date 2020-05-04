@@ -1,17 +1,18 @@
 package Model;
 
 public class Staff {
-    private String staffID,staffAccountID,staffName,staffDOB,staffAddr,staffGender;
+    private String staffAccountID,staffName,staffDOB,staffAddr,staffGender;
     private  int staffPhone;
+    private int staffID;
 
     public Staff() {
     }
 
-    public Staff(String staffID) {
+    public Staff(int staffID) {
         this.staffID = staffID;
     }
 
-    public Staff(String staffID, String staffName, String staffDOB, String staffAddr, String staffGender, int staffPhone, String staffAccountID) {
+    public Staff(int staffID, String staffName, String staffDOB, String staffAddr, String staffGender, int staffPhone, String staffAccountID) {
         this.staffID = staffID;
         this.staffName = staffName;
         this.staffDOB = staffDOB;
@@ -21,11 +22,11 @@ public class Staff {
         this.staffAccountID = staffAccountID;
     }
 
-    public String getStaffID() {
+    public int getStaffID() {
         return staffID;
     }
 
-    public void setStaffID(String staffID) {
+    public void setStaffID(int staffID) {
         this.staffID = staffID;
     }
 
@@ -75,5 +76,18 @@ public class Staff {
 
     public void setStaffPhone(int staffPhone) {
         this.staffPhone = staffPhone;
+    }
+
+    @Override
+    public String toString() {
+        return "Staff{" +
+                "staffAccountID='" + staffAccountID + '\'' +
+                ", staffName='" + staffName + '\'' +
+                ", staffDOB='" + staffDOB + '\'' +
+                ", staffAddr='" + staffAddr + '\'' +
+                ", staffGender='" + staffGender + '\'' +
+                ", staffPhone=" + staffPhone +
+                ", staffID=" + staffID +
+                '}';
     }
 }

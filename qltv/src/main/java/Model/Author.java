@@ -1,16 +1,17 @@
 package Model;
 
 public class Author {
-    private String authorID,authorName,authorGender,authorDOB,authorEmail;
+    private  int authorID;
+    private String authorName,authorGender,authorDOB,authorEmail;
 
     public Author() {
     }
 
-    public Author(String authorID) {
+    public Author(int authorID) {
         this.authorID = authorID;
     }
 
-    public Author(String authorID, String authorName, String authorGender, String authorDOB, String authorEmail) {
+    public Author(int authorID, String authorName, String authorGender, String authorDOB, String authorEmail) {
         this.authorID = authorID;
         this.authorName = authorName;
         this.authorGender = authorGender;
@@ -18,11 +19,11 @@ public class Author {
         this.authorEmail = authorEmail;
     }
 
-    public String getAuthorID() {
+    public int getAuthorID() {
         return authorID;
     }
 
-    public void setAuthorID(String authorID) {
+    public void setAuthorID(int authorID) {
         this.authorID = authorID;
     }
 
@@ -56,5 +57,16 @@ public class Author {
 
     public void setAuthorEmail(String authorEmail) {
         this.authorEmail = authorEmail;
+    }
+
+    @Override
+    public String toString() {
+        return "Author{" +
+                "authorID=" + authorID +
+                ", authorName='" + authorName + '\'' +
+                ", authorGender='" + authorGender + '\'' +
+                ", authorDOB='" + authorDOB + '\'' +
+                ", authorEmail='" + authorEmail + '\'' +
+                '}';
     }
 }
