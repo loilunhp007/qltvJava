@@ -1,17 +1,19 @@
 package Model;
 
 public class Book {
-    private  int bookPrice,bookPages;
-    private String bookName,bookAuthor,bookCaterogies,bookPublisher,bookID;
+    int bookID;
+    private int bookPrice;
+    private int bookPages;
+    private String bookName,bookAuthor,bookCaterogies,bookPublisher;
 
     public Book() {
     }
 
-    public Book(String bookID) {
+    public Book(int bookID) {
         this.bookID = bookID;
     }
 
-    public Book(String bookID,String bookName, String bookAuthor, String bookCaterogies, String bookPublisher,int bookPrice,int bookPages) {
+    public Book(int bookID, String bookName, String bookAuthor, String bookCaterogies, String bookPublisher, int bookPrice, int bookPages) {
         this.bookID = bookID;
         this.bookName = bookName;
         this.bookAuthor = bookAuthor;
@@ -21,11 +23,11 @@ public class Book {
         this.bookPages = bookPages;
     }
 
-    public String getBookID() {
+    public int getBookID() {
         return bookID;
     }
 
-    public void setBookID(String bookID) {
+    public void setBookID(int bookID) {
         this.bookID = bookID;
     }
 
@@ -76,4 +78,18 @@ public class Book {
     public void setBookCaterogies(String bookCaterogies) {
         this.bookCaterogies = bookCaterogies;
     }
+
+    @Override
+    public String toString() {
+        return "Book{" +
+                "bookID=" + bookID +
+                ", bookPrice=" + bookPrice +
+                ", bookPages=" + bookPages +
+                ", bookName='" + bookName + '\'' +
+                ", bookAuthor='" + bookAuthor + '\'' +
+                ", bookCaterogies='" + bookCaterogies + '\'' +
+                ", bookPublisher='" + bookPublisher + '\'' +
+                '}';
+    }
+
 }

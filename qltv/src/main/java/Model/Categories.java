@@ -1,25 +1,26 @@
 package Model;
 
 public class Categories {
-    private String categoryID,categoryName;
+    private int categoryID;
+    private String categoryName;
 
     public Categories() {
     }
 
-    public Categories(String categoryID) {
+    public Categories(int categoryID) {
         this.categoryID = categoryID;
     }
 
-    public Categories(String categoryID, String categoryName) {
+    public Categories(int categoryID, String categoryName) {
         this.categoryID = categoryID;
         this.categoryName = categoryName;
     }
 
-    public String getCategoryID() {
+    public int getCategoryID() {
         return categoryID;
     }
 
-    public void setCategoryID(String categoryID) {
+    public void setCategoryID(int categoryID) {
         this.categoryID = categoryID;
     }
 
@@ -29,5 +30,13 @@ public class Categories {
 
     public void setCategoryName(String categoryName) {
         this.categoryName = categoryName;
+    }
+
+    @Override
+    public String toString() {
+        return "Categories{" +
+                "categoryID=" + categoryID +
+                ", categoryName='" + categoryName + '\'' +
+                '}';
     }
 }

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+
+<AnchorPane prefHeight="500.0" prefWidth="740.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.Login">
+   <children>
+      <VBox layoutX="720.0" prefHeight="500.0" prefWidth="300.0" style="-fx-background-color: #333;" />
+      <Label layoutX="99.0" layoutY="106.0" text="Login">
+         <font>
+            <Font size="29.0" />
+         </font>
+      </Label>
+      <HBox layoutX="107.0" layoutY="155.0" prefHeight="35.0" prefWidth="300.0" style="-fx-border-color: #333; -fx-background-radius: 5px; -fx-border-radius: 5px;">
+         <children>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Text">
+               <HBox.margin>
+                  <Insets bottom="10.0" top="10.0" />
+               </HBox.margin>
+            </Text>
+            <TextField promptText="Username">
+               <HBox.margin>
+                  <Insets left="20.0" top="5.0" />
+               </HBox.margin>
+            </TextField>
+         </children>
+      </HBox>
+      <HBox layoutX="107.0" layoutY="219.0" prefHeight="35.0" prefWidth="300.0" style="-fx-border-color: #333; -fx-background-radius: 5px; -fx-border-radius: 5px;">
+         <children>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Text">
+               <HBox.margin>
+                  <Insets bottom="10.0" top="10.0" />
+               </HBox.margin>
+            </Text>
+            <TextField promptText="Passwword">
+               <HBox.margin>
+                  <Insets left="20.0" top="5.0" />
+               </HBox.margin>
+            </TextField>
+         </children>
+      </HBox>
+      <Button layoutX="107.0" layoutY="293.0" mnemonicParsing="false" style="-fx-background-color: #E222; -fx-background-radius: 10px;" text="Login">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Button>
+      <CheckBox layoutX="269.0" layoutY="306.0" mnemonicParsing="false" text="REMEMBER ME">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </CheckBox>
+      <Pane layoutY="400.0" prefHeight="100.0" prefWidth="717.0">
+         <children>
+            <Label layoutX="14.0" layoutY="31.0" text="Don't have an account?">
+               <font>
+                  <Font size="17.0" />
+               </font>
+            </Label>
+            <Button layoutX="190.0" layoutY="29.0" mnemonicParsing="false" text="Register" />
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>

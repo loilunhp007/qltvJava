@@ -1,13 +1,14 @@
 package Model;
 
 public class BookLending {
-    private String lendID,lendUserID,issued_by,createDay,setdueday;
+    private int lendID;
+    private String lendUserID,issued_by,createDay,setdueday;
     private int total;
 
     public BookLending() {
     }
 
-    public BookLending(String lendID, String lendUserID, String createDay, String setdueday,int total, String issued_by) {
+    public BookLending(int lendID, String lendUserID, String createDay, String setdueday, int total, String issued_by) {
         this.lendID = lendID;
         this.lendUserID = lendUserID;
         this.createDay = createDay;
@@ -24,11 +25,11 @@ public class BookLending {
         this.total = total;
     }
 
-    public String getLendID() {
+    public int getLendID() {
         return lendID;
     }
 
-    public void setLendID(String lendID) {
+    public void setLendID(int lendID) {
         this.lendID = lendID;
     }
 
@@ -62,5 +63,17 @@ public class BookLending {
 
     public void setSetdueday(String setdueday) {
         this.setdueday = setdueday;
+    }
+
+    @Override
+    public String toString() {
+        return "BookLending{" +
+                "lendID=" + lendID +
+                ", lendUserID='" + lendUserID + '\'' +
+                ", issued_by='" + issued_by + '\'' +
+                ", createDay='" + createDay + '\'' +
+                ", setdueday='" + setdueday + '\'' +
+                ", total=" + total +
+                '}';
     }
 }
