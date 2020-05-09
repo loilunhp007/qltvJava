@@ -1,4 +1,4 @@
-package Model;
+package Entity;
 
 public class Staff {
     private String staffAccountID,staffName,staffDOB,staffAddr,staffGender;

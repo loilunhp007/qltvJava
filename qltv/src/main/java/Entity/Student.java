@@ -1,4 +1,4 @@
-package Model;
+package Entity;
 public class Student {
     private int studenID,accountID;
     private String studentName,StudentDOB,studenEmail,StudentClass;

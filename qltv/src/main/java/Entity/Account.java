@@ -1,4 +1,4 @@
-package Model;
+package Entity;
 
 public class Account {
     private int userID;
