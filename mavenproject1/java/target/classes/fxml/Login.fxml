@@ -23,43 +23,42 @@
 
 <AnchorPane prefHeight="478.0" prefWidth="757.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.Login">
    <children>
-      <ImageView fitHeight="503.0" fitWidth="449.0" pickOnBounds="true">
+      <ImageView fitHeight="503.0" fitWidth="757.0" pickOnBounds="true">
          <image>
-            <Image url="@../res/images1.jpg" />
+            <Image url="@../res/images2.jpg" />
          </image>
       </ImageView>
-      <VBox layoutX="445.0" maxHeight="501.0" maxWidth="448.0" prefHeight="501.0" prefWidth="312.0" style="-fx-background-color: #333;">
+      <AnchorPane layoutX="-3.0" layoutY="101.0" prefHeight="396.0" prefWidth="407.0">
          <children>
-            <VBox prefHeight="501.0" prefWidth="355.0">
-               <children>
-                  <ImageView fitHeight="503.0" fitWidth="316.0" pickOnBounds="true">
-                     <image>
-                        <Image url="@../res/loginImage.jpg" />
-                     </image>
-                  </ImageView>
-               </children>
-            </VBox>
-         </children></VBox>
-      <AnchorPane layoutX="-3.0" layoutY="101.0" prefHeight="396.0" prefWidth="449.0">
-         <children>
-            <Button fx:id="loginBtn" layoutX="90.0" layoutY="213.0" mnemonicParsing="false" onAction="#loginPressed" prefHeight="47.0" prefWidth="300.0" style="-fx-background-radius: 0px; -fx-background-color: #88b38f; -fx-border-color: #88b38f; -fx-text-fill: white; -fx-border-radius: 0px;" text="Login">
+            <Button fx:id="loginBtn" defaultButton="true" layoutX="54.0" layoutY="212.0" mnemonicParsing="false" onAction="#loginPressed" onMouseEntered="#onMouseEnter" onMouseExited="#onMouseExit" prefHeight="47.0" prefWidth="300.0" style="-fx-background-radius: 0px; -fx-background-color: #88b38f; -fx-border-color: #88b38f; -fx-text-fill: white; -fx-border-radius: 0px;" text="Login" textFill="WHITE">
                <font>
                   <Font name="Times New Roman" size="24.0" />
                </font>
             </Button>
-            <CheckBox layoutX="281.0" layoutY="155.0" mnemonicParsing="false" text="REMEMBER ME">
+            <CheckBox fx:id="checkbox" alignment="CENTER" layoutX="239.0" layoutY="152.0" mnemonicParsing="false" text="Remember me?" textFill="WHITE">
                <font>
                   <Font size="13.0" />
                </font>
             </CheckBox>
-            <JFXTextField labelFloat="true" layoutX="90.0" layoutY="55.0" prefHeight="25.0" prefWidth="300.0" promptText="Username" />
-            <JFXTextField labelFloat="true" layoutX="90.0" layoutY="105.0" prefHeight="25.0" prefWidth="300.0" promptText="Password" unFocusColor="BLACK" />
+            <JFXTextField fx:id="username" focusColor="#e7e7e7" labelFloat="true" layoutX="54.0" layoutY="59.0" prefHeight="25.0" prefWidth="300.0" promptText="Username" style="-fx-text-inner-color: white; -fx-prompt-text-fill: white;" unFocusColor="WHITE" />
+            <Pane layoutX="392.0" prefHeight="304.0" prefWidth="1.0" style="-fx-background-color: white;" />
+            <Label fx:id="warning" layoutX="76.0" layoutY="151.0" text="Login Failed!" textFill="RED">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
+            <JFXPasswordField fx:id="password" focusColor="#e7e7e7" layoutX="54.0" layoutY="98.0" prefHeight="25.0" prefWidth="300.0" promptText="Password" style="-fx-text-inner-color: white; -fx-prompt-text-fill: white;" unFocusColor="WHITE" />
          </children>
       </AnchorPane>
-      <Label layoutX="88.0" layoutY="43.0" style="-fx-text-fill: WHITE;" text="Library Management System" textFill="WHITE">
+      <Label layoutX="221.0" layoutY="36.0" style="-fx-text-fill: WHITE;" text="Library Management System" textFill="WHITE">
          <font>
-            <Font name="SansSerif Regular" size="22.0" />
+            <Font name="Times New Roman" size="27.0" />
          </font>
       </Label>
+      <ImageView fitHeight="211.0" fitWidth="308.0" layoutX="418.0" layoutY="149.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../res/Images5.jpg" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>

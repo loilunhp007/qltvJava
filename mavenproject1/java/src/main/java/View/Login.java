@@ -4,29 +4,37 @@
  * and open the template in the editor.
  */
 package View;
+import Controller.*;
 import Model.*;
-import com.mysql.cj.Session;
-import com.mysql.cj.xdevapi.SessionFactory;
+
+import com.google.protobuf.DescriptorProtos.FieldDescriptorProto.Label;
+import com.jfoenix.controls.*;
+import com.mysql.cj.*;
 import java.net.URL;
-import java.util.List;
-import java.util.ResourceBundle;
-import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
+import java.util.*;
+import javafx.fxml.*;
+import javafx.scene.control.*;
+
 
 /**
  * FXML Controller class
  *
  * @author Anh Quan
  */
+
 public class Login implements Initializable {
     @FXML
-    private TextField username;
-    @FXML
-    private TextField pass;
-    @FXML
     private Button loginBtn;
+    @FXML
+    private CheckBox checkbox;
+    @FXML
+    private JFXTextField username;
+    @FXML
+    private JFXPasswordField password;
+    @FXML
+    private javafx.scene.control.Label warning;
+    @FXML
+    private JFXDialogLayout diaglog;
 
     /**
      * Initializes the controller class.
@@ -38,16 +46,28 @@ public class Login implements Initializable {
         
     }    
     
+    @FXML
     public void loginPressed() {
-        
+        if (Connect.checkAccount(username.getText(),password.getText()) == 0) {
+            warning.setVisible(true);
+            diaglog.setHeading(new Text("Wrong username, password combination!"));
+            diaglog.setBody(new Text("Please try again!"));
+            JFXDialog dialog = new JFXDialog(View.Login, diaglog, JFXDialog.DialogTransition.CENTER);
+            dialog.show();
+        }
+        else {
+            warning.setVisible(false);
+        }
     }
     
+    @FXML
     public void onMouseEnter() {
-        loginBtn.setStyle("-fx-background-radius:10px; -fx-background-color: transparent; -fx-border-color: #88b38f; -fx-border-radius:10px; -fx-text-fill: black;");
+        loginBtn.setStyle("-fx-background-color: #39b54a; -fx-border-color: #39b54a; -fx-text-fill: black;");
     }
     
+    @FXML
     public void onMouseExit() {
-        loginBtn.setStyle("-fx-background-radius:10px; -fx-background-color: #88b38f; -fx-border-color: #88b38f;-fx-border-radius:10px; -fx-text-fill: white;");
+        loginBtn.setStyle("-fx-background-color: #88b38f; -fx-border-color: #88b38f; -fx-text-fill: white;");
     }
     
 }
