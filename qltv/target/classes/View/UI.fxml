@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import de.jensd.fx.glyphs.*?>
 <?import com.jfoenix.controls.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.control.*?>
@@ -7,51 +8,32 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="730.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="730.0" style="-fx-background-color: #787878;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.UIController">
    <children>
-      <Pane layoutX="5.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="720.0">
-         <children>
-            <ImageView fitHeight="200.0" fitWidth="200.0" layoutX="408.0" layoutY="28.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../../../../../img/images.jpg" />
-               </image>
-            </ImageView>
-            <Label layoutX="495.0" layoutY="154.0" text="Login">
-               <font>
-                  <Font size="26.0" />
-               </font>
-            </Label>
-            <JFXTextField focusColor="#6747cd" labelFloat="true" layoutX="402.0" layoutY="200.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="250.0" promptText="Username" unFocusColor="#6747cd" />
-            <JFXPasswordField focusColor="#6747cd" layoutX="399.0" layoutY="250.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="250.0" promptText="Password" unFocusColor="#6747cd" />
-            <JFXComboBox focusColor="#6747cd" labelFloat="true" layoutX="399.0" layoutY="301.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="250.0" unFocusColor="#6747cd" />
-            <JFXCheckBox layoutX="545.0" layoutY="361.0" text="REMEMBER ME" />
-            <JFXButton layoutX="399.0" layoutY="356.0" text="Forgot Password?" />
-            <Button layoutX="428.0" layoutY="418.0" mnemonicParsing="false" style="-fx-background-radius: 5px; -fx-border-radius: 5px;" text="Login">
-               <font>
-                  <Font size="21.0" />
-               </font>
-            </Button>
-            <Button layoutX="570.0" layoutY="418.0" mnemonicParsing="false" style="-fx-background-radius: 5px; -fx-border-radius: 5px;" text="Reset">
-               <font>
-                  <Font size="21.0" />
-               </font>
-            </Button>
-            <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="350.0">
-               <children>
-                  <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="350.0" style="-fx-background-color: #fff;">
-                     <children>
-                        <ImageView fitHeight="300.0" fitWidth="300.0" layoutX="25.0" layoutY="92.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../../../../../img/download.jpg" />
-                           </image>
-                        </ImageView>
-                     </children>
-                  </Pane>
-               </children>
-            </VBox>
-         </children>
-      </Pane>
-      <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fitHeight="505.0" fitWidth="352.0" layoutX="378.0" layoutY="-2.0" pickOnBounds="true">
+         <image>
+            <Image url="@../../resources/img/images1.jpg" />
+         </image>
+      </ImageView>
+      <Button fx:id="btnCancel" layoutX="202.0" layoutY="387.0" mnemonicParsing="false" style="-fx-background-radius: 5px; -fx-border-radius: 5px;" text="Reset">
+         <font>
+            <Font size="21.0" />
+         </font>
+      </Button>
+      <Button fx:id="btnLogin" layoutX="56.0" layoutY="387.0" mnemonicParsing="false" style="-fx-background-radius: 5px; -fx-border-radius: 5px;" text="Login">
+         <font>
+            <Font size="21.0" />
+         </font>
+      </Button>
+      <JFXButton layoutX="43.0" layoutY="347.0" text="Forgot Password?" />
+      <JFXCheckBox layoutX="202.0" layoutY="352.0" text="REMEMBER ME" />
+      <JFXComboBox fx:id="comboBox" focusColor="#6747cd" labelFloat="true" layoutX="56.0" layoutY="293.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#initialize" prefHeight="40.0" prefWidth="250.0" promptText="Select" unFocusColor="#6747cd" />
+      <JFXTextField fx:id="txtUsername" focusColor="#6747cd" labelFloat="true" layoutX="56.0" layoutY="123.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="250.0" promptText="Username" unFocusColor="#6747cd" />
+      <JFXPasswordField fx:id="txtpass" focusColor="#6747cd" layoutX="56.0" layoutY="210.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="250.0" promptText="Password" unFocusColor="#6747cd" />
+      <Label layoutX="137.0" layoutY="44.0" text="Login">
+         <font>
+            <Font size="26.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

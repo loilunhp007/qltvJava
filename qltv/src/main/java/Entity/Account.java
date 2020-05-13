@@ -8,10 +8,12 @@ public class Account {
     }
 
     public Account(int userID) {
+        super();
         this.userID = userID;
     }
 
     public Account(int userID, String userName, String userPassword) {
+        super();
         this.userID = userID;
         this.userName = userName;
         this.userPassword = userPassword;

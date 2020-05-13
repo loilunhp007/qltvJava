@@ -3,7 +3,7 @@
 * To change this template file, choose Tools | Templates
 * and open the template in the editor.
 */
-package Controller;
+package Utils;
 
 import java.sql.Connection;
 import java.sql.*;
@@ -13,7 +13,7 @@ import java.sql.*;
  *
  * @author Gaara
  */
-public class Connect {
+public class Connect1 {
     private  static Connection con;
     
     public static Connection getConnect(){
@@ -30,7 +30,7 @@ public class Connect {
     }
     public static String testConnect() {
         try{
-            con = Connect.getConnect();
+            con = Connect1.getConnect();
             return "Kết nối thành công";
         }
         catch(final Exception e) {

@@ -53,7 +53,7 @@
                </font>
             </CheckBox>
             <JFXTextField labelFloat="true" layoutX="90.0" layoutY="55.0" prefHeight="25.0" prefWidth="300.0" promptText="Username" />
-            <JFXTextField labelFloat="true" layoutX="90.0" layoutY="105.0" prefHeight="25.0" prefWidth="300.0" promptText="Password" unFocusColor="BLACK" />
+            <JFXPasswordField labelFloat="true" layoutX="90.0" layoutY="105.0" prefHeight="25.0" prefWidth="300.0" promptText="Password" unFocusColor="BLACK" />
          </children>
       </AnchorPane>
       <Label layoutX="88.0" layoutY="43.0" style="-fx-text-fill: WHITE;" text="Library Management System" textFill="WHITE">

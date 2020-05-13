@@ -1,7 +1,7 @@
 package Entity;
 
 public class Book {
-    int bookID;
+    private  long bookID;
     private int bookPrice;
     private int bookPages;
     private String bookName,bookAuthor,bookCaterogies,bookPublisher;
@@ -9,11 +9,11 @@ public class Book {
     public Book() {
     }
 
-    public Book(int bookID) {
+    public Book(long bookID) {
         this.bookID = bookID;
     }
 
-    public Book(int bookID, String bookName, String bookAuthor, String bookCaterogies, String bookPublisher, int bookPrice, int bookPages) {
+    public Book(long bookID, String bookName, String bookAuthor, String bookCaterogies, String bookPublisher, int bookPrice, int bookPages) {
         this.bookID = bookID;
         this.bookName = bookName;
         this.bookAuthor = bookAuthor;
@@ -23,11 +23,11 @@ public class Book {
         this.bookPages = bookPages;
     }
 
-    public int getBookID() {
+    public final long getBookID() {
         return bookID;
     }
 
-    public void setBookID(int bookID) {
+    public final void setBookID(long bookID) {
         this.bookID = bookID;
     }
 
