@@ -6,7 +6,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="433.0" prefWidth="600.0" style="-fx-border-radius: 50px;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.FunctionController">
+<AnchorPane id="AnchorPane" prefHeight="433.0" prefWidth="600.0" style="-fx-border-radius: 50px;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.FunctionController">
    <children>
       <TabPane prefHeight="482.0" prefWidth="600.0" style="-fx-cursor: pointer;" tabClosingPolicy="UNAVAILABLE">
         <tabs>

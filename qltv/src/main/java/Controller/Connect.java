@@ -39,7 +39,7 @@ public class Connect {
         }
     }
 
-    public static ArrayList<> listAccount() {
+    public static int listAccount() {
         try {
             stmt = con.createStatement();
             rs = stmt.executeQuery("SELECT userName, userPassword FROM account");            

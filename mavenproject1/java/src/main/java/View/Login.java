@@ -33,8 +33,6 @@ public class Login implements Initializable {
     private JFXPasswordField password;
     @FXML
     private javafx.scene.control.Label warning;
-    @FXML
-    private JFXDialogLayout diaglog;
 
     /**
      * Initializes the controller class.
@@ -50,10 +48,6 @@ public class Login implements Initializable {
     public void loginPressed() {
         if (Connect.checkAccount(username.getText(),password.getText()) == 0) {
             warning.setVisible(true);
-            diaglog.setHeading(new Text("Wrong username, password combination!"));
-            diaglog.setBody(new Text("Please try again!"));
-            JFXDialog dialog = new JFXDialog(View.Login, diaglog, JFXDialog.DialogTransition.CENTER);
-            dialog.show();
         }
         else {
             warning.setVisible(false);
