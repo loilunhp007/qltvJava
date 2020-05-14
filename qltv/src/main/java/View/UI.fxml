@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import de.jensd.fx.glyphs.*?>
+<?import com.jfoenix.controls.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="730.0" style="-fx-background-color: #787878;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.UIController">
+   <children>
+      <ImageView fitHeight="505.0" fitWidth="352.0" layoutX="378.0" layoutY="-2.0" pickOnBounds="true">
+         <image>
+            <Image url="@../../resources/img/images1.jpg" />
+         </image>
+      </ImageView>
+      <Button fx:id="btnCancel" layoutX="202.0" layoutY="387.0" mnemonicParsing="false" style="-fx-background-radius: 5px; -fx-border-radius: 5px;" text="Reset">
+         <font>
+            <Font size="21.0" />
+         </font>
+      </Button>
+      <Button fx:id="btnLogin" layoutX="56.0" layoutY="387.0" mnemonicParsing="false" style="-fx-background-radius: 5px; -fx-border-radius: 5px;" text="Login">
+         <font>
+            <Font size="21.0" />
+         </font>
+      </Button>
+      <JFXButton layoutX="43.0" layoutY="347.0" text="Forgot Password?" />
+      <JFXCheckBox layoutX="202.0" layoutY="352.0" text="REMEMBER ME" />
+      <JFXComboBox fx:id="comboBox" focusColor="#6747cd" labelFloat="true" layoutX="56.0" layoutY="293.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#initialize" prefHeight="40.0" prefWidth="250.0" promptText="Select" unFocusColor="#6747cd" />
+      <JFXTextField fx:id="txtUsername" focusColor="#6747cd" labelFloat="true" layoutX="56.0" layoutY="123.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="250.0" promptText="Username" unFocusColor="#6747cd" />
+      <JFXPasswordField fx:id="txtpass" focusColor="#6747cd" layoutX="56.0" layoutY="210.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="250.0" promptText="Password" unFocusColor="#6747cd" />
+      <Label layoutX="137.0" layoutY="44.0" text="Login">
+         <font>
+            <Font size="26.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>

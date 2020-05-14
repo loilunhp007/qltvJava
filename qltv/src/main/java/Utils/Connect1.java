@@ -3,7 +3,7 @@
 * To change this template file, choose Tools | Templates
 * and open the template in the editor.
 */
-package Controller;
+package Utils;
 
 import java.sql.Connection;
 import java.sql.*;
@@ -13,12 +13,10 @@ import java.sql.*;
  *
  * @author Gaara
  */
-public class Connect {
-    private static Connection con;    
-    static Statement stmt = null;
-    static ResultSet rs = null;
-
-    public static Connection getConnect() {
+public class Connect1 {
+    private  static Connection con;
+    
+    public static Connection getConnect(){
         try {
             Class.forName("com.mysql.cj.jdbc.Driver").newInstance();
             con = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/qltv", "root", "7826");
@@ -31,8 +29,8 @@ public class Connect {
     }
 
     public static String testConnect() {
-        try {
-            con = Connect.getConnect();
+        try{
+            con = Connect1.getConnect();
             return "Kết nối thành công";
         } catch (final Exception e) {
             return "Kết nối thất bại";

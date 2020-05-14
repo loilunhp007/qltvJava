@@ -4,17 +4,13 @@
  * and open the template in the editor.
  */
 package View;
-import Controller.*;
+
 import Model.*;
-
-import com.google.protobuf.DescriptorProtos.FieldDescriptorProto.Label;
-import com.jfoenix.controls.*;
-import com.mysql.cj.*;
-import java.net.URL;
-import java.util.*;
-import javafx.fxml.*;
+import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-
+import java.net.URL;
+import java.util.ResourceBundle;
 
 /**
  * FXML Controller class
@@ -26,7 +22,7 @@ public class Login implements Initializable {
     @FXML
     private Button loginBtn;
     @FXML
-    private CheckBox checkbox;
+    private PasswordField pass;
     @FXML
     private JFXTextField username;
     @FXML
