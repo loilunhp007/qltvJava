@@ -5,12 +5,23 @@
  */
 package View;
 
-import Model.*;
+import Entity.*;
+import com.jfoenix.controls.*;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ResourceBundle;
+import javafx.event.*;
+import javax.sound.sampled.SourceDataLine;
+import javax.swing.JOptionPane;
+import Controller.*;
+import com.mysql.cj.Session;
+import com.mysql.cj.xdevapi.SessionFactory;
 
 /**
  * FXML Controller class
@@ -22,8 +33,6 @@ public class Login implements Initializable {
     @FXML
     private Button loginBtn;
     @FXML
-    private PasswordField pass;
-    @FXML
     private JFXTextField username;
     @FXML
     private JFXPasswordField password;
@@ -31,6 +40,9 @@ public class Login implements Initializable {
     private javafx.scene.control.Label warning;
     @FXML
     private JFXDialogLayout diaglog;
+    Connection conn;
+    PreparedStatement pst;
+    ResultSet rs;
 
     /**
      * Initializes the controller class.
@@ -39,12 +51,12 @@ public class Login implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
+        Connect.getConnect();
     }    
     
     @FXML
-    public void loginPressed() {
-        if (Connect.checkAccount(username.getText(),password.getText()) == 0) {
+    public void loginPressed(ActionEvent event) {
+        /*if (Connect.checkAccount(username.getText(),password.getText()) == 0) {
             warning.setVisible(true);
             diaglog.setHeading(new Text("Wrong username, password combination!"));
             diaglog.setBody(new Text("Please try again!"));
@@ -53,7 +65,16 @@ public class Login implements Initializable {
         }
         else {
             warning.setVisible(false);
-        }
+        }*/
+        String txtUsername = username.getText();
+        String txtpass = password.getText();
+        Connect con=new Connect();
+        con.getConnect();
+        String sql="SELECT* FROM account WHERE userName=? and userPassword=?";
+        PreparedStatement pst;
+        ResultSet rs;
+        pst.executeQuery(sql);
+
     }
     
     @FXML

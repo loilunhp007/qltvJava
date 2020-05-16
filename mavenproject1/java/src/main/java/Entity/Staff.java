@@ -1,9 +1,9 @@
-package Model;
+package Entity;
 
 public class Staff {
-    private String staffAccountID,staffName,staffDOB,staffAddr,staffGender;
+    private String staffName,staffDOB,staffAddr,staffGender;
     private  int staffPhone;
-    private int staffID;
+    private int staffID,staff_role;
 
     public Staff() {
     }
@@ -12,14 +12,15 @@ public class Staff {
         this.staffID = staffID;
     }
 
-    public Staff(int staffID, String staffName, String staffDOB, String staffAddr, String staffGender, int staffPhone, String staffAccountID) {
+    public Staff(int staffID, String staffName, String staffDOB, String staffAddr, String staffGender,
+     int staffPhone, int staff_role) {
         this.staffID = staffID;
         this.staffName = staffName;
         this.staffDOB = staffDOB;
         this.staffAddr = staffAddr;
         this.staffGender = staffGender;
         this.staffPhone = staffPhone;
-        this.staffAccountID = staffAccountID;
+        this.staffID = staffID;
     }
 
     public int getStaffID() {
@@ -30,12 +31,12 @@ public class Staff {
         this.staffID = staffID;
     }
 
-    public String getStaffAccountID() {
-        return staffAccountID;
+    public int getStaff_role() {
+        return staff_role;
     }
 
-    public void setStaffAccountID(String staffAccountID) {
-        this.staffAccountID = staffAccountID;
+    public void setStaff_role(int staff_role) {
+        this.staff_role = staff_role;
     }
 
     public String getStaffName() {
@@ -80,14 +81,14 @@ public class Staff {
 
     @Override
     public String toString() {
-        return "Staff{" +
-                "staffAccountID='" + staffAccountID + '\'' +
+        return "Staff{" + "staffID='" + staffID + '\''
+                +
                 ", staffName='" + staffName + '\'' +
                 ", staffDOB='" + staffDOB + '\'' +
                 ", staffAddr='" + staffAddr + '\'' +
                 ", staffGender='" + staffGender + '\'' +
                 ", staffPhone=" + staffPhone +
-                ", staffID=" + staffID +
+                ", staff_role=" + staff_role +
                 '}';
     }
 }

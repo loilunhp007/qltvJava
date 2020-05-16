@@ -1,5 +1,4 @@
-package Model;
-
+package Entity;
 public class Book {
     int bookID;
     private int bookPrice;

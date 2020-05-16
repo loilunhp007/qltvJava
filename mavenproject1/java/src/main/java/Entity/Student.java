@@ -1,6 +1,6 @@
-package Model;
+package Entity;
 public class Student {
-    private int studenID,accountID;
+    private int studenID;
     private String studentName,StudentDOB,studenEmail,StudentClass;
 
     public Student() {
@@ -10,13 +10,12 @@ public class Student {
         this.studenID = studenID;
     }
 
-    public Student(int studenID, String studentName, String studentDOB, String studenEmail, String studentClass, int accountID) {
+    public Student(int studenID, String studentName, String studentDOB, String studenEmail, String studentClass) {
         this.studenID = studenID;
         this.studentName = studentName;
         StudentDOB = studentDOB;
         this.studenEmail = studenEmail;
         StudentClass = studentClass;
-        this.accountID = accountID;
     }
 
     public int getStudenID() {
@@ -59,19 +58,10 @@ public class Student {
         StudentClass = studentClass;
     }
 
-    public int getAccountID() {
-        return accountID;
-    }
-
-    public void setAccountID(int accountID) {
-        this.accountID = accountID;
-    }
-
     @Override
     public String toString() {
         return "Student{" +
                 "studenID=" + studenID +
-                ", accountID=" + accountID +
                 ", studentName='" + studentName + '\'' +
                 ", StudentDOB='" + StudentDOB + '\'' +
                 ", studenEmail='" + studenEmail + '\'' +

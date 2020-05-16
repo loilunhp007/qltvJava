@@ -1,4 +1,4 @@
-package Model;
+package Entity;
 
 public class Lending_Detail {
     private int lendID,bookID;

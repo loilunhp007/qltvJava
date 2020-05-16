@@ -15,7 +15,7 @@ import java.sql.*;
  */
 public class Connect1 {
     private  static Connection con;
-    
+    private static PreparedStatement pst ;
     public static Connection getConnect(){
         try {
             Class.forName("com.mysql.cj.jdbc.Driver").newInstance();

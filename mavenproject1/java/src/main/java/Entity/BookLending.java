@@ -1,16 +1,16 @@
-package Model;
+package Entity;
 
 public class BookLending {
-    private int lendID;
-    private String lendUserID,issued_by,createDay,setdueday;
+    private int lendID,lendStudentID,issued_by;
+    private String createDay,setdueday;
     private int total;
 
     public BookLending() {
     }
 
-    public BookLending(int lendID, String lendUserID, String createDay, String setdueday, int total, String issued_by) {
+    public BookLending(int lendID, int lendStudentID, String createDay, String setdueday, int total, int issued_by) {
         this.lendID = lendID;
-        this.lendUserID = lendUserID;
+        this.lendStudentID = lendStudentID;
         this.createDay = createDay;
         this.setdueday = setdueday;
         this.issued_by = issued_by;
@@ -33,19 +33,19 @@ public class BookLending {
         this.lendID = lendID;
     }
 
-    public String getLendUserID() {
-        return lendUserID;
+    public int getStudentUserID() {
+        return lendStudentID;
     }
 
-    public void setLendUserID(String lendUserID) {
-        this.lendUserID = lendUserID;
+    public void setLendStudentID(int lendStudentID) {
+        this.lendStudentID = lendStudentID;
     }
 
-    public String getIssued_by() {
+    public int getIssued_by() {
         return issued_by;
     }
 
-    public void setIssued_by(String issued_by) {
+    public void setIssued_by(int issued_by) {
         this.issued_by = issued_by;
     }
 
@@ -69,7 +69,7 @@ public class BookLending {
     public String toString() {
         return "BookLending{" +
                 "lendID=" + lendID +
-                ", lendUserID='" + lendUserID + '\'' +
+                ", lendStudentID='" + lendStudentID + '\'' +
                 ", issued_by='" + issued_by + '\'' +
                 ", createDay='" + createDay + '\'' +
                 ", setdueday='" + setdueday + '\'' +
