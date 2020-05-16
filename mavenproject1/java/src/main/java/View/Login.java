@@ -51,17 +51,18 @@ public class Login implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        Connect.getConnect();
+        database db=new database();
+        db.getConnect();
     }    
     
     @FXML
     public void loginPressed(ActionEvent event) {
-        if (Connect.checkAccount(username.getText(),password.getText()) == 0) {
+        /*if (Connect.checkAccount(username.getText(),password.getText()) == 0) {
             warning.setVisible(true);
         }
         else {
             warning.setVisible(false);
-        }
+        }*/
     }
     
     @FXML

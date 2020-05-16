@@ -1,8 +1,8 @@
 package Entity;
 
 public class Staff {
-    private String staffName,staffDOB,staffAddr,staffGender;
-    private  int staffPhone;
+    private String staffName,staffdob,staffAddr,staffGender;
+    private  String staffPhone;
     private int staffID,staff_role;
 
     public Staff() {
@@ -13,14 +13,14 @@ public class Staff {
     }
 
     public Staff(int staffID, String staffName, String staffDOB, String staffAddr, String staffGender,
-     int staffPhone, int staff_role) {
+     String staffPhone, int staff_role) {
         this.staffID = staffID;
         this.staffName = staffName;
-        this.staffDOB = staffDOB;
+        this.staffdob = staffDOB;
         this.staffAddr = staffAddr;
         this.staffGender = staffGender;
         this.staffPhone = staffPhone;
-        this.staffID = staffID;
+        this.staff_role = staff_role;
     }
 
     public int getStaffID() {
@@ -71,11 +71,11 @@ public class Staff {
         this.staffGender = staffGender;
     }
 
-    public int getStaffPhone() {
+    public String getStaffPhone() {
         return staffPhone;
     }
 
-    public void setStaffPhone(int staffPhone) {
+    public void setStaffPhone(String staffPhone) {
         this.staffPhone = staffPhone;
     }
 
@@ -84,7 +84,7 @@ public class Staff {
         return "Staff{" + "staffID='" + staffID + '\''
                 +
                 ", staffName='" + staffName + '\'' +
-                ", staffDOB='" + staffDOB + '\'' +
+                ", staffDOB='" + staffdob + '\'' +
                 ", staffAddr='" + staffAddr + '\'' +
                 ", staffGender='" + staffGender + '\'' +
                 ", staffPhone=" + staffPhone +

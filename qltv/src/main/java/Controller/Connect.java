@@ -13,10 +13,6 @@ import java.sql.*;
  *
  * @author Gaara
  */
-public class Connect1 {
-    private  static Connection con;
-    private static PreparedStatement pst ;
-    public static Connection getConnect(){
 public class Connect {
     private static Connection con;    
     static Statement stmt = null;
@@ -27,7 +23,7 @@ public class Connect {
             Class.forName("com.mysql.cj.jdbc.Driver").newInstance();
             con = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/qltv", "root", "7826");
 
-        } catch (final Exception e) {
+        } catch ( Exception e) {
             System.out.println("Kết nối không thành công");
         }
 
