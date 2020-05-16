@@ -6,15 +6,15 @@ import java.util.List;
 import javax.swing.JOptionPane;
 
 import java.sql.SQLException;
-import Controller.Connect;
+import Controller.database;
 import Entity.Account;
 
 public class AccountDAO  {
     public static List<Account> loadAccount(){
         List<Account> list_ac=new ArrayList<Account>();
-        Connect con=new Connect();
-        con.getConnect();
-        ResultSet rs= con.execution("SELECT * FROM account");
+        database db=new database();
+        db.getConnect();
+        ResultSet rs= db.execution("SELECT * FROM account");
         try {
             while(rs.next()){
                 Account ac=new Account(rs.getString(1));
@@ -27,14 +27,14 @@ public class AccountDAO  {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null,"Error while loading account");
         }
-        con.disconnect();
+        db.disconnect();
         return list_ac; 
     }
     public static Account getAccountByID(int id){
-        Connect con=new Connect();
-        con.getConnect();
+        database db=new database();
+        db.getConnect();
         String sql="Select * FROM account WHERE userID='"+id+"'";
-        ResultSet rs=con.execution("sql");
+        ResultSet rs=db.execution("sql");
         try{
         while(rs.next()){
             Account ac=new Account(rs.getString(1));
@@ -42,46 +42,46 @@ public class AccountDAO  {
                 ac.setStaffID(rs.getInt(3));
                 ac.setCreateday(rs.getString(4));
                 ac.setOutofday(rs.getString(5));
-                con.disconnect();
+                db.disconnect();
                 return ac;
                 }
             }
             catch(SQLException e){
                 JOptionPane.showMessageDialog(null,"Can't get Account");
             }
-            con.disconnect();
+            db.disconnect();
             return null;
     }
     public static void addAccount(Account ac){
-        Connect con=new Connect();
-        con.getConnect();
+        database db=new database();
+        db.getConnect();
         String sql= "INSERT INTO account(userName,userPassword,staffID,createday,outofday) VALUES ('";
         sql +=ac.getUserName()+"','";
         sql +=ac.getUserPassword()+"','";
         sql +=ac.getStaffID()+"','";
         sql +=ac.getCreateday()+"','";
         sql +=ac.getOutofday()+");";
-        con.update(sql);
-        con.disconnect();
+        db.update(sql);
+        db.disconnect();
     }
     public static void deleteAccount(int acID){
-        Connect con=new Connect();
-        con.update("DELETE FROM account WHERE account.userID="+acID);
-        con.disconnect();
+        database db=new database();
+        db.update("DELETE FROM account WHERE account.userID="+acID);
+        db.disconnect();
     }
     public static void editAccount(Account ac){
-        Connect con=new Connect();
-        con.update("UPDATE account SET ");
+        database db=new database();
+        db.update("UPDATE account SET ");
         String sql="userName='"+ac.getUserName()+"',userPassword='"+ac.getUserPassword()+
         "',staffID="+ac.getStaffID()+"',createday='"+ac.getCreateday()+"',outofday='"+ac.getOutofday()+
         "' WHERE account.userID="+ac.getUserID()+";";
-        con.update(sql);
-        con.disconnect();
+        db.update(sql);
+        db.disconnect();
     }
     public List<Account> findAccount(String name,String addr,String phone,String mail) {
         List<Account> list_ac=new ArrayList();
-        Connect con=new Connect();
-        con.getConnect();
+        database db=new database();
+        db.getConnect();
         String sql="SELECT ac.userID,s.staffName,r.roleName FROM account ac join Staff s on ac.staffID=s.staffID join Role r on s.staff_roleID=r.roleID WHERE ";
         if(!name.isEmpty()){
             sql +="s.staffName='"+name+"'";
@@ -96,7 +96,7 @@ public class AccountDAO  {
             sql +="s.staffAddr='"+addr+"'";
     }
     sql=sql.substring(0, sql.length()-4);
-    ResultSet rs=con.execution(sql);
+    ResultSet rs=db.execution(sql);
     try {
         while(rs.next()){
             Account ac=new Account(rs.getString(2));
@@ -109,14 +109,14 @@ public class AccountDAO  {
     } catch (Exception e) {
         //TODO: handle exception
     }
-    con.disconnect();
+    db.disconnect();
     return list_ac;
 }
 public Account findAccountByID(int acID) {
-    Connect con=new Connect();
-    con.getConnect();
+    database db=new database();
+    db.getConnect();
     String sql="SELECT * FROM account WHERE account.userID='"+acID+"'";
-    ResultSet rs=con.execution(sql);
+    ResultSet rs=db.execution(sql);
     try {
         while(rs.next()){
             Account ac=new Account(rs.getString(2));
@@ -129,7 +129,7 @@ public Account findAccountByID(int acID) {
     } catch (Exception e) {
         //TODO: handle exception
     }
-    con.disconnect();
+    db.disconnect();
     return null;
     }
 

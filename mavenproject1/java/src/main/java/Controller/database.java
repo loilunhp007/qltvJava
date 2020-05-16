@@ -16,14 +16,14 @@ import javax.swing.JOptionPane;
  *
  * @author Gaara
  */
-public class Connect {
+public class database {
     private  static Connection con;
     private static Statement stmt;
     private static ResultSet rs;
     public void getConnect(){
         try {
             Class.forName("com.mysql.cj.jdbc.Driver").newInstance();
-            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/qltv","root","277997aa");
+            con = DriverManager.getConnection("jdbc:mysql://localhost/qltv","root","");
             stmt=con.createStatement();
             
         } catch (Exception e) {

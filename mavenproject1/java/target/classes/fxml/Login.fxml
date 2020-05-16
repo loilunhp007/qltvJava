@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.*?>
 <?import javafx.scene.paint.*?>
 <?import com.jfoenix.controls.*?>
 <?import java.lang.*?>
@@ -35,6 +36,9 @@
                <font>
                   <Font name="Times New Roman" size="24.0" />
                </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
             </Button>
             <CheckBox fx:id="checkbox" alignment="CENTER" layoutX="239.0" layoutY="161.0" mnemonicParsing="false" text="Remember me?" textFill="WHITE">
                <font>
@@ -43,6 +47,17 @@
             </CheckBox>
             <JFXTextField fx:id="username" labelFloat="true" layoutX="90.0" layoutY="55.0" prefHeight="25.0" prefWidth="300.0" promptText="Username" />
             <JFXPasswordField fx:id="password" labelFloat="true" layoutX="90.0" layoutY="105.0" prefHeight="25.0" prefWidth="300.0" promptText="Password" unFocusColor="BLACK" />
+            <JFXTextField fx:id="username" focusColor="#e7e7e7" labelFloat="true" layoutX="54.0" layoutY="59.0" prefHeight="25.0" prefWidth="300.0" promptText="Username" style="-fx-text-inner-color: white; -fx-prompt-text-fill: white;" unFocusColor="WHITE" />
+            <Pane layoutX="392.0" prefHeight="304.0" prefWidth="1.0" style="-fx-background-color: rgba(255,255,255,0.3);" />
+            <Label fx:id="warning" alignment="CENTER" layoutX="52.0" layoutY="285.0" prefHeight="39.0" prefWidth="300.0" style="-fx-background-color: rgba(0,0,0,0.3); -fx-border-color: rgba(255,255,255,0.3); -fx-border-radius: 4; -fx-background-radius: 4;" text="Wrong username or password !!" textFill="#ffb600" visible="false" AnchorPane.bottomAnchor="72.0" AnchorPane.leftAnchor="52.0" AnchorPane.rightAnchor="52.0" AnchorPane.topAnchor="285.0">
+               <font>
+                  <Font name="Segoe UI Semibold" size="17.0" />
+               </font>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+            </Label>
+            <JFXPasswordField fx:id="password" focusColor="#e7e7e7" labelFloat="true" layoutX="54.0" layoutY="110.0" prefHeight="25.0" prefWidth="300.0" promptText="Password" style="-fx-text-inner-color: white; -fx-prompt-text-fill: white;" unFocusColor="WHITE" />
          </children>
       </AnchorPane>
       <Label alignment="CENTER" layoutX="180.0" layoutY="29.0" prefHeight="39.0" prefWidth="398.0" style="-fx-text-fill: WHITE;" text="Library Management System" textFill="WHITE" AnchorPane.topAnchor="27.0">

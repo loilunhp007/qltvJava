@@ -56,25 +56,12 @@ public class Login implements Initializable {
     
     @FXML
     public void loginPressed(ActionEvent event) {
-        /*if (Connect.checkAccount(username.getText(),password.getText()) == 0) {
+        if (Connect.checkAccount(username.getText(),password.getText()) == 0) {
             warning.setVisible(true);
-            diaglog.setHeading(new Text("Wrong username, password combination!"));
-            diaglog.setBody(new Text("Please try again!"));
-            JFXDialog dialog = new JFXDialog(View.Login, diaglog, JFXDialog.DialogTransition.CENTER);
-            dialog.show();
         }
         else {
             warning.setVisible(false);
-        }*/
-        String txtUsername = username.getText();
-        String txtpass = password.getText();
-        Connect con=new Connect();
-        con.getConnect();
-        String sql="SELECT* FROM account WHERE userName=? and userPassword=?";
-        PreparedStatement pst;
-        ResultSet rs;
-        pst.executeQuery(sql);
-
+        }
     }
     
     @FXML

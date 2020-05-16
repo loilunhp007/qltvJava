@@ -3,9 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package View;
-
-import javafx.fxml.Initializable;
+package Controller;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -67,6 +65,7 @@ public class FunctionController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        // TODO
     }    
     
 }
