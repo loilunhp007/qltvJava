@@ -48,13 +48,12 @@ public class Staff {
     }
 
     public String getStaffDOB() {
-        return staffDOB;
+        return staffdob;
     }
 
     public void setStaffDOB(String staffDOB) {
-        this.staffDOB = staffDOB;
+        this.staffdob = staffDOB;
     }
-
     public String getStaffAddr() {
         return staffAddr;
     }
