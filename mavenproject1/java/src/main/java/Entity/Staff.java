@@ -54,7 +54,6 @@ public class Staff {
     public void setStaffDOB(String staffdob) {
         this.staffdob = staffdob;
     }
-
     public String getStaffAddr() {
         return staffAddr;
     }

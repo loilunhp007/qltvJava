@@ -74,6 +74,7 @@ public class Login implements Initializable {
             }
         }
         /*if (Connect.checkAccount(username.getText(),password.getText()) == 0) {
+            ResultSet rs=db.excution("select ");
             warning.setVisible(true);
         }
         else {

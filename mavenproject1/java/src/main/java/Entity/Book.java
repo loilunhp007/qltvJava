@@ -3,7 +3,7 @@ public class Book {
     int bookID;
     private int bookPrice;
     private int bookPages;
-    private String bookName,bookAuthor,bookCaterogies,bookPublisher;
+    private String bookName,bookAuthor,bookCategory,bookPublisher;
 
     public Book() {
     }
@@ -12,11 +12,11 @@ public class Book {
         this.bookID = bookID;
     }
 
-    public Book(int bookID, String bookName, String bookAuthor, String bookCaterogies, String bookPublisher, int bookPrice, int bookPages) {
+    public Book(int bookID, String bookName, String bookAuthor, String bookCategory, String bookPublisher, int bookPrice, int bookPages) {
         this.bookID = bookID;
         this.bookName = bookName;
         this.bookAuthor = bookAuthor;
-        this.bookCaterogies = bookCaterogies;
+        this.bookCategory = bookCategory;
         this.bookPublisher = bookPublisher;
         this.bookPrice = bookPrice;
         this.bookPages = bookPages;
@@ -62,8 +62,8 @@ public class Book {
         return bookAuthor;
     }
 
-    public String getBookCaterogies() {
-        return bookCaterogies;
+    public String getBookCategory() {
+        return bookCategory;
     }
 
     public void setBookName(String bookName) {
@@ -74,8 +74,8 @@ public class Book {
         this.bookAuthor = bookAuthor;
     }
 
-    public void setBookCaterogies(String bookCaterogies) {
-        this.bookCaterogies = bookCaterogies;
+    public void setBookCategory(String bookCategory) {
+        this.bookCategory = bookCategory;
     }
 
     @Override
@@ -86,7 +86,7 @@ public class Book {
                 ", bookPages=" + bookPages +
                 ", bookName='" + bookName + '\'' +
                 ", bookAuthor='" + bookAuthor + '\'' +
-                ", bookCaterogies='" + bookCaterogies + '\'' +
+                ", bookCaterogies='" + bookCategory + '\'' +
                 ", bookPublisher='" + bookPublisher + '\'' +
                 '}';
     }
