@@ -11,8 +11,8 @@ public class Account implements Serializable {
     public Account() {
     }
 
-    public Account(String userName) {
-        this.userName=userName;
+    public Account(int userID) {
+        this.userID=userID;
     }
     public int getStaffID(){
         return staffID;

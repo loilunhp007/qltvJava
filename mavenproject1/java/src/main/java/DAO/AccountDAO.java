@@ -17,12 +17,12 @@ public class AccountDAO  {
         ResultSet rs= db.execution("SELECT * FROM account");
         try {
             while(rs.next()){
-                Account ac=new Account(rs.getString(1));
+                Account ac=new Account(rs.getInt(1));
                 ac.setUserPassword(rs.getString(2));
                 ac.setStaffID(rs.getInt(3));
                 ac.setCreateday(rs.getString(4));
                 ac.setOutofday(rs.getString(5));
-                list_ac.add(ac);
+                list_ac.add(  ac);
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null,"Error while loading account");
@@ -37,7 +37,7 @@ public class AccountDAO  {
         ResultSet rs=db.execution("sql");
         try{
         while(rs.next()){
-            Account ac=new Account(rs.getString(1));
+            Account ac=new Account(rs.getInt(1));
                 ac.setUserPassword(rs.getString(2));
                 ac.setStaffID(rs.getInt(3));
                 ac.setCreateday(rs.getString(4));
@@ -99,7 +99,8 @@ public class AccountDAO  {
     ResultSet rs=db.execution(sql);
     try {
         while(rs.next()){
-            Account ac=new Account(rs.getString(2));
+            Account ac=new Account(rs.getInt(1));
+            ac.setUserName(rs.getString(2));
             ac.setUserPassword(rs.getString(3));
             ac.setStaffID(rs.getInt(4));
             ac.setCreateday(rs.getString(5));
@@ -112,14 +113,15 @@ public class AccountDAO  {
     db.disconnect();
     return list_ac;
 }
-public Account findAccountByID(int acID) {
+public Account findAccountByName(String userName) {
     database db=new database();
     db.getConnect();
-    String sql="SELECT * FROM account WHERE account.userID='"+acID+"'";
+    String sql="SELECT * FROM account WHERE account.username='%"+userName+"%'";
     ResultSet rs=db.execution(sql);
     try {
         while(rs.next()){
-            Account ac=new Account(rs.getString(2));
+            Account ac=new Account(rs.getInt(1));
+            ac.setUserName(rs.getString(2));
             ac.setUserPassword(rs.getString(3));
             ac.setStaffID(rs.getInt(4));
             ac.setCreateday(rs.getString(5));

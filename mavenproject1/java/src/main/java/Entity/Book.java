@@ -1,6 +1,6 @@
 package Entity;
 public class Book {
-    int bookID;
+    private int bookID;
     private int bookPrice;
     private int bookPages;
     private String bookName,bookAuthor,bookCategory,bookPublisher;
