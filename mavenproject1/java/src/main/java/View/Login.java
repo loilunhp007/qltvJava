@@ -8,8 +8,10 @@ package View;
 import Entity.*;
 import com.jfoenix.controls.*;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.*;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -20,8 +22,7 @@ import javafx.event.*;
 import javax.sound.sampled.SourceDataLine;
 import javax.swing.JOptionPane;
 import Controller.*;
-import com.mysql.cj.Session;
-import com.mysql.cj.xdevapi.SessionFactory;
+import javafx.stage.*;
 
 /**
  * FXML Controller class
@@ -56,7 +57,22 @@ public class Login implements Initializable {
     }    
     
     @FXML
-    public void loginPressed(ActionEvent event) {
+    public void loginPressed(ActionEvent event) throws Exception {
+        database db=new database();
+        db.getConnect();
+        String txtName=username.getText();
+        String txtPass=password.getText();
+        ResultSet rs=db.execution("SELECT userName,userPassword FROM account");
+        while(rs.next()){
+            if(txtName.equals(rs.getString(1)) && txtPass.equals(rs.getString(2))){
+                loginBtn.getScene().getWindow().hide();
+                Parent root = FXMLLoader.load(getClass().getResource("/fxml/Function.fxml"));
+                Stage mainStage=new Stage();
+                Scene scene=new Scene(root);
+                mainStage.setScene(scene);
+                mainStage.show();
+            }
+        }
         /*if (Connect.checkAccount(username.getText(),password.getText()) == 0) {
             warning.setVisible(true);
         }

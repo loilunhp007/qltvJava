@@ -12,8 +12,8 @@ public class Staff {
         this.staffID = staffID;
     }
 
-    public Staff(int staffID, String staffName, String staffDOB, String staffAddr, String staffGender,
-     String staffPhone, int staff_role) {
+    public Staff(int staffID, String staffName, String staffDOB, String staffAddr,
+    String staffGender,String staffPhone, int staff_role) {
         this.staffID = staffID;
         this.staffName = staffName;
         this.staffdob = staffDOB;
@@ -48,11 +48,11 @@ public class Staff {
     }
 
     public String getStaffDOB() {
-        return staffDOB;
+        return staffdob;
     }
 
-    public void setStaffDOB(String staffDOB) {
-        this.staffDOB = staffDOB;
+    public void setStaffDOB(String staffdob) {
+        this.staffdob = staffdob;
     }
 
     public String getStaffAddr() {

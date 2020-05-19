@@ -17,7 +17,6 @@ import java.util.Observable;
 import java.util.Properties;
 import java.util.ResourceBundle;
 import java.util.logging.Logger;
-
 import Controller.database;
 import DAO.AccountDAO;
 import Entity.Account;
@@ -78,23 +77,22 @@ public class FunctionController implements Initializable {
      * Initializes the controller class.
      */
     ObservableList<Staff> oblist = FXCollections.observableArrayList();
-     private static Account ac;
     @Override
     public void initialize(URL url, ResourceBundle rb){
-       /* error
+       showdata();
+    }
+    public void showdata(){
         try {
             database db=new database();
             db.getConnect();
-            ResultSet rs=db.execution("SELECT * FROM Staff");
+            ResultSet rs=db.execution("SELECT * FROM staff;");
             while(rs.next()){
-                oblist.add(new Staff(rs.getInt(1), rs.getString(2),rs.getString(3), rs.getString(4),rs.getString(5),rs.getString(6),rs.getInt(7)));
-                db.disconnect();
+                oblist.add(new Staff(rs.getInt(1)));
             }
         } catch (SQLException e) {
             Logger.getLogger(FunctionController.class.getName());
         }
         staffTable.setItems(oblist);
-        */
     }
     
 }
