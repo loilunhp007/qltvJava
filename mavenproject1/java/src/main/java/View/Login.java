@@ -58,6 +58,7 @@ public class Login implements Initializable {
     @FXML
     public void loginPressed(ActionEvent event) {
         /*if (Connect.checkAccount(username.getText(),password.getText()) == 0) {
+            ResultSet rs=db.excution("select ");
             warning.setVisible(true);
         }
         else {
