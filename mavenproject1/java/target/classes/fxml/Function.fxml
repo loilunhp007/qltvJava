@@ -18,15 +18,15 @@
                            <columns>
                               <TableColumn fx:id="bookID" prefWidth="69.0" text="ID" />
                               <TableColumn fx:id="bookName" editable="false" prefWidth="176.0" text="Book Name" />
-                              <TableColumn fx:id="bookAuthor" editable="false" prefWidth="118.0" text="Author" />
-                              <TableColumn fx:id="bookCategory" editable="false" prefWidth="126.0" text="Category" />
+                              <TableColumn fx:id="bookAuthorID" editable="false" prefWidth="118.0" text="Author" />
+                              <TableColumn fx:id="bookCategoryID" editable="false" prefWidth="126.0" text="Category" />
                               <TableColumn fx:id="bookPub" editable="false" prefWidth="89.0" text="Publisher" />
                               <TableColumn fx:id="bookQuantity" editable="false" minWidth="0.0" prefWidth="116.0" text="Quantity" />
                               <TableColumn fx:id="bookPrice" editable="false" minWidth="0.0" prefWidth="104.0" text="Price" />
                            </columns>
                         </TableView>
-                        <Button fx:id="bookAdd" layoutX="700.0" layoutY="36.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="70.0" text="Add" />
-                        <Button fx:id="bookUpdate" layoutX="700.0" layoutY="90.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="70.0" text="Update" />
+                        <Button fx:id="bookAdd" layoutX="700.0" layoutY="36.0" mnemonicParsing="false" onAction="#addBookbtn" prefHeight="40.0" prefWidth="70.0" text="Add" />
+                        <Button fx:id="bookUpdate" layoutX="700.0" layoutY="90.0" mnemonicParsing="false" onAction="#updateBookBtn" prefHeight="40.0" prefWidth="70.0" text="Update" />
                         <Button fx:id="bookRemove" layoutX="700.0" layoutY="144.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="70.0" text="Remove" />
                         <Label layoutX="29.0" layoutY="48.0" text="Name" />
                         <Label layoutX="376.0" layoutY="48.0" text="Author" />

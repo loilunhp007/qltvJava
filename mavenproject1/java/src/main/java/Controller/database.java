@@ -41,7 +41,7 @@ public class database {
     }
     public void update(String sql){
         try{
-            stmt.executeQuery(sql);
+            stmt.executeUpdate(sql);
         }
         catch(Exception e){
             e.printStackTrace();;

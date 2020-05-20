@@ -3,7 +3,8 @@ public class Book {
     private int bookID;
     private int bookPrice;
     private int bookPages;
-    private String bookName,bookAuthor,bookCategory,bookPublisher;
+    private int bookAuthorID,bookCategoryID;
+    private String bookName,bookPublisher;
 
     public Book() {
     }
@@ -12,11 +13,11 @@ public class Book {
         this.bookID = bookID;
     }
 
-    public Book(int bookID, String bookName, String bookAuthor, String bookCategory, String bookPublisher, int bookPrice, int bookPages) {
+    public Book(int bookID, String bookName, int bookAuthorID, int bookCategoryID,String bookPublisher,int bookPrice,int bookPages) {
         this.bookID = bookID;
         this.bookName = bookName;
-        this.bookAuthor = bookAuthor;
-        this.bookCategory = bookCategory;
+        this.bookAuthorID = bookAuthorID;
+        this.bookCategoryID = bookCategoryID;
         this.bookPublisher = bookPublisher;
         this.bookPrice = bookPrice;
         this.bookPages = bookPages;
@@ -58,37 +59,33 @@ public class Book {
         return bookName;
     }
 
-    public String getBookAuthor() {
-        return bookAuthor;
-    }
-
-    public String getBookCategory() {
-        return bookCategory;
-    }
-
     public void setBookName(String bookName) {
         this.bookName = bookName;
     }
-
-    public void setBookAuthor(String bookAuthor) {
-        this.bookAuthor = bookAuthor;
+    
+    public int getBookAuthorID() {
+        return bookAuthorID;
     }
 
-    public void setBookCategory(String bookCategory) {
-        this.bookCategory = bookCategory;
+    public void setBookAuthorID(int bookAuthorID) {
+        this.bookAuthorID = bookAuthorID;
     }
+
+    public int getBookCategoryID() {
+        return bookCategoryID;
+    }
+
+    public void setBookCategoryID(int bookCategoryID) {
+        this.bookCategoryID = bookCategoryID;
+    }
+
 
     @Override
     public String toString() {
-        return "Book{" +
-                "bookID=" + bookID +
-                ", bookPrice=" + bookPrice +
-                ", bookPages=" + bookPages +
-                ", bookName='" + bookName + '\'' +
-                ", bookAuthor='" + bookAuthor + '\'' +
-                ", bookCaterogies='" + bookCategory + '\'' +
-                ", bookPublisher='" + bookPublisher + '\'' +
-                '}';
+        return "Book [ bookID=" + bookID + ", bookName=" + bookName + ", bookAuthorID=" + bookAuthorID + ", bookCategoryID=" + bookAuthorID
+        + ", bookPages=" + bookPages + ", bookPrice=" + bookPrice + ", bookPublisher=" + bookPublisher + "]";
     }
+
+    
 
 }
