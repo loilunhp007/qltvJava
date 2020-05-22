@@ -8,6 +8,7 @@ public class BookLending {
     public BookLending() {
     }
 
+    
     public BookLending(int lendID, int lendStudentID, String createDay, String setdueday, int total, int issued_by) {
         this.lendID = lendID;
         this.lendStudentID = lendStudentID;
@@ -75,5 +76,9 @@ public class BookLending {
                 ", setdueday='" + setdueday + '\'' +
                 ", total=" + total +
                 '}';
+    }
+
+    public BookLending(int lendID) {
+        this.lendID = lendID;
     }
 }

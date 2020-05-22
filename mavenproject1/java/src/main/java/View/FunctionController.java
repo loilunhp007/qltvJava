@@ -10,7 +10,6 @@ import java.sql.*;
 import java.util.*;
 import java.util.logging.Logger;
 import Controller.database;
-import DAO.AccountDAO;
 import DAO.bookDAO;
 import Entity.*;
 import javafx.fxml.*;
@@ -40,6 +39,8 @@ public class FunctionController implements Initializable {
     private TableColumn<Staff, String> addressC;
     @FXML
     private TableColumn<Staff, Integer> roleC;
+    @FXML 
+    private TextField id;
     @FXML
     private TextField name;
     @FXML
@@ -61,8 +62,10 @@ public class FunctionController implements Initializable {
     @FXML
     private Button updateBtn;
     @FXML
-    private Button removeBtn;
+    private Button refreshBtn;
     @FXML
+    private Button removeBtn;
+    @FXML 
     private TextField search;
     @FXML
     private TableView<Book> bookTable;
@@ -105,6 +108,7 @@ public class FunctionController implements Initializable {
      */
     ObservableList<Staff> staffList = FXCollections.observableArrayList();
     ObservableList<Book> bookList = FXCollections.observableArrayList();
+    
      
     @Override
     public void initialize( URL url, ResourceBundle rb){
@@ -184,6 +188,8 @@ public class FunctionController implements Initializable {
         String publish=publisher.getText();
         int cpri=Integer.parseInt(price.getText());
         int avai=Integer.parseInt(available.getText());
+        int idd=Integer.parseInt(id.getText());
+        book1.setBookID(idd);
         book1.setBookName(Name);
         book1.setBookAuthorID(Author);
         book1.setBookCategoryID(cate);
@@ -192,8 +198,46 @@ public class FunctionController implements Initializable {
         book1.setBookPages(avai);
         bookDAO.editBook(book1);
     }
+//refesh start
+    public void refeshBook(){
+        bookList.clear();
+        database db=new database();
+        try {
+            
+            db.getConnect();
+            ResultSet rs=db.execution("SELECT * FROM book");
+            while(rs.next()){
+                bookList.add(new Book(rs.getInt(1),rs.getString(2),rs.getInt(3),rs.getInt(4),rs.getString(5),rs.getInt(6), rs.getInt(7)));
+            }
+        } catch (SQLException e) {
+            Logger.getLogger(FunctionController.class.getName());
+        }
+        db.disconnect();
+        bookID.setCellValueFactory(new PropertyValueFactory<>("bookID"));
+        bookName.setCellValueFactory(new PropertyValueFactory<>("bookName"));
+        bookAuthorID.setCellValueFactory(new PropertyValueFactory<>("bookAuthorID"));
+        bookCategoryID.setCellValueFactory(new PropertyValueFactory<>("bookCategoryID"));
+        bookPub.setCellValueFactory(new PropertyValueFactory<>("bookPublisher"));
+        bookPrice.setCellValueFactory(new PropertyValueFactory<>("bookPrice"));
+        bookQuantity.setCellValueFactory(new PropertyValueFactory<>("bookPages"));
+        bookTable.setItems(bookList); 
+    }
+//refresh end
 
-
+//delete start
+    public void rmv(ActionEvent event){
+        Alert.AlertType type=Alert.AlertType.CONFIRMATION;
+        Alert al=new Alert(type,"");
+        al.setTitle("Confirm");
+        al.setContentText("Are you sure to Delete this?");
+        Optional<ButtonType> res= al.showAndWait();
+        if(res.get() == ButtonType.OK){
+            int idd=Integer.parseInt(id.getText());
+            bookDAO.deleteBook(idd);
+        }
+      
+    }
+//delete end
 
 //select row from tableView
     public void onSelect() {
@@ -218,6 +262,7 @@ public class FunctionController implements Initializable {
 
             row2.setOnMouseClicked(et -> {
                 Book b = this.bookTable.getSelectionModel().getSelectedItem();
+                this.id.setText(Integer.toString(b.getBookID()));
                 this.book.setText((b.getBookName()));
                 this.author.setText(Integer.toString(b.getBookAuthorID()));
                 this.category.setText(Integer.toString(b.getBookCategoryID()));
@@ -228,4 +273,14 @@ public class FunctionController implements Initializable {
             return row2;
         });
     }
+    public void clearAll(){
+        id.clear();
+        name.clear();
+        author.clear();
+        category.clear();
+        publisher.clear();
+        available.clear();
+        price.clear();
+    }
+
 }
