@@ -90,6 +90,8 @@ public class FunctionController implements Initializable {
     @FXML
     private Button bookRemove;
     @FXML
+    private Button bookRefresh;
+    @FXML
     private TextField book;
     @FXML
     private TextField author;
@@ -145,7 +147,7 @@ public class FunctionController implements Initializable {
         try {
             
             db.getConnect();
-            ResultSet rs=db.execution("SELECT * FROM book_detail");
+            ResultSet rs=db.execution("SELECT * FROM book");
             while(rs.next()){
                 bookList.add(new Book(rs.getInt(1),rs.getString(2),rs.getInt(3),rs.getInt(4),rs.getString(5),rs.getInt(6), rs.getInt(7)));
             }
@@ -178,6 +180,7 @@ public class FunctionController implements Initializable {
         book1.setBookPrice(cpri);
         book1.setBookPages(avai);
         bookDAO.addBook(book1);
+        refreshBook();
     }
     public void updateBookBtn(ActionEvent event) throws Exception{
         //error
@@ -197,9 +200,10 @@ public class FunctionController implements Initializable {
         book1.setBookPrice(cpri);
         book1.setBookPages(avai);
         bookDAO.editBook(book1);
+        refreshBook();
     }
 //refesh start
-    public void refeshBook(){
+    public void refreshBook(){
         bookList.clear();
         database db=new database();
         try {
@@ -234,6 +238,7 @@ public class FunctionController implements Initializable {
         if(res.get() == ButtonType.OK){
             int idd=Integer.parseInt(id.getText());
             bookDAO.deleteBook(idd);
+            refreshBook();
         }
       
     }
@@ -267,7 +272,7 @@ public class FunctionController implements Initializable {
                 this.author.setText(Integer.toString(b.getBookAuthorID()));
                 this.category.setText(Integer.toString(b.getBookCategoryID()));
                 this.publisher.setText(b.getBookPublisher());
-                /*this.available.setText(Integer.toString(b.getStaff_role()));*/
+                this.available.setText(Integer.toString(b.getBookPages()));
                 this.price.setText(Integer.toString(b.getBookPrice()));
             });
             return row2;

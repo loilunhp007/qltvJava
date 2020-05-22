@@ -11,6 +11,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.*;
 import java.net.URL;
 import java.sql.Connection;
@@ -18,6 +19,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ResourceBundle;
+import java.util.regex.Pattern;
+
 import javafx.event.*;
 import javax.sound.sampled.SourceDataLine;
 import javax.swing.JOptionPane;
@@ -44,7 +47,9 @@ public class Login implements Initializable {
     Connection conn;
     PreparedStatement pst;
     ResultSet rs;
-
+    private Pattern pattern;
+    public static final String  user_Pattern="^[a-z0-9._-]{6-15}$";
+    public static final String  pass_Pattern="((?=.*d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!.#$@_+,?-]).{8,20})";
     /**
      * Initializes the controller class.
      * @param url
@@ -64,6 +69,22 @@ public class Login implements Initializable {
         String txtPass=password.getText();
         ResultSet rs=db.execution("SELECT userName,userPassword FROM account");
         while(rs.next()){
+            /*if(validateUser(txtName) &&validatePass(txtPass)){
+                if(txtName.equals(rs.getString(1)) && txtPass.equals(rs.getString(2))){
+                    loginBtn.getScene().getWindow().hide();
+                    Parent root = FXMLLoader.load(getClass().getResource("/fxml/Function.fxml"));
+                    Stage mainStage=new Stage();
+                    Scene scene=new Scene(root);
+                    mainStage.setScene(scene);
+                    mainStage.show();
+                }
+                else{
+                    JOptionPane.showMessageDialog(null,"Your UserName or Password Incorrect");
+                }
+            }
+            else{
+                JOptionPane.showMessageDialog(null,"wrong  regex");
+            }*/
             if(txtName.equals(rs.getString(1)) && txtPass.equals(rs.getString(2))){
                 loginBtn.getScene().getWindow().hide();
                 Parent root = FXMLLoader.load(getClass().getResource("/fxml/Function.fxml"));
@@ -72,6 +93,7 @@ public class Login implements Initializable {
                 mainStage.setScene(scene);
                 mainStage.show();
             }
+           
         }
         /*if (Connect.checkAccount(username.getText(),password.getText()) == 0) {
             ResultSet rs=db.excution("select ");
@@ -81,7 +103,14 @@ public class Login implements Initializable {
             warning.setVisible(false);
         }*/
     }
-    
+    public boolean validateUser(final String userName){
+        pattern=Pattern.compile(user_Pattern);
+        return pattern.matcher(userName).matches();
+    }
+    public boolean validatePass(final String password){
+        pattern=Pattern.compile(pass_Pattern);
+        return pattern.matcher(password).matches();
+    }
     @FXML
     public void onMouseEnter() {
         loginBtn.setStyle("-fx-background-color: #39b54a; -fx-border-color: #39b54a; -fx-text-fill: black;");

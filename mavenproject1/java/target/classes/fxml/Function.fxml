@@ -6,40 +6,42 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="705.0" prefWidth="800.0" style="-fx-border-radius: 50px;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.FunctionController">
+<AnchorPane prefHeight="705.0" prefWidth="841.0" style="-fx-border-radius: 50px;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.FunctionController">
    <children>
-      <TabPane prefHeight="705.0" prefWidth="800.0" style="-fx-cursor: pointer;" tabClosingPolicy="UNAVAILABLE">
+      <TabPane prefHeight="705.0" prefWidth="841.0" style="-fx-cursor: pointer;" tabClosingPolicy="UNAVAILABLE">
         <tabs>
             <Tab text="Book">
                <content>
-                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="543.0" prefWidth="789.0">
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="666.0" prefWidth="821.0">
                      <children>
-                        <TableView fx:id="bookTable" layoutY="277.0" prefHeight="385.0" prefWidth="800.0">
+                        <TableView fx:id="bookTable" layoutY="277.0" prefHeight="385.0" prefWidth="841.0">
                            <columns>
                               <TableColumn fx:id="bookID" prefWidth="69.0" text="ID" />
-                              <TableColumn fx:id="bookName" editable="false" prefWidth="176.0" text="Book Name" />
-                              <TableColumn fx:id="bookAuthorID" editable="false" prefWidth="118.0" text="Author" />
-                              <TableColumn fx:id="bookCategoryID" editable="false" prefWidth="126.0" text="Category" />
-                              <TableColumn fx:id="bookPub" editable="false" prefWidth="89.0" text="Publisher" />
-                              <TableColumn fx:id="bookQuantity" editable="false" minWidth="0.0" prefWidth="116.0" text="Quantity" />
-                              <TableColumn fx:id="bookPrice" editable="false" minWidth="0.0" prefWidth="104.0" text="Price" />
+                              <TableColumn fx:id="bookName" editable="false" prefWidth="242.0" text="Book Name" />
+                              <TableColumn fx:id="bookAuthorID" editable="false" prefWidth="111.0" text="Author" />
+                              <TableColumn fx:id="bookCategoryID" editable="false" prefWidth="108.0" text="Category" />
+                              <TableColumn fx:id="bookPub" editable="false" prefWidth="91.0" text="Publisher" />
+                              <TableColumn fx:id="bookQuantity" editable="false" minWidth="0.0" prefWidth="103.0" text="Available" />
+                              <TableColumn fx:id="bookPrice" editable="false" minWidth="0.0" prefWidth="116.0" text="Price" />
                            </columns>
                         </TableView>
-                        <Button fx:id="bookAdd" layoutX="700.0" layoutY="36.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="70.0" text="Add" />
-                        <Button fx:id="bookUpdate" layoutX="700.0" layoutY="90.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="70.0" text="Update" />
-                        <Button fx:id="bookRemove" layoutX="700.0" layoutY="144.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="70.0" text="Remove" />
-                        <Label layoutX="29.0" layoutY="48.0" text="Name" />
+                        <Button fx:id="bookAdd" layoutX="729.0" layoutY="39.0" mnemonicParsing="false" onAction="#addBookbtn" prefHeight="40.0" prefWidth="98.0" text="Add" />
+                        <Button fx:id="bookUpdate" layoutX="729.0" layoutY="92.0" mnemonicParsing="false" onAction="#updateBookBtn" prefHeight="40.0" prefWidth="99.0" text="Update" />
+                        <Button fx:id="bookRefresh" layoutX="730.0" layoutY="143.0" mnemonicParsing="false" onAction="#refreshBook" prefHeight="40.0" prefWidth="97.0" text="REFRESH" />
+                        <Label layoutX="32.0" layoutY="48.0" text="ID" />
+                        <Label layoutX="29.0" layoutY="100.0" text="Name" />
                         <Label layoutX="376.0" layoutY="48.0" text="Author" />
                         <Label layoutX="22.0" layoutY="152.0" text="Category" />
                         <Label layoutX="377.0" layoutY="101.0" text="Publisher" />
                         <Label layoutX="19.0" layoutY="199.0" text="Available" />
                         <Label layoutX="383.0" layoutY="152.0" text="Price" />
                         <TextField fx:id="book" layoutX="102.0" layoutY="95.0" prefHeight="31.0" prefWidth="231.0" />
-                        <TextField fx:id="author" layoutX="444.0" layoutY="43.0" prefHeight="31.0" prefWidth="231.0" />
+                        <TextField fx:id="author" layoutX="444.0" layoutY="43.0" prefHeight="31.0" prefWidth="246.0" />
                         <TextField fx:id="category" layoutX="102.0" layoutY="147.0" prefHeight="31.0" prefWidth="231.0" />
-                        <TextField fx:id="publisher" layoutX="444.0" layoutY="96.0" prefHeight="31.0" prefWidth="231.0" />
-                        <TextField fx:id="price" layoutX="444.0" layoutY="147.0" prefHeight="31.0" prefWidth="231.0" />
+                        <TextField fx:id="publisher" layoutX="444.0" layoutY="96.0" prefHeight="31.0" prefWidth="246.0" />
+                        <TextField fx:id="price" layoutX="444.0" layoutY="147.0" prefHeight="31.0" prefWidth="246.0" />
                         <TextField fx:id="available" layoutX="102.0" layoutY="194.0" prefHeight="31.0" prefWidth="231.0" />
+                        <TextField fx:id="id" editable="false" layoutX="102.0" layoutY="43.0" prefHeight="31.0" prefWidth="231.0" />
                         <Label layoutX="19.0" layoutY="245.0" text="Search by" />
                         <SplitMenuButton layoutX="101.0" layoutY="240.0" mnemonicParsing="false" text="Choose...">
                            <items>
@@ -47,7 +49,8 @@
                               <MenuItem mnemonicParsing="false" text="Username" />
                            </items>
                         </SplitMenuButton>
-                        <TextField fx:id="bookSearch" layoutX="220.0" layoutY="209.0" prefHeight="31.0" prefWidth="480.0" />
+                        <TextField fx:id="bookSearch" layoutX="227.0" layoutY="240.0" prefHeight="31.0" prefWidth="458.0" />
+                        <Button fx:id="bookRemove" layoutX="729.0" layoutY="200.0" mnemonicParsing="false" onAction="#rmv" prefHeight="40.0" prefWidth="98.0" text="Remove" />
                      </children>
                </AnchorPane>
                </content>
