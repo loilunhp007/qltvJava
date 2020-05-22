@@ -145,7 +145,7 @@ public class FunctionController implements Initializable {
         try {
             
             db.getConnect();
-            ResultSet rs=db.execution("SELECT * FROM book");
+            ResultSet rs=db.execution("SELECT * FROM book_detail");
             while(rs.next()){
                 bookList.add(new Book(rs.getInt(1),rs.getString(2),rs.getInt(3),rs.getInt(4),rs.getString(5),rs.getInt(6), rs.getInt(7)));
             }
