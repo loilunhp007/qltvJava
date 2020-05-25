@@ -114,9 +114,9 @@ public class FunctionController implements Initializable {
      
     @Override
     public void initialize( URL url, ResourceBundle rb){
-        loadStaff();
-        loadBook();
-        onSelect();
+        //loadStaff();
+        //loadBook();
+        //onSelect();
     }
 //show staff data
     public void loadStaff() {

@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.MenuItem?>
@@ -9,44 +13,139 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="600.0" prefWidth="823.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.bookController">
-   <children>
-      <TableView fx:id="bookTable" layoutY="277.0" prefHeight="309.0" prefWidth="823.0" AnchorPane.bottomAnchor="4.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="286.4">
-         <columns>
-            <TableColumn fx:id="bookID" prefWidth="69.0" text="ID" />
-            <TableColumn fx:id="bookName" editable="false" prefWidth="242.0" text="Book Name" />
-            <TableColumn fx:id="bookAuthorID" editable="false" prefWidth="111.0" text="Author" />
-            <TableColumn fx:id="bookCategoryID" editable="false" prefWidth="108.0" text="Category" />
-            <TableColumn fx:id="bookPub" editable="false" prefWidth="91.0" text="Publisher" />
-            <TableColumn fx:id="bookQuantity" editable="false" minWidth="0.0" prefWidth="103.0" text="Available" />
-            <TableColumn fx:id="bookPrice" editable="false" minWidth="0.0" prefWidth="116.0" text="Price" />
-         </columns>
-      </TableView>
-      <Button fx:id="bookAdd" accessibleRole="PARENT" layoutX="700.0" layoutY="39.0" mnemonicParsing="false" onAction="#addBookbtn" prefHeight="40.0" prefWidth="98.0" text="Add" AnchorPane.rightAnchor="23.0" />
-      <Button fx:id="bookUpdate" accessibleRole="PARENT" layoutX="702.0" layoutY="92.0" mnemonicParsing="false" onAction="#updateBookBtn" prefHeight="40.0" prefWidth="98.0" text="Update" AnchorPane.rightAnchor="23.00000000000003" />
-      <Button fx:id="bookRefresh" accessibleRole="PARENT" layoutX="700.0" layoutY="143.0" mnemonicParsing="false" onAction="#refreshBook" prefHeight="40.0" prefWidth="97.0" text="REFRESH" AnchorPane.rightAnchor="23.0" />
-      <Label accessibleRole="PARENT" layoutX="39.0" layoutY="50.0" prefHeight="18.0" prefWidth="33.0" text="ID" />
-      <Label accessibleRole="PARENT" layoutX="39.0" layoutY="102.0" prefHeight="21.0" prefWidth="50.0" text="Name" />
-      <Label accessibleRole="PARENT" layoutX="368.0" layoutY="49.0" prefHeight="21.0" prefWidth="50.0" text="Author" />
-      <Label accessibleRole="PARENT" layoutX="358.0" layoutY="102.0" text="Category" />
-      <Label accessibleRole="PARENT" layoutX="38.0" layoutY="154.0" prefHeight="21.0" prefWidth="65.0" text="Publisher" />
-      <Label layoutX="40.0" layoutY="201.0" text="Available" />
-      <Label accessibleRole="PARENT" layoutX="363.0" layoutY="152.0" prefHeight="21.0" prefWidth="50.0" text="Price" AnchorPane.bottomAnchor="422.0" AnchorPane.leftAnchor="367.6" AnchorPane.rightAnchor="410.0" AnchorPane.topAnchor="152.0" />
-      <TextField fx:id="book" layoutX="102.0" layoutY="95.0" prefHeight="33.0" prefWidth="231.0" AnchorPane.leftAnchor="102.0" />
-      <TextField fx:id="author" accessibleRole="PARENT" layoutX="102.0" layoutY="43.0" prefHeight="31.0" prefWidth="231.0" AnchorPane.leftAnchor="102.0" />
-      <TextField fx:id="category" accessibleRole="PARENT" layoutX="102.0" layoutY="147.0" prefHeight="31.0" prefWidth="231.0" AnchorPane.leftAnchor="102.0" />
-      <TextField fx:id="publisher" accessibleRole="PARENT" layoutX="433.0" layoutY="97.0" prefHeight="31.0" prefWidth="231.0" AnchorPane.rightAnchor="159.0" />
-      <TextField fx:id="price" accessibleRole="PARENT" layoutX="433.0" layoutY="149.0" prefHeight="31.0" prefWidth="231.0" AnchorPane.rightAnchor="159.0" />
-      <TextField fx:id="available" layoutX="102.0" layoutY="194.0" prefHeight="31.0" prefWidth="231.0" AnchorPane.leftAnchor="102.0" />
-      <TextField fx:id="id" editable="false" layoutX="433.0" layoutY="44.0" prefHeight="31.0" prefWidth="231.0" AnchorPane.rightAnchor="159.0" />
-      <Label layoutX="19.0" layoutY="245.0" text="Search by" />
-      <SplitMenuButton layoutX="101.0" layoutY="240.0" mnemonicParsing="false" text="Choose...">
-         <items>
-            <MenuItem mnemonicParsing="false" text="Name" />
-            <MenuItem mnemonicParsing="false" text="Username" />
-         </items>
-      </SplitMenuButton>
-      <TextField fx:id="bookSearch" layoutX="227.0" layoutY="240.0" prefHeight="31.0" prefWidth="458.0" AnchorPane.leftAnchor="227.0" AnchorPane.rightAnchor="136.0" />
-      <Button fx:id="bookRemove" layoutX="702.0" layoutY="197.0" mnemonicParsing="false" onAction="#rmv" prefHeight="40.0" prefWidth="98.0" text="Remove" AnchorPane.rightAnchor="22.600000000000023" />
-   </children>
-</AnchorPane>
+<BorderPane prefHeight="600.0" prefWidth="823.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.bookController">
+   <center>
+      <VBox BorderPane.alignment="CENTER">
+         <children>
+            <HBox alignment="CENTER" prefWidth="823.0" spacing="15.0">
+               <children>
+                  <Label alignment="CENTER" prefHeight="20.0" prefWidth="60.0" text="ID">
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                  </Label>
+                  <TextField fx:id="id" editable="false" prefHeight="30.0" prefWidth="230.0">
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                  </TextField>
+                  <Label alignment="CENTER" prefHeight="20.0" prefWidth="60.0" text="Author">
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                  </Label>
+                  <TextField fx:id="author" prefHeight="30.0" prefWidth="230.0">
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                  </TextField>
+                  <Button fx:id="bookAdd" mnemonicParsing="false" onAction="#addBookbtn" prefHeight="40.0" prefWidth="98.0" text="Add" />
+               </children>
+               <VBox.margin>
+                  <Insets top="40.0" />
+               </VBox.margin>
+            </HBox>
+            <HBox alignment="CENTER" prefWidth="823.0" spacing="15.0">
+               <children>
+                  <Label alignment="CENTER" prefHeight="20.0" prefWidth="60.0" text="Name">
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                  </Label>
+                  <TextField fx:id="book" prefHeight="30.0" prefWidth="230.0">
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                  </TextField>
+                  <Label alignment="CENTER" prefHeight="20.0" prefWidth="60.0" text="Category">
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                  </Label>
+                  <TextField fx:id="category" prefHeight="30.0" prefWidth="230.0">
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                  </TextField>
+                  <Button fx:id="bookUpdate" mnemonicParsing="false" onAction="#updateBookBtn" prefHeight="40.0" prefWidth="98.0" text="Update" />
+               </children>
+               <VBox.margin>
+                  <Insets top="20.0" />
+               </VBox.margin>
+            </HBox>
+            <HBox alignment="CENTER" prefWidth="823.0" spacing="15.0">
+               <children>
+                  <Label alignment="CENTER" prefHeight="20.0" prefWidth="60.0" text="Publisher">
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                  </Label>
+                  <TextField fx:id="publisher" prefHeight="30.0" prefWidth="230.0">
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                  </TextField>
+                  <Label alignment="CENTER" prefHeight="20.0" prefWidth="60.0" text="Price">
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                  </Label>
+                  <TextField fx:id="price" prefHeight="30.0" prefWidth="230.0">
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                  </TextField>
+                  <Button fx:id="bookRefresh" mnemonicParsing="false" onAction="#loadBook" prefHeight="40.0" prefWidth="98.0" text="Refresh" />
+               </children>
+               <VBox.margin>
+                  <Insets top="20.0" />
+               </VBox.margin>
+            </HBox>
+            <HBox alignment="CENTER" prefWidth="200.0" spacing="15.0">
+               <children>
+                  <Label alignment="CENTER" prefHeight="20.0" prefWidth="60.0" text="Available" />
+                  <TextField fx:id="available" prefHeight="30.0" prefWidth="230.0" />
+                  <Button fx:id="bookRemove" mnemonicParsing="false" onAction="#rmv" prefHeight="40.0" prefWidth="98.0" text="Remove">
+                     <HBox.margin>
+                        <Insets left="320.0" />
+                     </HBox.margin>
+                  </Button>
+               </children>
+               <VBox.margin>
+                  <Insets top="20.0" />
+               </VBox.margin>
+            </HBox>
+            <HBox alignment="CENTER" prefWidth="200.0" spacing="15.0">
+               <children>
+                  <Label text="Search by" />
+                  <RadioButton fx:id="namesearch" mnemonicParsing="false" selected="true" text="Name">
+                     <toggleGroup>
+                        <ToggleGroup fx:id="searchbar" />
+                     </toggleGroup>
+                  </RadioButton>
+                  <RadioButton fx:id="idsearch" mnemonicParsing="false" text="ID" toggleGroup="$searchbar" />
+                  <TextField fx:id="bookSearch" prefHeight="25.0" prefWidth="442.0" />
+                  <Button mnemonicParsing="false" onAction="#searchBar" prefHeight="40.0" prefWidth="98.0" text="Search" />
+               </children>
+               <VBox.margin>
+                  <Insets top="30.0" />
+               </VBox.margin>
+            </HBox>
+            <TableView fx:id="bookTable">
+               <columns>
+                  <TableColumn fx:id="bookID" prefWidth="41.0" resizable="false" text="ID" />
+                  <TableColumn fx:id="bookName" editable="false" prefWidth="273.0" resizable="false" text="Book Name" />
+                  <TableColumn fx:id="bookAuthorID" editable="false" prefWidth="108.0" resizable="false" text="Author" />
+                  <TableColumn fx:id="bookCategoryID" editable="false" prefWidth="108.0" resizable="false" text="Category" />
+                  <TableColumn fx:id="bookPub" editable="false" prefWidth="91.0" resizable="false" text="Publisher" />
+                  <TableColumn fx:id="bookQuantity" editable="false" minWidth="0.0" prefWidth="108.0" resizable="false" text="Available" />
+                  <TableColumn fx:id="bookPrice" editable="false" minWidth="0.0" prefWidth="93.0" resizable="false" text="Price" />
+               </columns>
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
+            </TableView>
+         </children>
+      </VBox>
+   </center>
+</BorderPane>

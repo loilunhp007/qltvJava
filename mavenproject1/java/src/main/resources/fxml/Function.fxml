@@ -36,7 +36,7 @@
                <Image url="@../res/personnel.jpg" />
                </image>
             </ImageView>
-         </graphic> 
+         </graphic>
       </Button>
       <Button layoutX="465.0" layoutY="109.0" mnemonicParsing="false" text="Button">
          <graphic>
@@ -45,7 +45,7 @@
                <Image url="@../res/logout.jpg" />
                </image>
             </ImageView>
-         </graphic> 
+         </graphic>
       </Button>
    </children>
 </AnchorPane>

@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.*?>
+<?import javafx.scene.image.*?>
 <?import java.lang.*?>
 <?import java.util.*?>
 <?import javafx.scene.*?>
@@ -7,7 +9,43 @@
 <?import javafx.scene.layout.*?>
 
 <AnchorPane prefHeight="705.0" prefWidth="841.0" style="-fx-border-radius: 50px;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.FunctionController">
-   <children>
-      <TabPane prefHeight="705.0" prefWidth="841.0" style="-fx-cursor: pointer;" tabClosingPolicy="UNAVAILABLE" />
+   <children>      
+      <Button layoutX="465.0" layoutY="109.0" mnemonicParsing="false" text="Button">
+         <graphic>
+            <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="102.0" layoutY="147.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+               <Image url="@../res/book.jpg" />
+               </image>
+            </ImageView>
+         </graphic> 
+      </Button>
+      <Button layoutX="465.0" layoutY="109.0" mnemonicParsing="false" text="Button">
+         <graphic>
+            <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="102.0" layoutY="147.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+               <Image url="@../res/settings.jpg" />
+               </image>
+            </ImageView>
+         </graphic> 
+      </Button>
+
+      <Button layoutX="465.0" layoutY="109.0" mnemonicParsing="false" text="Button">
+         <graphic>
+            <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="102.0" layoutY="147.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+               <Image url="@../res/personnel.jpg" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Button layoutX="465.0" layoutY="109.0" mnemonicParsing="false" text="Button">
+         <graphic>
+            <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="102.0" layoutY="147.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+               <Image url="@../res/logout.jpg" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
    </children>
 </AnchorPane>

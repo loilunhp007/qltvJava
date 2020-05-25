@@ -1,4 +1,4 @@
-package Controller;
+package View;
 import java.net.URL;
 import java.sql.*;
 import java.util.*;
@@ -11,6 +11,7 @@ import javafx.scene.control.*;
 import javafx.collections.*;
 import javafx.scene.control.cell.*;
 import javafx.event.*;
+import javafx.collections.transformation.FilteredList;
 
 public class bookController implements Initializable {
     @FXML
@@ -31,6 +32,12 @@ public class bookController implements Initializable {
     private TableColumn<Book, Integer> bookPrice;
     @FXML
     private Button bookAdd;
+    @FXML
+    private RadioButton namesearch;
+    @FXML
+    private RadioButton idsearch;
+    @FXML
+    private ToggleGroup searchbar;
     @FXML
     private Button bookUpdate;
     @FXML
@@ -67,6 +74,7 @@ public class bookController implements Initializable {
 //Show data book from database
     public void loadBook() {
         database db=new database();
+        bookList.clear();
         try {
             
             db.getConnect();
@@ -103,7 +111,7 @@ public class bookController implements Initializable {
         book1.setBookPrice(cpri);
         book1.setBookPages(avai);
         bookDAO.addBook(book1);
-        refreshBook();
+        loadBook();
     }
     public void updateBookBtn(ActionEvent event) throws Exception{
         //error
@@ -123,45 +131,20 @@ public class bookController implements Initializable {
         book1.setBookPrice(cpri);
         book1.setBookPages(avai);
         bookDAO.editBook(book1);
-        refreshBook();
+        loadBook();
     }
-//refesh start
-    public void refreshBook(){
-        bookList.clear();
-        database db=new database();
-        try {
-            
-            db.getConnect();
-            ResultSet rs=db.execution("SELECT * FROM book");
-            while(rs.next()){
-                bookList.add(new Book(rs.getInt(1),rs.getString(2),rs.getInt(3),rs.getInt(4),rs.getString(5),rs.getInt(6), rs.getInt(7)));
-            }
-        } catch (SQLException e) {
-            Logger.getLogger(bookController.class.getName());
-        }
-        db.disconnect();
-        bookID.setCellValueFactory(new PropertyValueFactory<>("bookID"));
-        bookName.setCellValueFactory(new PropertyValueFactory<>("bookName"));
-        bookAuthorID.setCellValueFactory(new PropertyValueFactory<>("bookAuthorID"));
-        bookCategoryID.setCellValueFactory(new PropertyValueFactory<>("bookCategoryID"));
-        bookPub.setCellValueFactory(new PropertyValueFactory<>("bookPublisher"));
-        bookPrice.setCellValueFactory(new PropertyValueFactory<>("bookPrice"));
-        bookQuantity.setCellValueFactory(new PropertyValueFactory<>("bookPages"));
-        bookTable.setItems(bookList); 
-    }
-//refresh end
 
 //delete start
     public void rmv(ActionEvent event){
         Alert.AlertType type=Alert.AlertType.CONFIRMATION;
         Alert al=new Alert(type,"");
         al.setTitle("Confirm");
-        al.setContentText("Are you sure to Delete this?");
+        al.setContentText("Are you sure you want to delete this?");
         Optional<ButtonType> res= al.showAndWait();
         if(res.get() == ButtonType.OK){
             int idd=Integer.parseInt(id.getText());
             bookDAO.deleteBook(idd);
-            refreshBook();
+            loadBook();
         }
       
     }
@@ -193,5 +176,13 @@ public class bookController implements Initializable {
         available.clear();
         price.clear();
     }
-
+    public void searchBar(){
+        FilteredList<Book> flbook = new FilteredList(bookList, p -> true);
+        bookTable.setItems(flbook);
+        if (namesearch.isSelected()==true) flbook.setPredicate(p -> p.getBookName().toLowerCase().contains(bookSearch.getText().toLowerCase().trim()));
+        else {
+            if (searchbar == null) loadBook();
+            else flbook.setPredicate(p -> p.getBookID() == Integer.parseInt(bookSearch.getText()));
+        } 
+    }
 }

@@ -18,6 +18,8 @@ public class MainApp extends Application {
         Scene scene = new Scene(root);
         stage.setTitle("JavaFX and Maven");
         stage.setScene(scene);
+        stage.setMinHeight(600);
+        stage.setMinWidth(823);
         stage.show();
     }
 
