@@ -64,7 +64,7 @@ public class bookController implements Initializable {
      * Initializes the controller class.
      */
     ObservableList<Book> bookList = FXCollections.observableArrayList();
-    
+    FilteredList<Book> flbook = new FilteredList(bookList, p -> true);
      
     @Override
     public void initialize( URL url, ResourceBundle rb){
@@ -76,7 +76,6 @@ public class bookController implements Initializable {
         database db=new database();
         bookList.clear();
         try {
-            
             db.getConnect();
             ResultSet rs=db.execution("SELECT * FROM book");
             while(rs.next()){
@@ -177,12 +176,15 @@ public class bookController implements Initializable {
         price.clear();
     }
     public void searchBar(){
-        FilteredList<Book> flbook = new FilteredList(bookList, p -> true);
+        flbook.removeAll();
         bookTable.setItems(flbook);
         if (namesearch.isSelected()==true) flbook.setPredicate(p -> p.getBookName().toLowerCase().contains(bookSearch.getText().toLowerCase().trim()));
         else {
-            if (searchbar == null) loadBook();
-            else flbook.setPredicate(p -> p.getBookID() == Integer.parseInt(bookSearch.getText()));
-        } 
+            if (bookSearch.getText().isEmpty()) bookTable.setItems(bookList);
+            else {
+                if(bookSearch.getText().matches("[1-9]*")) flbook.setPredicate(p -> p.getBookID() == Integer.parseInt(bookSearch.getText()));
+                else bookTable.setItems(bookList);
+            }
+        }
     }
 }
