@@ -4,7 +4,7 @@ public class Book {
     private int bookPrice;
     private int bookPages;
     private int bookAuthorID,bookCategoryID;
-    private String bookName,bookPublisher;
+    private String bookName,bookPublisher,bookAuthor,bookCategory;
 
     public Book() {
     }
@@ -18,6 +18,15 @@ public class Book {
         this.bookName = bookName;
         this.bookAuthorID = bookAuthorID;
         this.bookCategoryID = bookCategoryID;
+        this.bookPublisher = bookPublisher;
+        this.bookPrice = bookPrice;
+        this.bookPages = bookPages;
+    }
+    public Book(int bookID, String bookName, String bookAuthor, String bookCategory,String bookPublisher,int bookPrice,int bookPages) {
+        this.bookID = bookID;
+        this.bookName = bookName;
+        this.bookAuthor = bookAuthor;
+        this.bookCategory = bookCategory;
         this.bookPublisher = bookPublisher;
         this.bookPrice = bookPrice;
         this.bookPages = bookPages;
@@ -74,6 +83,21 @@ public class Book {
     public int getBookCategoryID() {
         return bookCategoryID;
     }
+    public String getBookAuthor() {
+        return bookAuthor;
+    }
+
+    public void setBookAuthor(String bookAuthor) {
+        this.bookAuthor = bookAuthor;
+    }
+
+    public String getBookCategory() {
+        return bookCategory;
+    }
+
+    public void setBookCategory(String bookCategory) {
+        this.bookCategory = bookCategory;
+    }
 
     public void setBookCategoryID(int bookCategoryID) {
         this.bookCategoryID = bookCategoryID;
@@ -85,6 +109,8 @@ public class Book {
         return "Book [ bookID=" + bookID + ", bookName=" + bookName + ", bookAuthorID=" + bookAuthorID + ", bookCategoryID=" + bookAuthorID
         + ", bookPages=" + bookPages + ", bookPrice=" + bookPrice + ", bookPublisher=" + bookPublisher + "]";
     }
+
+    
 
     
 

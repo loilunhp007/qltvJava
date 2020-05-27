@@ -13,10 +13,10 @@ public class MainApp extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("/fxml/Book.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/fxml/StaffManagement.fxml"));
         
         Scene scene = new Scene(root);
-        stage.setTitle("JavaFX and Maven");
+        stage.setTitle("Library Management");
         stage.setScene(scene);
         stage.setMinHeight(600);
         stage.setMinWidth(823);

@@ -125,7 +125,7 @@
                   </RadioButton>
                   <RadioButton fx:id="idsearch" mnemonicParsing="false" text="ID" toggleGroup="$searchbar" />
                   <TextField fx:id="bookSearch" prefHeight="25.0" prefWidth="442.0" />
-                  <Button mnemonicParsing="false" onAction="#searchBar" prefHeight="40.0" prefWidth="98.0" text="Search" />
+                  <Button defaultButton="true" mnemonicParsing="false" onAction="#searchBar" prefHeight="40.0" prefWidth="98.0" text="Search" />
                </children>
                <VBox.margin>
                   <Insets top="30.0" />
