@@ -42,6 +42,8 @@ public class StaffManagementController implements Initializable {
     @FXML
     private TableColumn<Staff, Integer> roleC;
     @FXML
+    private TextField txtID;
+    @FXML
     private TextField name;
     @FXML
     private TextField dob;
@@ -69,7 +71,8 @@ public class StaffManagementController implements Initializable {
     ObservableList<Staff> staffList = FXCollections.observableArrayList();
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        loadStaff();
+        onSelect();
     }    
     
     public void loadStaff() {
@@ -101,6 +104,7 @@ public class StaffManagementController implements Initializable {
 
             row.setOnMouseClicked(et -> {
                 Staff s = this.staffTable.getSelectionModel().getSelectedItem();
+                this.txtID.setText(Integer.toString(s.getStaffID()));
                 this.name.setText((s.getStaffName()));
                 this.dob.setText(s.getStaffDOB());
                 if (s.getStaffGender().equals("Male")) male.setSelected(true);

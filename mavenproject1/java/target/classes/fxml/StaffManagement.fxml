@@ -17,33 +17,35 @@
             <TableColumn fx:id="roleC" editable="false" prefWidth="77.0" text="roleID" />
          </columns>
       </TableView>
-      <Label layoutX="19.0" layoutY="39.0" text="Name" />
-      <Label layoutX="409.0" layoutY="39.0" text="DOB" />
-      <Label layoutX="19.0" layoutY="83.0" text="Gender" />
-      <Label layoutX="403.0" layoutY="83.0" text="Phone" />
-      <Label layoutX="15.0" layoutY="126.0" text="Address" />
-      <Label layoutX="23.0" layoutY="164.0" text="Role" />
-      <TextField fx:id="name" layoutX="73.0" layoutY="34.0" prefHeight="31.0" prefWidth="293.0" />
-      <TextField fx:id="dob" layoutX="470.0" layoutY="34.0" prefHeight="25.0" prefWidth="185.0" />
-      <TextField fx:id="role" layoutX="73.0" layoutY="160.0" prefHeight="25.0" prefWidth="100.0" />
-      <TextField fx:id="phone" layoutX="470.0" layoutY="78.0" prefHeight="25.0" prefWidth="185.0" />
-      <TextField fx:id="address" layoutX="73.0" layoutY="122.0" prefHeight="25.0" prefWidth="411.0" />
+      <Label layoutX="19.0" layoutY="70.0" text="Name" />
+      <Label layoutX="415.0" layoutY="70.0" text="DOB" />
+      <Label layoutX="19.0" layoutY="120.0" text="Gender" />
+      <Label layoutX="409.0" layoutY="120.0" text="Phone" />
+      <Label layoutX="12.0" layoutY="164.0" text="Address" />
+      <Label layoutX="431.0" layoutY="26.0" text="Role" />
+      <TextField fx:id="name" layoutX="76.0" layoutY="65.0" prefHeight="31.0" prefWidth="293.0" />
+      <TextField fx:id="dob" layoutX="479.0" layoutY="65.0" prefHeight="25.0" prefWidth="185.0" />
+      <TextField fx:id="role" layoutX="479.0" layoutY="21.0" prefHeight="25.0" prefWidth="100.0" />
+      <TextField fx:id="phone" layoutX="479.0" layoutY="115.0" prefHeight="25.0" prefWidth="185.0" />
+      <TextField fx:id="address" layoutX="74.0" layoutY="159.0" prefHeight="25.0" prefWidth="411.0" />
       <Button fx:id="addBtn" layoutX="700.0" layoutY="36.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="70.0" text="Add" />
       <Button fx:id="updateBtn" layoutX="700.0" layoutY="90.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="70.0" text="Update" />
       <Button fx:id="removeBtn" layoutX="700.0" layoutY="144.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="70.0" text="Remove" />
       <Label layoutX="11.0" layoutY="218.0" text="Search by" />
-      <SplitMenuButton layoutX="73.0" layoutY="214.0" mnemonicParsing="false" text="Choose...">
+      <SplitMenuButton fx:id="t" layoutX="73.0" layoutY="214.0" mnemonicParsing="false" text="Choose...">
          <items>
             <MenuItem mnemonicParsing="false" text="Name" />
             <MenuItem mnemonicParsing="false" text="Username" />
          </items>
       </SplitMenuButton>
       <TextField fx:id="search" layoutX="192.0" layoutY="213.0" prefHeight="31.0" prefWidth="416.0" />
-      <RadioButton fx:id="male" layoutX="98.0" layoutY="83.0" mnemonicParsing="false" selected="true" text="Male">
+      <RadioButton fx:id="male" layoutX="98.0" layoutY="120.0" mnemonicParsing="false" selected="true" text="Male">
          <toggleGroup>
             <ToggleGroup fx:id="gender" />
          </toggleGroup>
       </RadioButton>
-      <RadioButton fx:id="female" layoutX="204.0" layoutY="83.0" mnemonicParsing="false" text="Female" toggleGroup="$gender" />
+      <RadioButton fx:id="female" layoutX="205.0" layoutY="120.0" mnemonicParsing="false" text="Female" toggleGroup="$gender" />
+      <TextField fx:id="txtID" editable="false" layoutX="76.0" layoutY="25.0" prefHeight="31.0" prefWidth="293.0" />
+      <Label layoutX="24.0" layoutY="30.0" text="ID" />
    </children>
 </AnchorPane>
