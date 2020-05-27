@@ -10,39 +10,39 @@
 
 <AnchorPane prefHeight="705.0" prefWidth="841.0" style="-fx-border-radius: 50px;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.FunctionController">
    <children>      
-      <Button layoutX="465.0" layoutY="109.0" mnemonicParsing="false" text="Button">
+      <Button layoutX="63.0" layoutY="372.0" mnemonicParsing="false">
          <graphic>
             <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="102.0" layoutY="147.0" pickOnBounds="true" preserveRatio="true">
                <image>
-               <Image url="@../res/book.jpg" />
+               <Image url="@../res/book.png" />
                </image>
             </ImageView>
          </graphic> 
       </Button>
-      <Button layoutX="465.0" layoutY="109.0" mnemonicParsing="false" text="Button">
+      <Button layoutX="383.0" layoutY="131.0" mnemonicParsing="false">
          <graphic>
             <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="102.0" layoutY="147.0" pickOnBounds="true" preserveRatio="true">
                <image>
-               <Image url="@../res/settings.jpg" />
+               <Image url="@../res/settings.png" />
                </image>
             </ImageView>
          </graphic> 
       </Button>
 
-      <Button layoutX="465.0" layoutY="109.0" mnemonicParsing="false" text="Button">
+      <Button layoutX="383.0" layoutY="372.0" mnemonicParsing="false">
          <graphic>
             <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="102.0" layoutY="147.0" pickOnBounds="true" preserveRatio="true">
                <image>
-               <Image url="@../res/personnel.jpg" />
+               <Image url="@../res/personnel.png" />
                </image>
             </ImageView>
          </graphic>
       </Button>
-      <Button layoutX="465.0" layoutY="109.0" mnemonicParsing="false" text="Button">
+      <Button layoutX="77.0" layoutY="131.0" mnemonicParsing="false">
          <graphic>
             <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="102.0" layoutY="147.0" pickOnBounds="true" preserveRatio="true">
                <image>
-               <Image url="@../res/logout.jpg" />
+               <Image url="@../res/logout.png" />
                </image>
             </ImageView>
          </graphic>
