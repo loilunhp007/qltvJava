@@ -3,15 +3,17 @@ package DAO;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Observable;
 
 import javax.swing.JOptionPane;
 
 import Controller.database;
 import Entity.Staff;
-
+import javafx.scene.control.*;
+import javafx.collections.*;
 public class staffDAO {
-    public static List<Staff> load(){
-        List<Staff> l_staff= new ArrayList<>();
+    public static ObservableList<Staff> load(){
+        ObservableList<Staff> l_staff=FXCollections.observableArrayList();
         database db=new database();
         db.getConnect();
         ResultSet rs = db.execution("SELECT * From staff;");

@@ -78,6 +78,7 @@ public class bookController implements Initializable {
         try {
             
             db.getConnect();
+            //ResultSet rs=db.execution("SELECT b.bookID,b.bookName,a.authorName,c.categoryName,b.bookPublisher,b.bookprice,b.bookPages FROM book b join Author a on b.bookAuthorID=a.authorID join Categories c on b.bookCategoryID=c.categoryID WHERE 1;");
             ResultSet rs=db.execution("SELECT * FROM book");
             while(rs.next()){
                 bookList.add(new Book(rs.getInt(1),rs.getString(2),rs.getInt(3),rs.getInt(4),rs.getString(5),rs.getInt(6), rs.getInt(7)));
@@ -149,6 +150,32 @@ public class bookController implements Initializable {
       
     }
 //delete end
+
+public void refreshBook(){
+    bookList.clear();
+    database db=new database();
+    try {
+        
+        db.getConnect();
+        ResultSet rs=db.execution("SELECT * FROM book");
+        while(rs.next()){
+            bookList.add(new Book(rs.getInt(1),rs.getString(2),rs.getInt(3),rs.getInt(4),rs.getString(5),rs.getInt(6), rs.getInt(7)));
+        }
+    } catch (SQLException e) {
+        Logger.getLogger(FunctionController.class.getName());
+    }
+    db.disconnect();
+    bookID.setCellValueFactory(new PropertyValueFactory<>("bookID"));
+    bookName.setCellValueFactory(new PropertyValueFactory<>("bookName"));
+    bookAuthorID.setCellValueFactory(new PropertyValueFactory<>("bookAuthorID"));
+    bookCategoryID.setCellValueFactory(new PropertyValueFactory<>("bookCategoryID"));
+    bookPub.setCellValueFactory(new PropertyValueFactory<>("bookPublisher"));
+    bookPrice.setCellValueFactory(new PropertyValueFactory<>("bookPrice"));
+    bookQuantity.setCellValueFactory(new PropertyValueFactory<>("bookPages"));
+    bookTable.setItems(bookList); 
+}
+//refresh end
+
 
 //select row from tableView
     public void onSelect() {
