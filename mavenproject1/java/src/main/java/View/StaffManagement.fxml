@@ -4,7 +4,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="543.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.StaffManagementController">
+<AnchorPane prefHeight="543.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.StaffController">
    <children>
       <TableView fx:id="staffTable" layoutY="255.0" prefHeight="288.0" prefWidth="800.0">
          <columns>
@@ -28,9 +28,9 @@
       <TextField fx:id="role" layoutX="479.0" layoutY="21.0" prefHeight="25.0" prefWidth="100.0" />
       <TextField fx:id="phone" layoutX="479.0" layoutY="115.0" prefHeight="25.0" prefWidth="185.0" />
       <TextField fx:id="address" layoutX="74.0" layoutY="159.0" prefHeight="25.0" prefWidth="411.0" />
-      <Button fx:id="addBtn" layoutX="700.0" layoutY="36.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="70.0" text="Add" />
-      <Button fx:id="updateBtn" layoutX="700.0" layoutY="90.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="70.0" text="Update" />
-      <Button fx:id="removeBtn" layoutX="700.0" layoutY="144.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="70.0" text="Remove" />
+      <Button fx:id="addBtn" layoutX="700.0" layoutY="36.0" mnemonicParsing="false" onAction="#addStaffbtn" prefHeight="40.0" prefWidth="70.0" text="Add" />
+      <Button fx:id="updateBtn" layoutX="700.0" layoutY="90.0" mnemonicParsing="false" onAction="#updateStaffBtn" prefHeight="40.0" prefWidth="70.0" text="Update" />
+      <Button fx:id="removeBtn" layoutX="700.0" layoutY="144.0" mnemonicParsing="false" onAction="#rmvStaff" prefHeight="40.0" prefWidth="70.0" text="Remove" />
       <Label layoutX="11.0" layoutY="218.0" text="Search by" />
       <SplitMenuButton fx:id="t" layoutX="73.0" layoutY="214.0" mnemonicParsing="false" text="Choose...">
          <items>
@@ -47,5 +47,7 @@
       <RadioButton fx:id="female" layoutX="205.0" layoutY="120.0" mnemonicParsing="false" text="Female" toggleGroup="$gender" />
       <TextField fx:id="txtID" editable="false" layoutX="76.0" layoutY="25.0" prefHeight="31.0" prefWidth="293.0" />
       <Label layoutX="24.0" layoutY="30.0" text="ID" />
+      <ChoiceBox fx:id="role_choice" layoutX="540.0" layoutY="21.0" prefWidth="150.0" />
+      <Button fx:id="clearBtn" layoutX="700.0" layoutY="198.0" mnemonicParsing="false" onAction="#clearAll" prefHeight="40.0" prefWidth="70.0" text="Clear" />
    </children>
 </AnchorPane>

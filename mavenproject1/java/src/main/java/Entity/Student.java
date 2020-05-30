@@ -1,29 +1,29 @@
 package Entity;
 public class Student {
-    private int studenID;
-    private String studentName,StudentDOB,studenEmail,StudentClass;
+    private int studentID;
+    private String studentName,studentDOB,studentEmail,studentClass;
 
     public Student() {
     }
 
-    public Student(int studenID) {
-        this.studenID = studenID;
+    public Student(int studentID) {
+        this.studentID = studentID;
     }
 
-    public Student(int studenID, String studentName, String studentDOB, String studenEmail, String studentClass) {
-        this.studenID = studenID;
+    public Student(int studentID, String studentName, String studentDOB, String studentEmail, String studentClass) {
+        this.studentID = studentID;
         this.studentName = studentName;
-        StudentDOB = studentDOB;
-        this.studenEmail = studenEmail;
-        StudentClass = studentClass;
+        this.studentDOB = studentDOB;
+        this.studentEmail = studentEmail;
+        this.studentClass = studentClass;
     }
 
-    public int getStudenID() {
-        return studenID;
+    public int getStudentID() {
+        return studentID;
     }
 
-    public void setStudenID(int studenID) {
-        this.studenID = studenID;
+    public void setStudentID(int studentID) {
+        this.studentID = studentID;
     }
 
     public String getStudentName() {
@@ -35,37 +35,37 @@ public class Student {
     }
 
     public String getStudentDOB() {
-        return StudentDOB;
+        return studentDOB;
     }
 
     public void setStudentDOB(String studentDOB) {
-        StudentDOB = studentDOB;
+        this.studentDOB = studentDOB;
     }
 
-    public String getStudenEmail() {
-        return studenEmail;
+    public String getStudentEmail() {
+        return studentEmail;
     }
 
-    public void setStudenEmail(String studenEmail) {
-        this.studenEmail = studenEmail;
+    public void setStudentEmail(String studentEmail) {
+        this.studentEmail = studentEmail;
     }
 
     public String getStudentClass() {
-        return StudentClass;
+        return studentClass;
     }
 
     public void setStudentClass(String studentClass) {
-        StudentClass = studentClass;
+        this.studentClass = studentClass;
     }
 
     @Override
     public String toString() {
         return "Student{" +
-                "studenID=" + studenID +
+                "studenID=" + studentID +
                 ", studentName='" + studentName + '\'' +
-                ", StudentDOB='" + StudentDOB + '\'' +
-                ", studenEmail='" + studenEmail + '\'' +
-                ", StudentClass='" + StudentClass + '\'' +
+                ", StudentDOB='" + studentDOB + '\'' +
+                ", studenEmail='" + studentEmail + '\'' +
+                ", StudentClass='" + studentClass + '\'' +
                 '}';
     }
 }

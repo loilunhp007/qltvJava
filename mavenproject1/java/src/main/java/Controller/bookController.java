@@ -96,7 +96,7 @@ public class bookController implements Initializable {
         bookTable.setItems(bookList);     
     }
     @FXML
-    public void addBookbtn(ActionEvent event) throws Exception{
+    public void addBookbtn(ActionEvent event) throws SQLException{
         Book book1= new Book();
         String Name=book.getText();
         int  Author=Integer.parseInt(author.getText());
@@ -161,7 +161,7 @@ public void refreshBook(){
             bookList.add(new Book(rs.getInt(1),rs.getString(2),rs.getInt(3),rs.getInt(4),rs.getString(5),rs.getInt(6), rs.getInt(7)));
         }
     } catch (SQLException e) {
-        Logger.getLogger(FunctionController.class.getName());
+        Logger.getLogger(bookController.class.getName());
     }
     db.disconnect();
     bookID.setCellValueFactory(new PropertyValueFactory<>("bookID"));

@@ -1,11 +1,14 @@
 package DAO;
 
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
 
+import javax.sound.sampled.SourceDataLine;
 import javax.swing.JOptionPane;
+import javax.xml.transform.SourceLocator;
 
 import Controller.database;
 import Entity.Staff;
@@ -16,7 +19,7 @@ public class staffDAO {
         ObservableList<Staff> l_staff=FXCollections.observableArrayList();
         database db=new database();
         db.getConnect();
-        ResultSet rs = db.execution("SELECT * From staff;");
+        ResultSet rs = db.execution("SELECT s.staffID,s.staffName,s.staffdob,s.staffAddr,s.staffGender,s.staffPhone,r.roleName From staff s join role r on s.staff_roleID = r.roleID;");
         try {
             while(rs.next()){
                 Staff staff = new Staff(rs.getInt(1));
@@ -25,7 +28,7 @@ public class staffDAO {
                 staff.setStaffAddr(rs.getString(4));
                 staff.setStaffGender(rs.getString(5));
                 staff.setStaffPhone(rs.getString(6));
-                staff.setStaff_role(rs.getInt(7));
+                staff.setRole_name(rs.getString(7));
                 l_staff.add(staff);
             }
         } catch (Exception e) {
@@ -58,11 +61,11 @@ public class staffDAO {
         try {
             String sql="UPDATE staff SET ";
         sql+="staffName='"+ staff.getStaffName()+"',";
-        sql+="staffAuthorID='"+ staff.getStaffDOB()+"',";
-        sql+="staffCategoryID='"+ staff.getStaffAddr()+"',";
-        sql+="staffPublisher='"+ staff.getStaffGender()+"',";
-        sql+="staffPrice='"+staff.getStaffPhone()+"',";
-        sql+="staffPages='"+staff.getStaff_role()+"' WHERE staffID="+staff.getStaffID()+";";
+        sql+="staffdob='"+ staff.getStaffDOB()+"',";
+        sql+="staffAddr='"+ staff.getStaffAddr()+"',";
+        sql+="staffGender='"+ staff.getStaffGender()+"',";
+        sql+="staffPhone='"+staff.getStaffPhone()+"',";
+        sql+="staff_roleID='"+staff.getStaff_role()+"' WHERE staffID="+staff.getStaffID()+";";
         db.update(sql);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Error");
@@ -90,5 +93,4 @@ public class staffDAO {
         db.disconnect();
         return null;
     }
-
 }
