@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package View;
+package Controller;
 
 import java.net.URL;
 import java.sql.Connection;
@@ -32,7 +32,7 @@ import javafx.stage.Stage;
  * @author Anh Quan
  */
 
-public class Login implements Initializable {
+public class LoginController implements Initializable {
     @FXML
     private Button loginBtn;
     @FXML

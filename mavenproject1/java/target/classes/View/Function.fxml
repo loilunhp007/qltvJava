@@ -8,41 +8,46 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="705.0" prefWidth="841.0" style="-fx-border-radius: 50px;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.FunctionController">
-   <children>      
-      <Button layoutX="63.0" layoutY="372.0" mnemonicParsing="false">
+<AnchorPane prefHeight="705.0" prefWidth="841.0" style="-fx-background-color: #F0F8FF;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.FunctionController">
+   <children>
+      <ImageView fitHeight="674.0" fitWidth="880.0" layoutX="1.0" layoutY="73.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../resources/res/background.jpg" />
+         </image>
+      </ImageView>      
+      <Button layoutX="148.0" layoutY="372.0" mnemonicParsing="false">
          <graphic>
             <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="102.0" layoutY="147.0" pickOnBounds="true" preserveRatio="true">
                <image>
-               <Image url="@../res/book.png" />
+               <Image url="@../../resources/res/book.png" />
                </image>
             </ImageView>
          </graphic> 
       </Button>
-      <Button layoutX="383.0" layoutY="131.0" mnemonicParsing="false">
+      <Button layoutX="549.0" layoutY="131.0" mnemonicParsing="false">
          <graphic>
             <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="102.0" layoutY="147.0" pickOnBounds="true" preserveRatio="true">
                <image>
-               <Image url="@../res/settings.png" />
+               <Image url="@../../resources/res/settings.png" />
                </image>
             </ImageView>
          </graphic> 
       </Button>
 
-      <Button layoutX="383.0" layoutY="372.0" mnemonicParsing="false">
+      <Button layoutX="549.0" layoutY="372.0" mnemonicParsing="false">
          <graphic>
             <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="102.0" layoutY="147.0" pickOnBounds="true" preserveRatio="true">
                <image>
-               <Image url="@../res/personnel.png" />
+               <Image url="@../../resources/res/personnel.png" />
                </image>
             </ImageView>
          </graphic>
       </Button>
-      <Button layoutX="77.0" layoutY="131.0" mnemonicParsing="false">
+      <Button layoutX="148.0" layoutY="131.0" mnemonicParsing="false">
          <graphic>
             <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="102.0" layoutY="147.0" pickOnBounds="true" preserveRatio="true">
                <image>
-               <Image url="@../res/logout.png" />
+               <Image url="@../../resources/res/logout.png" />
                </image>
             </ImageView>
          </graphic>
