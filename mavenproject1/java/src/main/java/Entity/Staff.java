@@ -2,7 +2,7 @@ package Entity;
 
 public class Staff {
     private String staffName,staffdob,staffAddr,staffGender;
-    private  String staffPhone;
+    private  String staffPhone,role_name;
     private int staffID,staff_role;
 
     public Staff() {
@@ -12,8 +12,7 @@ public class Staff {
         this.staffID = staffID;
     }
 
-    public Staff(int staffID, String staffName, String staffDOB, String staffAddr,
-    String staffGender,String staffPhone, int staff_role) {
+    public Staff(int staffID, String staffName, String staffDOB, String staffAddr,String staffGender,String staffPhone, int staff_role) {
         this.staffID = staffID;
         this.staffName = staffName;
         this.staffdob = staffDOB;
@@ -21,6 +20,15 @@ public class Staff {
         this.staffGender = staffGender;
         this.staffPhone = staffPhone;
         this.staff_role = staff_role;
+    }
+    public Staff(int staffID, String staffName, String staffDOB, String staffAddr,String staffGender,String staffPhone, String role_name) {
+        this.staffID = staffID;
+        this.staffName = staffName;
+        this.staffdob = staffDOB;
+        this.staffAddr = staffAddr;
+        this.staffGender = staffGender;
+        this.staffPhone = staffPhone;
+        this.role_name = role_name;
     }
 
     public int getStaffID() {
@@ -89,5 +97,13 @@ public class Staff {
                 ", staffPhone=" + staffPhone +
                 ", staff_role=" + staff_role +
                 '}';
+    }
+
+    public String getRole_name() {
+        return role_name;
+    }
+
+    public void setRole_name(String role_name) {
+        this.role_name = role_name;
     }
 }
