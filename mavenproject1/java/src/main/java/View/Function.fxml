@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.text.*?>
 <?import com.jfoenix.controls.*?>
 <?import javafx.scene.image.*?>
 <?import java.lang.*?>
@@ -10,23 +11,23 @@
 
 <AnchorPane prefHeight="705.0" prefWidth="841.0" style="-fx-background-color: #F0F8FF;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.FunctionController">
    <children>
-      <ImageView fitHeight="674.0" fitWidth="880.0" layoutX="1.0" layoutY="73.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="674.0" fitWidth="880.0" layoutX="-7.0" layoutY="70.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../resources/res/background.jpg" />
          </image>
       </ImageView>      
-      <Button layoutX="148.0" layoutY="372.0" mnemonicParsing="false">
+      <Button layoutX="148.0" layoutY="372.0" mnemonicParsing="false" prefHeight="160.0" prefWidth="160.0" style="-fx-background-radius: 40px;">
          <graphic>
-            <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="102.0" layoutY="147.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="130.0" fitWidth="200.0" layoutX="102.0" layoutY="147.0" pickOnBounds="true" preserveRatio="true">
                <image>
                <Image url="@../../resources/res/book.png" />
                </image>
             </ImageView>
          </graphic> 
       </Button>
-      <Button layoutX="549.0" layoutY="131.0" mnemonicParsing="false">
+      <Button layoutX="549.0" layoutY="131.0" mnemonicParsing="false" prefHeight="160.0" prefWidth="160.0" style="-fx-background-radius: 40px;">
          <graphic>
-            <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="102.0" layoutY="147.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="130.0" fitWidth="200.0" layoutX="102.0" layoutY="147.0" pickOnBounds="true" preserveRatio="true">
                <image>
                <Image url="@../../resources/res/settings.png" />
                </image>
@@ -34,23 +35,28 @@
          </graphic> 
       </Button>
 
-      <Button layoutX="549.0" layoutY="372.0" mnemonicParsing="false">
+      <Button layoutX="549.0" layoutY="372.0" mnemonicParsing="false" prefHeight="160.0" prefWidth="160.0" style="-fx-background-radius: 40px;">
          <graphic>
-            <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="102.0" layoutY="147.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-               <Image url="@../../resources/res/personnel.png" />
-               </image>
-            </ImageView>
-         </graphic>
-      </Button>
-      <Button layoutX="148.0" layoutY="131.0" mnemonicParsing="false">
-         <graphic>
-            <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="102.0" layoutY="147.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="130.0" fitWidth="110.0" layoutX="102.0" layoutY="147.0" pickOnBounds="true" preserveRatio="true">
                <image>
                <Image url="@../../resources/res/logout.png" />
                </image>
             </ImageView>
          </graphic>
       </Button>
+      <Button layoutX="148.0" layoutY="131.0" mnemonicParsing="false" prefHeight="160.0" prefWidth="160.0" style="-fx-background-radius: 40px;">
+         <graphic>
+            <ImageView fitHeight="130.0" fitWidth="110.0" layoutX="102.0" layoutY="147.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+               <Image url="@../../resources/res/personnel.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Label layoutX="179.0" layoutY="308.0" text="Staff Management" textAlignment="CENTER">
+         <font>
+            <Font name="Bookman Old Style" size="14.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

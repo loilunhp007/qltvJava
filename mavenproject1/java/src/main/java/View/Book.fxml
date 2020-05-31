@@ -9,7 +9,7 @@
 
 <BorderPane prefHeight="600.0" prefWidth="823.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.bookController">
    <center>
-      <VBox BorderPane.alignment="CENTER">
+      <VBox styleClass="background" stylesheets="@../../resources/styles/Styles.css" BorderPane.alignment="CENTER">
          <children>
             <HBox alignment="CENTER" prefWidth="823.0" spacing="15.0">
                <children>
