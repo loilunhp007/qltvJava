@@ -7,8 +7,9 @@ public class Lending_Detail {
     public Lending_Detail() {
     }
 
-    public Lending_Detail(int lendID) {
+    public Lending_Detail(int lendID,int bookID) {
         this.lendID = lendID;
+        this.bookID =bookID;
     }
 
     public Lending_Detail(int lendID, int bookID ,String dueDay, String lendStatus) {

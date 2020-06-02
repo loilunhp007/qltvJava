@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.lendingController">
+   <children>
+      <TabPane layoutY="-4.0" prefHeight="808.0" prefWidth="1024.0" tabClosingPolicy="UNAVAILABLE">
+        <tabs>
+          <Tab text="Lending Book">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <DatePicker fx:id="createday" editable="false" layoutX="568.0" layoutY="278.0" prefHeight="31.0" prefWidth="182.0" showWeekNumbers="true" />
+                        <Button fx:id="addBtn" layoutX="873.0" layoutY="14.0" mnemonicParsing="false" onAction="#addLendBtn" prefHeight="66.0" prefWidth="113.0" text="ADD" />
+                        <Button fx:id="updateBtn" layoutX="873.0" layoutY="99.0" mnemonicParsing="false" prefHeight="66.0" prefWidth="113.0" text="UPDATE" />
+                        <Button fx:id="removeBtn" layoutX="873.0" layoutY="194.0" mnemonicParsing="false" prefHeight="66.0" prefWidth="113.0" text="REMOVE" />
+                        <Button fx:id="clear" layoutX="873.0" layoutY="282.0" mnemonicParsing="false" prefHeight="66.0" prefWidth="113.0" text="CLEAR" />
+                        <TextField fx:id="search" layoutX="112.0" layoutY="317.0" prefHeight="31.0" prefWidth="638.0" />
+                        <Label layoutX="55.0" layoutY="322.0" text="Search" />
+                        <TableView fx:id="tableLend" layoutY="368.0" prefHeight="401.0" prefWidth="1024.0">
+                           <columns>
+                              <TableColumn fx:id="t_ID" prefWidth="114.0" text="ID" />
+                              <TableColumn fx:id="t_name" prefWidth="260.0" text="Name" />
+                              <TableColumn fx:id="t_create" prefWidth="257.0" text="Create Day" />
+                              <TableColumn fx:id="t_staff" prefWidth="222.0" text="Staff" />
+                              <TableColumn fx:id="t_total" prefWidth="169.0" text="Total" />
+                           </columns>
+                        </TableView>
+                        <Label layoutX="489.0" layoutY="37.0" text="CardID" />
+                        <Label layoutX="477.0" layoutY="283.0" text="Create Day" />
+                        <Label layoutX="490.0" layoutY="195.0" text="StaffID" />
+                        <Label layoutX="39.0" layoutY="155.0" text="Book Name" />
+                        <Label layoutX="69.0" layoutY="47.0" prefHeight="31.0" prefWidth="15.0" text="ID" />
+                        <TextField fx:id="lendID" editable="false" layoutX="132.0" layoutY="47.0" prefHeight="31.0" prefWidth="183.0" />
+                        <TextField fx:id="cardID" layoutX="568.0" layoutY="31.0" prefHeight="31.0" prefWidth="182.0" />
+                        <TextField fx:id="book" editable="false" layoutX="132.0" layoutY="150.0" prefHeight="31.0" prefWidth="185.0" />
+                        <TextField fx:id="staffID" layoutX="567.0" layoutY="190.0" prefHeight="31.0" prefWidth="185.0" />
+                        <Button fx:id="checkbookBtn" layoutX="331.0" layoutY="98.0" mnemonicParsing="false" onAction="#checkBook" prefHeight="33.0" prefWidth="72.0" text="CHECK" />
+                        <TextField fx:id="bookID" layoutX="133.0" layoutY="99.0" prefHeight="31.0" prefWidth="183.0" />
+                        <Label layoutX="55.0" layoutY="104.0" text="BookID" />
+                        <TextField fx:id="bookAuthor" editable="false" layoutX="131.0" layoutY="205.0" prefHeight="31.0" prefWidth="185.0" />
+                        <Label layoutX="54.0" layoutY="210.0" text="Author" />
+                        <TextField fx:id="studentName" editable="false" layoutX="568.0" layoutY="83.0" prefHeight="31.0" prefWidth="183.0" />
+                        <Label layoutX="466.0" layoutY="88.0" text="Student Name" />
+                        <TextField fx:id="studentClass" editable="false" layoutX="568.0" layoutY="135.0" prefHeight="31.0" prefWidth="183.0" />
+                        <Label layoutX="495.0" layoutY="140.0" text="Class" />
+                        <Button fx:id="checkcardBtn" layoutX="774.0" layoutY="30.0" mnemonicParsing="false" onAction="#checkCard" prefHeight="33.0" prefWidth="72.0" text="CHECK" />
+                        <Label layoutX="54.0" layoutY="262.0" text="Price" />
+                        <TextField fx:id="price" editable="false" layoutX="131.0" layoutY="257.0" prefHeight="31.0" prefWidth="185.0" />
+                        <TextField fx:id="staffName" editable="false" layoutX="567.0" layoutY="231.0" prefHeight="31.0" prefWidth="185.0" />
+                        <Label layoutX="477.0" layoutY="236.0" text="Staff Name" />
+                        <Button fx:id="checkstaffBtn" layoutX="774.0" layoutY="189.0" mnemonicParsing="false" onAction="#checkStaff" prefHeight="33.0" prefWidth="72.0" text="CHECK" />
+                     </children>
+                  </AnchorPane>
+            </content>
+          </Tab>
+          <Tab text="Untitled Tab 2">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+            </content>
+          </Tab>
+        </tabs>
+      </TabPane>
+   </children>
+</AnchorPane>

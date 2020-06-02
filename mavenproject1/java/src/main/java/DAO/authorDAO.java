@@ -3,15 +3,16 @@ package DAO;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Observable;
 
 import javax.swing.JOptionPane;
 
 import Controller.database;
 import Entity.Author;
-
+import javafx.collections.*;
 public class authorDAO {
-    public static List<Author> load(){
-        List<Author> l_Author= new ArrayList<>();
+    public static ObservableList<Author> load(){
+        ObservableList<Author> l_Author=  FXCollections.observableArrayList();
         database db=new database();
         db.getConnect();
         ResultSet rs = db.execution("SELECT * From author;");

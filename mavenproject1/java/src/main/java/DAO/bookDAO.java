@@ -3,16 +3,17 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Observable;
 
 import javax.swing.JOptionPane;
 
 import Controller.database;
  import Entity.Book;
-
+import javafx.collections.*;
 public class bookDAO{
 
-    public static List<Book> load(){
-        List<Book> l_book = new ArrayList<>();
+    public static ObservableList<Book> load() {
+        ObservableList<Book> l_book =FXCollections.observableArrayList();
         database db = new database();
         db.getConnect();
         ResultSet rs = db.execution("SELECT * From book;");

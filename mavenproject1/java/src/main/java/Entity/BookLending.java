@@ -2,22 +2,27 @@ package Entity;
 
 public class BookLending {
     private int lendID,lendStudentID,issued_by;
-    private String createDay,setdueday;
+    private String createDay,studentName,staffName;
     private int total;
 
     public BookLending() {
     }
 
     
-    public BookLending(int lendID, int lendStudentID, String createDay, String setdueday, int total, int issued_by) {
+    public BookLending(int lendID, int lendStudentID, String createDay, int issued_by,int total) {
         this.lendID = lendID;
         this.lendStudentID = lendStudentID;
         this.createDay = createDay;
-        this.setdueday = setdueday;
         this.issued_by = issued_by;
         this.total= total;
     }
-
+    public BookLending(int lendID, String studentName, String createDay, String staffName,int total) {
+        this.lendID = lendID;
+        this.studentName = studentName;
+        this.createDay = createDay;
+        this.staffName = staffName;
+        this.total= total;
+    }
     public int getTotal() {
         return total;
     }
@@ -34,7 +39,7 @@ public class BookLending {
         this.lendID = lendID;
     }
 
-    public int getStudentUserID() {
+    public int getLendStudentID() {
         return lendStudentID;
     }
 
@@ -57,15 +62,6 @@ public class BookLending {
     public void setCreateDay(String createDay) {
         this.createDay = createDay;
     }
-
-    public String getSetdueday() {
-        return setdueday;
-    }
-
-    public void setSetdueday(String setdueday) {
-        this.setdueday = setdueday;
-    }
-
     @Override
     public String toString() {
         return "BookLending{" +
@@ -73,7 +69,6 @@ public class BookLending {
                 ", lendStudentID='" + lendStudentID + '\'' +
                 ", issued_by='" + issued_by + '\'' +
                 ", createDay='" + createDay + '\'' +
-                ", setdueday='" + setdueday + '\'' +
                 ", total=" + total +
                 '}';
     }
@@ -81,4 +76,20 @@ public class BookLending {
     public BookLending(int lendID) {
         this.lendID = lendID;
     }
+    public String getStudentName() {
+        return studentName;
+    }
+
+    public void setStudentName(String studentName) {
+        this.studentName = studentName;
+    }
+
+    public String getStaffName() {
+        return staffName;
+    }
+
+    public void setStaffName(String staffName) {
+        this.staffName = staffName;
+    }
+    
 }
