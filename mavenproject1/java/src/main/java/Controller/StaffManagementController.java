@@ -77,6 +77,13 @@ public class StaffController implements Initializable {
     private RadioButton female;
     @FXML 
     private ChoiceBox role_choice;
+    @FXML
+    private RadioButton namesearch;
+    @FXML
+    private RadioButton idsearch;
+    @FXML
+    private ToggleGroup searchbar;
+
     ObservableList<Staff> staffList = FXCollections.observableArrayList();
     @Override
     public void initialize(URL url, ResourceBundle rb) {
