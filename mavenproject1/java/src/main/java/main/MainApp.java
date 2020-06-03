@@ -1,4 +1,4 @@
-package View;
+package main;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -13,7 +13,7 @@ public class MainApp extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("Book.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("../View/Function.fxml"));
         
         Scene scene = new Scene(root);
         stage.setTitle("Library Management");
