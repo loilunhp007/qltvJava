@@ -3,15 +3,17 @@ package DAO;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Observable;
+
 import javax.swing.JOptionPane;
 
 import java.sql.SQLException;
 import Controller.database;
 import Entity.Account;
-
+import javafx.collections.*;
 public class AccountDAO  {
-    public static List<Account> loadAccount(){
-        List<Account> list_ac=new ArrayList<Account>();
+    public static ObservableList<Account> loadAccount(){
+        ObservableList<Account> list_ac=FXCollections.observableArrayList();
         database db=new database();
         db.getConnect();
         ResultSet rs= db.execution("SELECT * FROM account");
@@ -34,7 +36,7 @@ public class AccountDAO  {
         database db=new database();
         db.getConnect();
         String sql="Select * FROM account WHERE userID='"+id+"'";
-        ResultSet rs=db.execution("sql");
+        ResultSet rs=db.execution(sql);
         try{
         while(rs.next()){
             Account ac=new Account(rs.getInt(1));

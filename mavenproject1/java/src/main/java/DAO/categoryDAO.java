@@ -3,15 +3,16 @@ package DAO;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Observable;
 
 import javax.swing.JOptionPane;
 
 import Controller.database;
 import Entity.Categories;
-
+import javafx.collections.*;
 public class categoryDAO {
-    public static List<Categories> load() {
-        List<Categories> l_categories = new ArrayList<>();
+    public static ObservableList<Categories> load() {
+        ObservableList<Categories> l_categories = FXCollections.observableArrayList();
         database db=new database();
         db.getConnect();
         ResultSet rs = db.execution("SELECT * From categories;");
