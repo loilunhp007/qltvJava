@@ -71,15 +71,76 @@
                   </VBox>
                </children>
             </HBox>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+                     <children>
+                        <Button fx:id="card" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="150.0" prefWidth="150.0" style="-fx-background-radius: 20px;" styleClass="functionButton" stylesheets="@../../resources/styles/Styles.css">
+                           <graphic>
+                              <ImageView fx:id="cardimg" fitHeight="190.0" fitWidth="130.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../resources/res/card.png" />
+                                 </image>
+                                 <viewport>
+                                    <Rectangle2D />
+                                 </viewport>
+                              </ImageView>
+                           </graphic>
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                        </Button>
+                        <Label text="Library Card">
+                           <font>
+                              <Font name="Consolas" size="14.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets top="10.0" />
+                           </VBox.margin>
+                        </Label>
+                     </children>
+                     <HBox.margin>
+                        <Insets bottom="20.0" left="50.0" right="50.0" />
+                     </HBox.margin>
+                  </VBox>
+                  <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+                     <children>
+                        <Button fx:id="search" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="150.0" prefWidth="150.0" style="-fx-background-radius: 20px;" styleClass="functionButton" stylesheets="@../../resources/styles/Styles.css">
+                           <graphic>
+                              <ImageView fx:id="searchimg" fitHeight="130.0" fitWidth="200.0" layoutX="102.0" layoutY="147.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../resources/res/search.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                        </Button>
+                        <Label text="Search">
+                           <font>
+                              <Font name="Consolas" size="14.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets top="10.0" />
+                           </VBox.margin>
+                        </Label>
+                     </children>
+                     <HBox.margin>
+                        <Insets bottom="20.0" left="50.0" right="50.0" />
+                     </HBox.margin>
+                  </VBox>
+               </children>
+            </HBox>
             <HBox alignment="CENTER">
                <children>
                   <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
                      <children>
-                        <Button fx:id="settings" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="150.0" prefWidth="150.0" style="-fx-background-radius: 20px;" styleClass="functionButton" stylesheets="@../../resources/styles/Styles.css">
+                        <Button fx:id="report" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="150.0" prefWidth="150.0" style="-fx-background-radius: 20px;" styleClass="functionButton" stylesheets="@../../resources/styles/Styles.css">
                            <graphic>
-                              <ImageView fx:id="settingsimg" fitHeight="110.0" fitWidth="110.0" layoutX="102.0" layoutY="147.0" pickOnBounds="true" preserveRatio="true">
+                              <ImageView fx:id="reportimg" fitHeight="110.0" fitWidth="110.0" layoutX="102.0" layoutY="147.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@../../resources/res/settings.png" />
+                                    <Image url="@../../resources/res/report.png" />
                                  </image>
                               </ImageView>
                            </graphic>
@@ -130,4 +191,11 @@
          </children>
       </VBox>
    </center>
+   <top>
+      <Label text="Function" BorderPane.alignment="CENTER">
+         <font>
+            <Font name="Bookman Old Style Bold Italic" size="24.0" />
+         </font>
+      </Label>
+   </top>
 </BorderPane>

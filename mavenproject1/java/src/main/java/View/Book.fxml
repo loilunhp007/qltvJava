@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.text.*?>
 <?import com.jfoenix.controls.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.geometry.*?>
@@ -144,4 +145,11 @@
          </columns>
       </TableView>
    </bottom>
+   <top>
+      <Label alignment="CENTER" text="Book" BorderPane.alignment="CENTER">
+         <font>
+            <Font name="Bookman Old Style Bold Italic" size="24.0" />
+         </font>
+      </Label>
+   </top>
 </BorderPane>

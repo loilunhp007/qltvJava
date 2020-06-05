@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.text.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import java.lang.*?>
@@ -90,4 +91,11 @@
          </columns>
       </TableView>
    </bottom>
+   <top>
+      <Label text="Library Card" BorderPane.alignment="CENTER">
+         <font>
+            <Font name="Bookman Old Style Bold Italic" size="24.0" />
+         </font>
+      </Label>
+   </top>
 </BorderPane>
