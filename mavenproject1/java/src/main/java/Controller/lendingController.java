@@ -1,7 +1,7 @@
 package Controller;
-
 import java.io.IOException;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.sql.*;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -11,9 +11,7 @@ import java.time.format.DateTimeFormatterBuilder;
 import java.util.*;
 import java.util.Date;
 import java.util.logging.Logger;
-
 import javax.swing.JOptionPane;
-
 import Controller.database;
 import DAO.Lending_detailDAO;
 import DAO.authorDAO;
@@ -34,15 +32,15 @@ public class lendingController implements Initializable {
     @FXML
     private TableView<BookLending> tableLend;
     @FXML
-    private TableColumn<Student, Integer> t_ID;
+    private TableColumn<BookLending, Integer> t_ID;
     @FXML
-    private TableColumn<Student, String> t_name;
+    private TableColumn<BookLending, String> t_name;
     @FXML
-    private TableColumn<Student, String> t_create;
+    private TableColumn<BookLending, String> t_create;
     @FXML
-    private TableColumn<Student, String> t_staff;
+    private TableColumn<BookLending, String> t_staff;
     @FXML
-    private TableColumn<Student, Integer> t_total;
+    private TableColumn<BookLending, Integer > t_total;
     @FXML
     private Button addBtn;
     @FXML
@@ -64,7 +62,13 @@ public class lendingController implements Initializable {
     @FXML
     private TextField bookID;
     @FXML
-    private TextField bookAuthor;
+    private TextField book2ID;
+    @FXML
+    private TextField book3ID;
+    @FXML
+    private TextField bookName1;
+    @FXML
+    private TextField bookName2;
     @FXML
     private DatePicker createday;
     @FXML
@@ -76,17 +80,54 @@ public class lendingController implements Initializable {
     @FXML
     private TextField studentClass;
     @FXML
-    private TextField price;
-    @FXML
     private TextField staffName;
     @FXML
     private TextField search;
+    //Book Lending end
+    @FXML
+    private TableView<Lending_Detail> tableReturn;
+    @FXML
+    private TableColumn<Student, Integer> r_ID;
+    @FXML
+    private TableColumn<Student, String> r_name;
+    @FXML
+    private TableColumn<Student, String> r_returndate;
+    @FXML
+    private TableColumn<Student, String> r_status;
+    @FXML
+    private Button returnBook;
+    @FXML
+    private Button clear1;
+    @FXML
+    private Button checkreturnID;
+    @FXML
+    private TextField RlendID;
+    @FXML
+    private TextField RcardID;
+    @FXML
+    private TextField RbookID;
+    @FXML
+    private TextField RbookAuthor;
+    @FXML
+    private TextField Rbook;
+    @FXML
+    private TextField RstudentName;
+    @FXML
+    private TextField RstudentClass;
+    @FXML
+    private TextField Rprice;
+    @FXML
+    private TextField search1;
+    //Book return END
     ObservableList<BookLending> lendList = FXCollections.observableArrayList();
+    ObservableList<Lending_Detail> returnList = FXCollections.observableArrayList();
+
     @Override
     public void initialize( URL url, ResourceBundle rb){
         convertDate();
         loadLend();
-        //onSelect();
+        loadDetail();
+        onSelect();
     }
     public void convertDate(){
        String pattern="yyyy-MM-dd";
@@ -131,17 +172,41 @@ public class lendingController implements Initializable {
         t_total.setCellValueFactory(new PropertyValueFactory<>("total"));
         tableLend.setItems(lendList);     
     }
+    public void loadDetail(){
+        database db=new database();
+        try {
+            db.getConnect();
+            returnList=Lending_detailDAO.load();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        db.disconnect();
+        r_ID.setCellValueFactory(new PropertyValueFactory<>("lendID"));
+        r_name.setCellValueFactory(new PropertyValueFactory<>("bookName"));
+        r_returndate.setCellValueFactory(new PropertyValueFactory<>("dueDay"));
+        r_status.setCellValueFactory(new PropertyValueFactory<>("lendStatus"));
+        tableReturn.setItems(returnList);
+    }
     //Check book
     public void checkBook(ActionEvent event) throws Exception{
         int bookid1=Integer.parseInt(bookID.getText());
+        if(book2ID.getText()!=null){
+            int bookid2=Integer.parseInt(book2ID.getText());
+            Book b2=new Book();
+            b2=bookDAO.findBookByID(bookid2);
+            bookName1.setText(b2.getBookName());
+        }
+        if(book3ID.getText()!=null){
+            int bookid3=Integer.parseInt(book3ID.getText());
+            Book b3=new Book();
+            b3=bookDAO.findBookByID(bookid3);
+            bookName2.setText(b3.getBookName());
+        }
         Book b1=new Book();
-        Author aut=new Author();
         b1=bookDAO.findBookByID(bookid1);
-        aut=authorDAO.findAuthorByID(b1.getBookAuthorID());
         book.setText(b1.getBookName());
-        bookAuthor.setText(aut.getAuthorName());
-        String price1=Integer.toString(b1.getBookPrice());
-        price.setText(price1);
+
+
     }
 //Check book end
 
@@ -159,7 +224,40 @@ public void checkCard(ActionEvent event) throws Exception{
     }
     
 }
+public void checkReturnStudent(ActionEvent event) throws Exception{
+    try {
+        int returnid=Integer.parseInt(RcardID.getText());
+        BookLending bl=new BookLending();
+        bl=bookLendingDAO.findLendByStudentID(returnid);
+        Student st=new Student();
+        st=studentDAO.findStudentByID(returnid);
+        String stname=st.getStudentName();
+        String stclass=st.getStudentClass();
+        lendID.setText(Integer.toString(bl.getLendStudentID()));
+        RstudentName.setText(stname);
+        RstudentClass.setText(stclass);
 
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(null, "No student or lendID Found");
+    }
+}
+public void checkReturnBook(ActionEvent event) throws Exception{
+    try {
+        int returnbook=Integer.parseInt(RbookID.getText());
+        Book b=new Book();
+        b=bookDAO.findBookByID(returnbook);
+        String bname=b.getBookName();
+        int bauthorID=b.getBookAuthorID();
+        Author aut =new Author();
+        String bauthor=aut.getAuthorName();
+        String price1=Integer.toString(b.getBookPrice());
+        Rbook.setText(bname);
+        RbookAuthor.setText(bauthor);
+        Rprice.setText(price1);
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(null, "No book Found");
+    }
+}
 //Check card student end
 
 //staff check
@@ -182,6 +280,8 @@ public void checkStaff(ActionEvent event) throws Exception{
         try {
         BookLending bl = new BookLending();
         Lending_Detail ld= new Lending_Detail();
+        Lending_Detail ld2= new Lending_Detail();
+        Lending_Detail ld3= new Lending_Detail();
         int cardid1=Integer.parseInt(cardID.getText());
         LocalDate date1= LocalDate.now();
         createday.setValue(date1);
@@ -203,8 +303,29 @@ public void checkStaff(ActionEvent event) throws Exception{
         ld.setDueDay(out);
         ld.setLendStatus("Lending");//add to detail
         Lending_detailDAO.addLend(ld);
+        if(book2ID.getText()!=null){
+        String txtID1=book2ID.getText();
+        int bookID1=Integer.parseInt(txtID1);
+        ld2.setLendID(lendid1);
+        ld2.setBookID(bookID1);
+        ld2.setDueDay(out);
+        ld2.setLendStatus("Lending");
+        Lending_detailDAO.addLend(ld2);
+        //add to detail
+        }
+        if(book3ID.getText()!=null){
+            String txtID2=book3ID.getText();
+        int bookID2=Integer.parseInt(txtID2);
+        ld3.setLendID(lendid1);
+        ld3.setBookID(bookID2);
+        ld3.setDueDay(out);
+        ld3.setLendStatus("Lending");//add to detail
+        Lending_detailDAO.addLend(ld3);
+
+        }
         //clearALL();
         loadLend();
+        loadDetail();
         } 
         catch (Exception e) {
             JOptionPane.showMessageDialog(null,"Error to Lend");
@@ -217,22 +338,19 @@ public void checkStaff(ActionEvent event) throws Exception{
         //error
         BookLending bl = new BookLending();
         int idd=Integer.parseInt(lendID.getText());
-        String Name=cardID.getText();
-        int cardid=Integer.parseInt(Name);
-        LocalDate date1=createday.getValue();
-        String create1=date1.toString();
+        String cardid1=cardID.getText();
+        int cardid=Integer.parseInt(cardid1);
         String  staff1=staffID.getText();
         int issued_by=Integer.parseInt(staff1);
         bl.setLendID(idd);
         bl.setLendStudentID(cardid);
-        bl.setCreateDay(create1);
         bl.setIssued_by(issued_by);
         bookLendingDAO.editLend(bl);
         loadLend();
     }
 
 //delete start
-    public void removeCardBtn(ActionEvent event){
+    public void removeLendBtn(ActionEvent event){
         Alert.AlertType type=Alert.AlertType.CONFIRMATION;
         Alert al=new Alert(type,"");
         al.setTitle("Confirm");
@@ -240,36 +358,61 @@ public void checkStaff(ActionEvent event) throws Exception{
         Optional<ButtonType> res= al.showAndWait();
         if(res.get() == ButtonType.OK){
             int idd=Integer.parseInt(lendID.getText());
-            int idd2=Integer.parseInt(book.getText());
+            int idd2=Integer.parseInt(bookID.getText());
+            Lending_detailDAO.deleteLend(idd,idd2);
             bookLendingDAO.deleteLend(idd);
-            Lending_detailDAO.deleteLend(idd, idd2);
             loadLend();
         }
       
     }
-//delete end    
+//delete end   
     
     //          Add student end
-    /*public void onSelect() {
+    public void onSelect() {
         this.tableLend.setRowFactory(param -> {
             TableRow row = new TableRow();
 
             row.setOnMouseClicked(et -> {
                 BookLending bl = this.tableLend.getSelectionModel().getSelectedItem();
+                BookLending bl2=new BookLending();
                 this.lendID.setText(Integer.toString(bl.getLendID()));
-                this.st.setText((student.getStudentName()));
-                LocalDate create1=LocalDate.parse(student.getStudentDOB());
-                this.create.setValue(create1);
-                this.studentclass.setText(student.getStudentClass());
+                int id=bl.getLendID();
+                bl2=bookLendingDAO.findLendByID(id);
+                this.cardID.setText(Integer.toString(bl2.getLendStudentID()));
+                LocalDate create1=LocalDate.parse(bl.getCreateDay());
+                this.createday.setValue(create1);
             });
             return row;
         });
     }
     public void clearALL(){
-        id.clear();
-        name.clear();
-        create.setValue(null);
-        email.clear();
-        studentclass.clear();
-    }*/
+        lendID.clear();
+        bookID.clear();
+        book2ID.clear();
+        book3ID.clear();
+        book.clear();
+        bookName1.clear();
+        bookName2.clear();
+        cardID.clear();
+        studentName.clear();
+        studentClass.clear();
+        createday.setValue(null);
+        staffID.clear();
+        staffName.clear();
+    }
+    // return book
+    public void ReturnBtn(ActionEvent event){
+        Lending_Detail ld=new Lending_Detail();
+        ld.setLendID(Integer.parseInt(RlendID.getText()));
+        ld.setBookID(Integer.parseInt(RbookID.getText()));
+        LocalDate date1=LocalDate.now();
+        String returndate=date1.toString();
+        ld.setDueDay(returndate);
+        ld.setLendStatus("Returned");
+        Lending_detailDAO.editLend(ld);
+        loadDetail();       
+    }
+    public void get_accountID(int ID){
+        staffID.setText(Integer.toString(ID));
+    }
 }

@@ -18,6 +18,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.control.*;
 /**
  * FXML Controller class
  *
@@ -41,12 +42,17 @@ public class FunctionController implements Initializable {
     private ImageView settingsimg;
     @FXML
     private ImageView logoutimg;
-    
+    @FXML 
+    private TextField log;
+    @FXML
      
     @Override
     public void initialize( URL url, ResourceBundle rb){
         //bookimg.setImage(new Image("../../resources/res/personnel.png"));
 
+    }
+    public void get_accountID(int ID){
+        log.setText(Integer.toString(ID));
     }
     
 }

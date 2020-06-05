@@ -12,6 +12,8 @@ import java.sql.ResultSet;
 import java.util.ResourceBundle;
 import java.util.regex.Pattern;
 
+import javax.swing.JOptionPane;
+
 import com.jfoenix.controls.JFXDialogLayout;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
@@ -66,7 +68,7 @@ public class LoginController implements Initializable {
         db.getConnect();
         String txtName=username.getText();
         String txtPass=password.getText();
-        ResultSet rs=db.execution("SELECT userName,userPassword FROM account");
+        ResultSet rs=db.execution("SELECT userName,userPassword,staffID FROM account");
         while(rs.next()){
             /*if(validateUser(txtName) &&validatePass(txtPass)){
                 if(txtName.equals(rs.getString(1)) && txtPass.equals(rs.getString(2))){
@@ -86,13 +88,12 @@ public class LoginController implements Initializable {
             }*/
             if(txtName.equals(rs.getString(1)) && txtPass.equals(rs.getString(2))){
                 loginBtn.getScene().getWindow().hide();
-                Parent root = FXMLLoader.load(getClass().getResource("/fxml/Function.fxml"));
+                Parent root = FXMLLoader.load(getClass().getResource("../View/Function.fxml"));
                 Stage mainStage=new Stage();
                 Scene scene=new Scene(root);
                 mainStage.setScene(scene);
                 mainStage.show();
             }
-           
         }
         /*if (Connect.checkAccount(username.getText(),password.getText()) == 0) {
             ResultSet rs=db.excution("select ");

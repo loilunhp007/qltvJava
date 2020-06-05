@@ -2,7 +2,7 @@ package Entity;
 
 public class Lending_Detail {
     private int lendID,bookID;
-    private String dueDay,lendStatus;
+    private String dueDay,lendStatus,bookName;
 
     public Lending_Detail() {
     }
@@ -15,6 +15,12 @@ public class Lending_Detail {
     public Lending_Detail(int lendID, int bookID ,String dueDay, String lendStatus) {
         this.lendID = lendID;
         this.bookID = bookID;
+        this.dueDay = dueDay;
+        this.lendStatus = lendStatus;
+    }
+    public Lending_Detail(int lendID, String bookName ,String dueDay, String lendStatus) {
+        this.lendID = lendID;
+        this.bookName = bookName;
         this.dueDay = dueDay;
         this.lendStatus = lendStatus;
     }
@@ -60,4 +66,13 @@ public class Lending_Detail {
                 ", lendStatus='" + lendStatus + '\'' +
                 '}';
     }
+
+    public String getBookName() {
+        return bookName;
+    }
+
+    public void setBookName(String bookName) {
+        this.bookName = bookName;
+    }
+    
 }

@@ -17,10 +17,12 @@ public class Lending_detailDAO {
     public static ObservableList<Lending_Detail> load(){
         ObservableList<Lending_Detail> l_lenddetail = FXCollections.observableArrayList();
         database db = new database();
-        ResultSet rs= db.execution("SELECT ld.lendID,b,bookName,ld.dueDay,ld.lenStatus FROM lending_detail ld join booklending bl on ld.lendID=bl.lendID join book b on ld.bookID=b.bookID;");
+        ResultSet rs= db.execution("SELECT ld.lendID,b.bookName,ld.dueDay,ld.lendStatus FROM lending_detail ld join booklending bl on ld.lendID=bl.lendID join book b on ld.bookID=b.bookID WHERE 1 ORDER BY lendID ASC;");
         try {
             while(rs.next()){
-                Lending_Detail ld=new Lending_Detail(rs.getInt(1),rs.getInt(2));
+                Lending_Detail ld=new Lending_Detail();
+                ld.setLendID(rs.getInt(1));
+                ld.setBookName(rs.getString(2));
                 ld.setDueDay(rs.getString(3));
                 ld.setLendStatus(rs.getString(4));
                 l_lenddetail.add(ld);
@@ -32,15 +34,21 @@ public class Lending_detailDAO {
         return l_lenddetail;
     }
     public static void addLend(Lending_Detail ld){
-        database db = new database();
-        db.getConnect();
-        String sql = "INSERT INTO lending_detail (lendID,bookID,dueDay,lendStatus) VALUES ('";
-        sql +=ld.getLendID()+"','";
-        sql += ld.getBookID() +"','";
-        sql += ld.getDueDay() +"','";
-        sql +=ld.getLendStatus()+"');";
-        db.update(sql);
-        db.disconnect();
+        try {
+            database db = new database();
+            db.getConnect();
+            String sql = "INSERT INTO lending_detail (lendID,bookID,dueDay,lendStatus) VALUES ('";
+            sql +=ld.getLendID()+"','";
+            sql += ld.getBookID() +"','";
+            sql += ld.getDueDay() +"','";
+            sql +=ld.getLendStatus()+"');";
+            db.update(sql);
+            db.disconnect();     
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null,"Error to add borrow");
+            e.printStackTrace();
+        }
+       
     }
     public static void editLend(Lending_Detail ld){
         database db=new database();
@@ -56,25 +64,33 @@ public class Lending_detailDAO {
         db.disconnect();
     }
     public static void deleteLend(int lendID,int bookID){
-        database db = new database();
+        try {
+            database db = new database();
         db.getConnect();
-        db.update("DELETE FROM booklending WHERE lendID='"+lendID+"' AND bookID='"+bookID+"'");
-        db.disconnect();
+        db.update("SET FOREIGN_KEY_CHECKS=0;");
+        db.update("DELETE FROM lending_detail WHERE lendID='"+lendID+"' and bookID='"+bookID+"';");
+        db.update("SET FOREIGN_KEY_CHECKS=1;");
+        db.disconnect();    
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
     }
-    public static BookLending findLendByID(int lendID){
+    public static Lending_Detail findLendByID(int lendID,int bookID){
         database db = new database();
         db.getConnect();
-        ResultSet rs = db.execution("SELECT * From booklending WHERE lendID="+ lendID);
+        ResultSet rs = db.execution("SELECT * From booklending WHERE lendID=''"+ lendID+"' and bookID='"+bookID+"';");
         try {
             while(rs.next()){
-                BookLending bl = new BookLending(rs.getInt(1));
-                bl.setLendStudentID(rs.getInt(2));
-                bl.setCreateDay(rs.getString(3));
-                bl.setIssued_by(rs.getInt(4));
-                return bl;
+                Lending_Detail ld = new Lending_Detail();
+                ld.setLendID(rs.getInt(1));
+                ld.setBookID(rs.getInt(2));
+                ld.setDueDay(rs.getString(3));
+                ld.setLendStatus(rs.getString(4));
+                return ld;
             }
         } catch (Exception e) {
-            
+            JOptionPane.showMessageDialog(null,"Not founnd detail");
         }
         db.disconnect();
         return null;
