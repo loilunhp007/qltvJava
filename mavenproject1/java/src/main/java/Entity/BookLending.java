@@ -2,24 +2,26 @@ package Entity;
 
 public class BookLending {
     private int lendID,lendStudentID,issued_by;
-    private String createDay,studentName,staffName;
+    private String createDay,studentName,staffName,returnDate;
     private int total;
 
     public BookLending() {
     }
 
     
-    public BookLending(int lendID, int lendStudentID, String createDay, int issued_by,int total) {
+    public BookLending(int lendID, int lendStudentID, String createDay, String returnDate,int issued_by,int total) {
         this.lendID = lendID;
         this.lendStudentID = lendStudentID;
         this.createDay = createDay;
+        this.returnDate= returnDate;
         this.issued_by = issued_by;
         this.total= total;
     }
-    public BookLending(int lendID, String studentName, String createDay, String staffName,int total) {
+    public BookLending(int lendID, String studentName, String createDay,String returnDate, String staffName,int total) {
         this.lendID = lendID;
         this.studentName = studentName;
         this.createDay = createDay;
+        this.returnDate= returnDate;
         this.staffName = staffName;
         this.total= total;
     }
@@ -90,6 +92,14 @@ public class BookLending {
 
     public void setStaffName(String staffName) {
         this.staffName = staffName;
+    }
+
+    public String getReturnDate() {
+        return returnDate;
+    }
+
+    public void setReturnDate(String returnDate) {
+        this.returnDate = returnDate;
     }
     
 }
