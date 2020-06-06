@@ -133,7 +133,7 @@ public class lendingController implements Initializable {
         convertDate();
         loadLend();
         loadDetail();
-        onSelect();
+        //onSelect();
     }
     public void convertDate(){
        String pattern="yyyy-MM-dd";
@@ -174,7 +174,7 @@ public class lendingController implements Initializable {
         t_ID.setCellValueFactory(new PropertyValueFactory<>("lendID"));
         t_name.setCellValueFactory(new PropertyValueFactory<>("studentName"));
         t_create.setCellValueFactory(new PropertyValueFactory<>("createDay"));
-        t_return.setCellValueFactory(new PropertyValueFactory<>("return_date"));
+        t_return.setCellValueFactory(new PropertyValueFactory<>("returnDate"));
         t_staff.setCellValueFactory(new PropertyValueFactory<>("staffName"));
         t_total.setCellValueFactory(new PropertyValueFactory<>("total"));
         tableLend.setItems(lendList);     
@@ -294,12 +294,12 @@ public void checkStaff(ActionEvent event) throws Exception{
         Lending_Detail ld3= new Lending_Detail();
         int cardid1=Integer.parseInt(cardID.getText());
         LocalDate date1= LocalDate.now();
-        createday.setValue(date1);
-        LocalDate date2=createday.getValue();
-        String create1=date2.toString();
+        String create1=date1.toString();
+        String returndate=createday.getValue().toString();
         int staff1=Integer.parseInt(staffID.getText());
         bl.setLendStudentID(cardid1);
         bl.setCreateDay(create1);
+        bl.setReturnDate(returndate);
         bl.setIssued_by(staff1);
         bookLendingDAO.addLend(bl);
         //add to booklending
