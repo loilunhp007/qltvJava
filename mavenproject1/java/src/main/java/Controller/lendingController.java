@@ -259,6 +259,7 @@ public void checkReturnBook(ActionEvent event) throws Exception{
         String bname=b.getBookName();
         int bauthorID=b.getBookAuthorID();
         Author aut =new Author();
+        aut=authorDAO.findAuthorByID(bauthorID);
         String bauthor=aut.getAuthorName();
         String price1=Integer.toString(b.getBookPrice());
         Rbook.setText(bname);
@@ -290,8 +291,6 @@ public void checkStaff(ActionEvent event) throws Exception{
         try {
         BookLending bl = new BookLending();
         Lending_Detail ld= new Lending_Detail();
-        Lending_Detail ld2= new Lending_Detail();
-        Lending_Detail ld3= new Lending_Detail();
         int cardid1=Integer.parseInt(cardID.getText());
         LocalDate date1= LocalDate.now();
         String create1=date1.toString();
@@ -314,6 +313,7 @@ public void checkStaff(ActionEvent event) throws Exception{
         ld.setLendStatus("Lending");//add to detail
         Lending_detailDAO.addLend(ld);
         if(book2ID.getText()!=null){
+        Lending_Detail ld2= new Lending_Detail();
         String txtID1=book2ID.getText();
         int bookID1=Integer.parseInt(txtID1);
         ld2.setLendID(lendid1);
@@ -324,21 +324,23 @@ public void checkStaff(ActionEvent event) throws Exception{
         //add to detail
         }
         if(book3ID.getText()!=null){
-            String txtID2=book3ID.getText();
+        Lending_Detail ld3= new Lending_Detail();
+        String txtID2=book3ID.getText();
         int bookID2=Integer.parseInt(txtID2);
         ld3.setLendID(lendid1);
         ld3.setBookID(bookID2);
         ld3.setDueDay(out);
         ld3.setLendStatus("Lending");//add to detail
         Lending_detailDAO.addLend(ld3);
-
-        }
         //clearALL();
         loadLend();
         loadDetail();
-        } 
+        }
+    } 
         catch (Exception e) {
-            JOptionPane.showMessageDialog(null,"Error to Lend");
+            loadLend();
+            loadDetail();
+            
         }
     }
 
@@ -381,9 +383,9 @@ public void checkStaff(ActionEvent event) throws Exception{
     public void onSelect() {
         this.tableLend.setRowFactory(param -> {
             TableRow row = new TableRow();
-
             row.setOnMouseClicked(et -> {
-                BookLending bl = this.tableLend.getSelectionModel().getSelectedItem();
+                if(this.tableLend.getSelectionModel().getSelectedItem()!=null){
+                    BookLending bl = this.tableLend.getSelectionModel().getSelectedItem();
                 BookLending bl2=new BookLending();
                 this.lendID.setText(Integer.toString(bl.getLendID()));
                 int id=bl.getLendID();
@@ -391,6 +393,8 @@ public void checkStaff(ActionEvent event) throws Exception{
                 this.cardID.setText(Integer.toString(bl2.getLendStudentID()));
                 LocalDate create1=LocalDate.parse(bl.getCreateDay());
                 this.createday.setValue(create1);
+                }
+                
             });
             return row;
         });
