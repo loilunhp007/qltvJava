@@ -6,7 +6,7 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.AccountController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.AccountController">
    <top>
       <Label alignment="CENTER" text="Account" textAlignment="CENTER" BorderPane.alignment="CENTER">
          <font>
@@ -27,14 +27,14 @@
                   </HBox>
                   <HBox alignment="CENTER" prefHeight="50.0">
                      <children>
-                        <Label alignment="CENTER" prefHeight="20.0" prefWidth="70.0" text="Name" />
-                        <TextField fx:id="book" prefHeight="25.0" prefWidth="230.0" />
+                        <Label alignment="CENTER" prefHeight="20.0" prefWidth="70.0" text="Username" />
+                        <TextField fx:id="userName" prefHeight="25.0" prefWidth="230.0" />
                      </children>
                   </HBox>
                   <HBox alignment="CENTER" prefHeight="50.0">
                      <children>
                         <Label alignment="CENTER" prefHeight="20.0" prefWidth="70.0" text="Password" />
-                        <TextField fx:id="book1" prefHeight="25.0" prefWidth="230.0" />
+                        <TextField fx:id="userPass" prefHeight="25.0" prefWidth="230.0" />
                      </children>
                   </HBox>
                </children>
@@ -50,22 +50,22 @@
                   <HBox alignment="CENTER" prefHeight="50.0">
                      <children>
                         <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="21.0" prefWidth="100.0" text="Out of Day" textAlignment="CENTER" />
-                        <DatePicker fx:id="createday1" editable="false" prefHeight="25.0" prefWidth="230.0" showWeekNumbers="true" />
+                        <DatePicker fx:id="outday" editable="false" prefHeight="25.0" prefWidth="230.0" showWeekNumbers="true" />
                      </children>
                   </HBox>
                   <HBox alignment="CENTER" prefHeight="50.0">
                      <children>
                         <Label alignment="CENTER" prefHeight="20.0" prefWidth="100.0" text="Staff ID" />
-                        <TextField fx:id="book2" prefHeight="25.0" prefWidth="230.0" />
+                        <TextField fx:id="staffID" prefHeight="25.0" prefWidth="230.0" />
                      </children>
                   </HBox>
                </children>
             </VBox>
             <VBox alignment="CENTER" spacing="25.0">
                <children>
-                  <Button fx:id="addBtn" alignment="CENTER" mnemonicParsing="false" onAction="#addCardBtn" prefHeight="50.0" prefWidth="100.0" text="ADD" />
-                  <Button fx:id="removeBtn" alignment="CENTER" mnemonicParsing="false" onAction="#removeCardBtn" prefHeight="50.0" prefWidth="100.0" text="REMOVE" />
-                  <Button fx:id="update" alignment="CENTER" mnemonicParsing="false" onAction="#updateCardBtn" prefHeight="50.0" prefWidth="100.0" text="UPDATE" />
+                  <Button fx:id="addBtn" alignment="CENTER" mnemonicParsing="false" onAction="#addAccountBtn" prefHeight="50.0" prefWidth="100.0" text="ADD" />
+                  <Button fx:id="removeBtn" alignment="CENTER" mnemonicParsing="false" onAction="#removeAccountBtn" prefHeight="50.0" prefWidth="100.0" text="REMOVE" />
+                  <Button fx:id="update" alignment="CENTER" mnemonicParsing="false" onAction="#updateAccountBtn" prefHeight="50.0" prefWidth="100.0" text="UPDATE" />
                   <Button fx:id="clear" alignment="CENTER" mnemonicParsing="false" onAction="#clearALL" prefHeight="50.0" prefWidth="100.0" text="CLEAR" />
                </children>
                <HBox.margin>
@@ -76,14 +76,14 @@
       </HBox>
    </center>
    <bottom>
-      <TableView prefHeight="232.0" prefWidth="681.0" BorderPane.alignment="CENTER">
+      <TableView fx:id="tableAccount" prefHeight="232.0" prefWidth="681.0" BorderPane.alignment="CENTER">
         <columns>
-          <TableColumn prefWidth="79.0" text="ID" />
-          <TableColumn minWidth="0.0" prefWidth="118.0" text="Name" />
-            <TableColumn minWidth="0.0" prefWidth="103.0" text="Password" />
-            <TableColumn minWidth="0.0" prefWidth="122.0" text="Start Day" />
-            <TableColumn minWidth="0.0" prefWidth="104.0" text="Out of Day" />
-            <TableColumn prefWidth="73.0" text="Staff ID" />
+          <TableColumn fx:id="t_id" prefWidth="79.0" text="ID" />
+          <TableColumn fx:id="t_name" minWidth="0.0" prefWidth="118.0" text="Name" />
+            <TableColumn fx:id="t_pass" minWidth="0.0" prefWidth="103.0" text="Password" />
+            <TableColumn fx:id="t_startdate" minWidth="0.0" prefWidth="155.0" text="Start Day" />
+            <TableColumn fx:id="t_outdate" minWidth="0.0" prefWidth="147.0" text="Out of Day" />
+            <TableColumn fx:id="t_staffName" prefWidth="137.0" text="Staff ID" />
         </columns>
       </TableView>
    </bottom>

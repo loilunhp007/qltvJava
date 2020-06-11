@@ -22,8 +22,7 @@ public class authorDAO {
                 author.setAuthorName(rs.getString(2));
                 author.setAuthorGender(rs.getString(3));
                 author.setAuthorDOB(rs.getString(4));
-                author.setAuthorGender(rs.getString(5));
-                author.setAuthorEmail(rs.getString(6));
+                author.setAuthorEmail(rs.getString(5));
                 l_Author.add(author);
             }
         } catch (Exception e) {

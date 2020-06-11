@@ -6,8 +6,7 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.CategoryController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.CategoryController">
    <top>
       <Label text="Categories" BorderPane.alignment="CENTER">
          <font>
@@ -35,16 +34,16 @@
                         <HBox alignment="CENTER" prefHeight="100.0">
                            <children>
                               <Label alignment="CENTER" prefHeight="20.0" prefWidth="70.0" text="Name" />
-                              <TextField fx:id="id1" editable="false" prefHeight="25.0" prefWidth="230.0" />
+                              <TextField fx:id="name" prefHeight="25.0" prefWidth="230.0" />
                            </children>
                         </HBox>
                      </children>
                   </VBox>
                   <VBox alignment="CENTER" spacing="25.0">
                      <children>
-                        <Button fx:id="addBtn" alignment="CENTER" mnemonicParsing="false" onAction="#addCardBtn" prefHeight="50.0" prefWidth="100.0" text="ADD" />
-                        <Button fx:id="removeBtn" alignment="CENTER" mnemonicParsing="false" onAction="#removeCardBtn" prefHeight="50.0" prefWidth="100.0" text="REMOVE" />
-                        <Button fx:id="update" alignment="CENTER" mnemonicParsing="false" onAction="#updateCardBtn" prefHeight="50.0" prefWidth="100.0" text="UPDATE" />
+                        <Button fx:id="addBtn" alignment="CENTER" mnemonicParsing="false" onAction="#addCateBtn" prefHeight="50.0" prefWidth="100.0" text="ADD" />
+                        <Button fx:id="removeBtn" alignment="CENTER" mnemonicParsing="false" onAction="#removeCateBtn" prefHeight="50.0" prefWidth="100.0" text="REMOVE" />
+                        <Button fx:id="update" alignment="CENTER" mnemonicParsing="false" onAction="#updateCateBtn" prefHeight="50.0" prefWidth="100.0" text="UPDATE" />
                         <Button fx:id="clear" alignment="CENTER" mnemonicParsing="false" onAction="#clearALL" prefHeight="50.0" prefWidth="100.0" text="CLEAR" />
                      </children>
                      <HBox.margin>
@@ -57,10 +56,10 @@
       </VBox>
    </center>
    <bottom>
-      <TableView prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+      <TableView fx:id="tableCate" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
         <columns>
-          <TableColumn prefWidth="102.0" text="ID" />
-          <TableColumn prefWidth="497.0" text="Name" />
+          <TableColumn fx:id="t_id" prefWidth="126.0" text="ID" />
+          <TableColumn fx:id="t_name" prefWidth="582.0" text="Name" />
         </columns>
       </TableView>
    </bottom>

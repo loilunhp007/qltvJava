@@ -16,15 +16,16 @@ public class AccountDAO  {
         ObservableList<Account> list_ac=FXCollections.observableArrayList();
         database db=new database();
         db.getConnect();
-        ResultSet rs= db.execution("SELECT * FROM account");
+        ResultSet rs= db.execution("SELECT ac.userID,ac.userName,ac.userPassword,ac.startDay,ac.outofDay,s.staffName FROM account ac join staff s on ac.staffid=s.staffID WHERE 1;");
         try {
             while(rs.next()){
                 Account ac=new Account(rs.getInt(1));
-                ac.setUserPassword(rs.getString(2));
-                ac.setStaffID(rs.getInt(3));
+                ac.setUserName(rs.getString(2));
+                ac.setUserPassword(rs.getString(3));
                 ac.setCreateday(rs.getString(4));
                 ac.setOutofday(rs.getString(5));
-                list_ac.add(  ac);
+                ac.setStaffName(rs.getString(6));
+                list_ac.add(ac);
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null,"Error while loading account");
@@ -56,28 +57,42 @@ public class AccountDAO  {
     }
     public static void addAccount(Account ac){
         database db=new database();
-        db.getConnect();
-        String sql= "INSERT INTO account(userName,userPassword,staffID,createday,outofday) VALUES ('";
-        sql +=ac.getUserName()+"','";
-        sql +=ac.getUserPassword()+"','";
-        sql +=ac.getStaffID()+"','";
-        sql +=ac.getCreateday()+"','";
-        sql +=ac.getOutofday()+");";
-        db.update(sql);
+        try {
+            db.getConnect();
+            String sql= "INSERT INTO account(userName,userPassword,startDay,outofDay,staffID) VALUES ('";
+            sql +=ac.getUserName()+"','";
+            sql +=ac.getUserPassword()+"','";
+            sql +=ac.getCreateday()+"','";
+            sql +=ac.getOutofday()+"','";
+            sql +=ac.getStaffID()+"');";
+            db.update(sql);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         db.disconnect();
     }
     public static void deleteAccount(int acID){
         database db=new database();
+        try {
+            db.getConnect();
         db.update("DELETE FROM account WHERE account.userID="+acID);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         db.disconnect();
     }
     public static void editAccount(Account ac){
         database db=new database();
-        db.update("UPDATE account SET ");
-        String sql="userName='"+ac.getUserName()+"',userPassword='"+ac.getUserPassword()+
-        "',staffID="+ac.getStaffID()+"',createday='"+ac.getCreateday()+"',outofday='"+ac.getOutofday()+
-        "' WHERE account.userID="+ac.getUserID()+";";
-        db.update(sql);
+        try {
+            db.getConnect();
+            String sql="UPDATE account SET ";
+            sql+="userName='"+ac.getUserName()+"',userPassword='"+ac.getUserPassword()+
+            "',staffID='"+ac.getStaffID()+"',startDay='"+ac.getCreateday()+"',outofDay='"+ac.getOutofday()+
+            "' WHERE account.userID='"+ac.getUserID()+"';";
+            db.update(sql);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         db.disconnect();
     }
     public List<Account> findAccount(String name,String addr,String phone,String mail) {

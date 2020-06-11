@@ -1,12 +1,11 @@
 package Entity;
-import java.io.Serializable;
 
-public class Account implements Serializable {
-    static final long serialVersionUID=1;
+public class Account {
     private int userID;
     private int staffID;
     private String userName;
     private String userPassword;
+    private String staffName;
     private String createday,outofday;
     public Account() {
     }
@@ -70,7 +69,7 @@ public class Account implements Serializable {
                 '}';
     }
 
-    public Account(int userID, String userName, String userPassword,int staffID, String createday, String outofday) {
+    public Account(int userID, String userName, String userPassword, String createday, String outofday,int staffID) {
         this.userID = userID;
         this.staffID = staffID;
         this.userName = userName;
@@ -78,4 +77,22 @@ public class Account implements Serializable {
         this.createday = createday;
         this.outofday = outofday;
     }
+    
+    public Account(int userID, String userName, String userPassword, String createday, String outofday,String staffName) {
+        this.userID = userID;
+        this.staffName = staffName;
+        this.userName = userName;
+        this.userPassword = userPassword;
+        this.createday = createday;
+        this.outofday = outofday;
+    }
+
+    public String getStaffName() {
+        return staffName;
+    }
+
+    public void setStaffName(String staffName) {
+        this.staffName = staffName;
+    }
+    
 }
