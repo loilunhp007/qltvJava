@@ -12,7 +12,6 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.Date;
 import java.util.logging.Logger;
-import javax.swing.JOptionPane;
 
 import Controller.database;
 import DAO.bookDAO;
@@ -23,6 +22,8 @@ import javafx.scene.control.*;
 import javafx.collections.*;
 import javafx.scene.control.cell.*;
 import javafx.event.*;
+import javafx.collections.transformation.FilteredList;
+
 
 /**
  * FXML Controller class
@@ -68,7 +69,7 @@ public class StaffController implements Initializable {
     @FXML
     private Button clearBtn;
     @FXML
-    private TextField search;
+    private TextField searchStaff;
     @FXML
     private RadioButton male;
     @FXML
@@ -85,6 +86,8 @@ public class StaffController implements Initializable {
     private ToggleGroup searchbar;
 
     ObservableList<Staff> staffList = FXCollections.observableArrayList();
+    FilteredList<Staff> flstaff = new FilteredList(staffList, p -> true);
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         role_choice.getItems().addAll("Staff","Admin");
@@ -98,11 +101,11 @@ public class StaffController implements Initializable {
         try {
             
             db.getConnect();
-            //ResultSet rs=db.execution("SELECT * FROM staff");
-            //while(rs.next()){
-                //staffList.add(new Staff(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getString(5),rs.getString(6), rs.getInt(7)));
-                staffList=staffDAO.load();
-            //}
+            ResultSet rs=db.execution("SELECT * FROM staff");
+            while(rs.next()){
+                staffList.add(new Staff(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getString(5),rs.getString(6), rs.getInt(7)));
+                //staffList=staffDAO.load();
+            }
         } catch (Exception e) {
             Logger.getLogger(StaffController.class.getName());
         }
@@ -250,5 +253,16 @@ public void refreshstaff(){
         address.clear();
         role.clear();
     }
-
+    public void searchBar(){
+        flstaff.removeAll();
+        staffTable.setItems(flstaff);
+        if (namesearch.isSelected()==true) flstaff.setPredicate(p -> p.getStaffName().toLowerCase().contains(searchStaff.getText().toLowerCase().trim()));
+        else {
+            if (searchStaff.getText().isEmpty()) staffTable.setItems(staffList);
+            else {
+                if(searchStaff.getText().matches("[1-9]*")) flstaff.setPredicate(p -> p.getStaffID() == Integer.parseInt(searchStaff.getText()));
+                else staffTable.setItems(staffList);
+            }
+        }
+    }
 }

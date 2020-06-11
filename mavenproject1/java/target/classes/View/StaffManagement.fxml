@@ -6,7 +6,7 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.StaffController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.StaffController">
    <center>
       <VBox styleClass="background2" stylesheets="@../../resources/styles/styles.css" BorderPane.alignment="CENTER">
          <children>
@@ -68,8 +68,8 @@
                      </toggleGroup>
                   </RadioButton>
                   <RadioButton fx:id="idsearch" mnemonicParsing="false" text="ID" toggleGroup="$searchbar" />
-                  <TextField fx:id="search" prefHeight="25.0" prefWidth="435.0" />
-                  <Button defaultButton="true" mnemonicParsing="false" onAction="#searchBar" prefHeight="25.0" prefWidth="98.0" text="Search" />
+                  <TextField fx:id="searchStaff" prefHeight="25.0" prefWidth="435.0" />
+                  <Button fx:id="searchBtn" defaultButton="true" mnemonicParsing="false" onAction="#searchBar" prefHeight="25.0" prefWidth="98.0" text="Search" />
                </children>
                <VBox.margin>
                   <Insets top="10.0" />
