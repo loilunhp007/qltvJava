@@ -14,11 +14,15 @@ import javax.swing.ImageIcon;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.control.*;
+import javafx.stage.Stage;
 /**
  * FXML Controller class
  *
@@ -27,24 +31,43 @@ import javafx.scene.control.*;
 public class FunctionController implements Initializable {
     ObservableList<Book> bookList = FXCollections.observableArrayList();
     @FXML
-    private Button staff;
+    private Button bookBtn;
     @FXML
-    private Button book;
+    private Button logoutBtn;
     @FXML
-    private Button settings;
-    @FXML
-    private Button logout;
+    private Button searchBtn;
     @FXML
     private ImageView staffimg;
     @FXML
     private ImageView bookimg;
     @FXML
-    private ImageView settingsimg;
-    @FXML
     private ImageView logoutimg;
-    @FXML 
+    @FXML
     private TextField log;
     @FXML
+    private TextField a;
+    @FXML
+    private Button staffBtn;
+    @FXML
+    private Button accountBtn;
+    @FXML
+    private ImageView accountimg;
+    @FXML
+    private Button cardBtn;
+    @FXML
+    private ImageView cardimg;
+    @FXML
+    private Button authorBtn;
+    @FXML
+    private ImageView authorimg;
+    @FXML
+    private Button reportBtn;
+    @FXML
+    private ImageView reportimg;
+    @FXML
+    private Button categoryBtn;
+    @FXML
+    private ImageView categoryimg;
      
     @Override
     public void initialize( URL url, ResourceBundle rb){
@@ -54,6 +77,75 @@ public class FunctionController implements Initializable {
     public void get_accountID(int ID){
         log.setText(Integer.toString(ID));
     }
+    public void staffOpen() throws Exception{
+        staffBtn.getScene().getWindow().hide();
+        Parent root = FXMLLoader.load(getClass().getResource("../View/StaffManagement.fxml"));
+                Stage mainStage=new Stage();
+                Scene scene=new Scene(root);
+                mainStage.setScene(scene);
+                mainStage.show();
+    }
     
+    public void bookOpen() throws Exception{
+        bookBtn.getScene().getWindow().hide();
+        Parent root = FXMLLoader.load(getClass().getResource("../View/Book.fxml"));
+                Stage mainStage=new Stage();
+                Scene scene=new Scene(root);
+                mainStage.setScene(scene);
+                mainStage.show();
+    }
+    
+    public void accountOpen() throws Exception{
+        accountBtn.getScene().getWindow().hide();
+        Parent root = FXMLLoader.load(getClass().getResource("../View/Account.fxml"));
+                Stage mainStage=new Stage();
+                Scene scene=new Scene(root);
+                mainStage.setScene(scene);
+                mainStage.show();
+    }
+    
+    public void cardOpen() throws Exception{
+        cardBtn.getScene().getWindow().hide();
+        Parent root = FXMLLoader.load(getClass().getResource("../View/LibraryCard.fxml"));
+                Stage mainStage=new Stage();
+                Scene scene=new Scene(root);
+                mainStage.setScene(scene);
+                mainStage.show();
+    }
+    
+    public void authorOpen() throws Exception{
+        authorBtn.getScene().getWindow().hide();
+        Parent root = FXMLLoader.load(getClass().getResource("../View/Author.fxml"));
+                Stage mainStage=new Stage();
+                Scene scene=new Scene(root);
+                mainStage.setScene(scene);
+                mainStage.show();
+    }
+    
+    public void reportOpen() throws Exception{
+        reportBtn.getScene().getWindow().hide();
+        Parent root = FXMLLoader.load(getClass().getResource("../View/Report.fxml"));
+                Stage mainStage=new Stage();
+                Scene scene=new Scene(root);
+                mainStage.setScene(scene);
+                mainStage.show();
+    }
+    
+    public void logoutOpen() throws Exception{
+        logoutBtn.getScene().getWindow().hide();
+        Parent root = FXMLLoader.load(getClass().getResource("../View/Login.fxml"));
+                Stage mainStage=new Stage();
+                Scene scene=new Scene(root);
+                mainStage.setScene(scene);
+                mainStage.show();
+    }
+    
+    public void categoryOpen() throws Exception{
+        categoryBtn.getScene().getWindow().hide();
+        Parent root = FXMLLoader.load(getClass().getResource("../View/Category.fxml"));
+                Stage mainStage=new Stage();
+                Scene scene=new Scene(root);
+                mainStage.setScene(scene);
+                mainStage.show();
+    }  
 }
-

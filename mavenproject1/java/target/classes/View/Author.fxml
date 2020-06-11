@@ -6,7 +6,11 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
+<<<<<<< HEAD
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.AuthorController">
+=======
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.AuthorController">
+>>>>>>> e266566487c285e9b0b7ac610aea8c696777ffbf
    <top>
       <Label alignment="CENTER" style="-fx-background-color: white;" text="Author" BorderPane.alignment="CENTER">
          <font>
@@ -28,17 +32,30 @@
                   <HBox alignment="CENTER" prefHeight="50.0">
                      <children>
                         <Label alignment="CENTER" prefHeight="20.0" prefWidth="70.0" text="Name" />
+<<<<<<< HEAD
                         <TextField fx:id="authorName" prefHeight="25.0" prefWidth="230.0" />
+=======
+                        <TextField fx:id="book" prefHeight="25.0" prefWidth="230.0" />
+>>>>>>> e266566487c285e9b0b7ac610aea8c696777ffbf
                      </children>
                   </HBox>
                   <HBox alignment="CENTER" prefHeight="50.0">
                      <children>
                         <Label alignment="CENTER" prefHeight="20.0" prefWidth="70.0" text="Gender" />
+<<<<<<< HEAD
                         <RadioButton fx:id="male" contentDisplay="CENTER" mnemonicParsing="false" prefWidth="110.0" selected="true" text="Male" textAlignment="CENTER">
                            <toggleGroup>
                               <ToggleGroup fx:id="searchbar" />
                            </toggleGroup></RadioButton>
                         <RadioButton fx:id="female" contentDisplay="CENTER" mnemonicParsing="false" prefWidth="120.0" text="Female" textAlignment="CENTER" toggleGroup="$searchbar" />
+=======
+                        <RadioButton fx:id="idsearch" contentDisplay="CENTER" mnemonicParsing="false" prefWidth="120.0" text="Male" textAlignment="CENTER">
+                           <toggleGroup>
+                              <ToggleGroup fx:id="searchbar" />
+                           </toggleGroup>
+                        </RadioButton>
+                        <RadioButton fx:id="namesearch" contentDisplay="CENTER" mnemonicParsing="false" prefWidth="110.0" selected="true" text="Female" textAlignment="CENTER" toggleGroup="$searchbar" />
+>>>>>>> e266566487c285e9b0b7ac610aea8c696777ffbf
                      </children>
                   </HBox>
                </children>
@@ -48,13 +65,21 @@
                   <HBox alignment="CENTER" prefHeight="50.0">
                      <children>
                         <Label alignment="CENTER" prefHeight="20.0" prefWidth="70.0" text="DOB" />
+<<<<<<< HEAD
                         <DatePicker fx:id="dob" editable="false" showWeekNumbers="true" />
+=======
+                        <TextField fx:id="price" prefHeight="25.0" prefWidth="230.0" />
+>>>>>>> e266566487c285e9b0b7ac610aea8c696777ffbf
                      </children>
                   </HBox>
                   <HBox alignment="CENTER" prefHeight="50.0">
                      <children>
                         <Label alignment="CENTER" prefHeight="20.0" prefWidth="70.0" text="Email" />
+<<<<<<< HEAD
                         <TextField fx:id="authorEmail" prefHeight="25.0" prefWidth="230.0" />
+=======
+                        <TextField fx:id="category" prefHeight="25.0" prefWidth="230.0" />
+>>>>>>> e266566487c285e9b0b7ac610aea8c696777ffbf
                      </children>
                   </HBox>
                   <HBox alignment="CENTER" prefHeight="50.0" />
@@ -62,9 +87,15 @@
             </VBox>
             <VBox alignment="CENTER" spacing="25.0">
                <children>
+<<<<<<< HEAD
                   <Button fx:id="addBtn" alignment="CENTER" mnemonicParsing="false" onAction="#addAuthorBtn" prefHeight="50.0" prefWidth="100.0" text="ADD" />
                   <Button fx:id="removeBtn" alignment="CENTER" mnemonicParsing="false" onAction="#removeAuthorBtn" prefHeight="50.0" prefWidth="100.0" text="REMOVE" />
                   <Button fx:id="update" alignment="CENTER" mnemonicParsing="false" onAction="#updateAuthorBtn" prefHeight="50.0" prefWidth="100.0" text="UPDATE" />
+=======
+                  <Button fx:id="addBtn" alignment="CENTER" mnemonicParsing="false" onAction="#addCardBtn" prefHeight="50.0" prefWidth="100.0" text="ADD" />
+                  <Button fx:id="removeBtn" alignment="CENTER" mnemonicParsing="false" onAction="#removeCardBtn" prefHeight="50.0" prefWidth="100.0" text="REMOVE" />
+                  <Button fx:id="update" alignment="CENTER" mnemonicParsing="false" onAction="#updateCardBtn" prefHeight="50.0" prefWidth="100.0" text="UPDATE" />
+>>>>>>> e266566487c285e9b0b7ac610aea8c696777ffbf
                   <Button fx:id="clear" alignment="CENTER" mnemonicParsing="false" onAction="#clearALL" prefHeight="50.0" prefWidth="100.0" text="CLEAR" />
                </children>
                <padding>
@@ -75,6 +106,7 @@
       </HBox>
    </center>
    <bottom>
+<<<<<<< HEAD
       <TableView fx:id="tableAuthor" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
         <columns>
           <TableColumn fx:id="t_id" prefWidth="75.0" text="ID" />
@@ -82,6 +114,15 @@
             <TableColumn fx:id="t_gender" prefWidth="106.0" text="Gender" />
             <TableColumn fx:id="t_dob" prefWidth="169.0" text="DOB" />
             <TableColumn fx:id="t_email" prefWidth="173.0" text="Email" />
+=======
+      <TableView prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+        <columns>
+          <TableColumn prefWidth="75.0" text="ID" />
+          <TableColumn prefWidth="194.0" text="Name" />
+            <TableColumn prefWidth="125.0" text="DOB" />
+            <TableColumn prefWidth="163.0" text="Email" />
+            <TableColumn prefWidth="97.0" text="Gender" />
+>>>>>>> e266566487c285e9b0b7ac610aea8c696777ffbf
         </columns>
       </TableView>
    </bottom>

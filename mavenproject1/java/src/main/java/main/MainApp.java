@@ -13,12 +13,13 @@ public class MainApp extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("../View/Account.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("../View/Login.fxml"));
         Scene scene = new Scene(root);
-        stage.setTitle("Library Management");
+        stage.setTitle("Library Management System");
         stage.setScene(scene);
-        stage.setMinHeight(600);
-        stage.setMinWidth(823);
+        stage.setHeight(503);
+        stage.setWidth(757);
+        stage.setResizable(false);
         stage.show();
     }
 
