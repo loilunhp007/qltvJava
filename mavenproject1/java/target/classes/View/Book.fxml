@@ -8,107 +8,126 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane prefHeight="600.0" prefWidth="823.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.bookController">
+<BorderPane prefHeight="697.0" prefWidth="932.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.bookController">
    <center>
-      <VBox prefHeight="270.0" prefWidth="454.0" styleClass="background2" stylesheets="@../../resources/styles/Styles.css" BorderPane.alignment="CENTER">
+      <VBox>
          <children>
-            <HBox alignment="CENTER" prefHeight="45.0" prefWidth="823.0" styleClass="hbox" stylesheets="@../../resources/styles/styles.css">
+            <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="193.0" prefWidth="932.0">
                <children>
-                  <Label alignment="CENTER" prefHeight="20.0" prefWidth="60.0" text="ID">
+                  <ImageView fx:id="bookimg" fitHeight="200.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
                      <HBox.margin>
-                        <Insets />
+                        <Insets left="20.0" right="10.0" />
                      </HBox.margin>
-                  </Label>
-                  <TextField fx:id="id" editable="false" prefHeight="25.0" prefWidth="230.0">
-                     <HBox.margin>
-                        <Insets />
-                     </HBox.margin>
-                  </TextField>
-                  <Label alignment="CENTER" prefHeight="20.0" prefWidth="60.0" text="Author">
-                     <HBox.margin>
-                        <Insets />
-                     </HBox.margin>
-                  </Label>
-                  <TextField fx:id="author" prefHeight="25.0" prefWidth="230.0">
-                     <HBox.margin>
-                        <Insets />
-                     </HBox.margin>
-                  </TextField>
-                  <Button fx:id="bookAdd" mnemonicParsing="false" onAction="#addBookbtn" prefHeight="25.0" prefWidth="98.0" text="Add" />
+                     <image>
+                        <Image url="@../../resources/res/book.png" />
+                     </image>
+                  </ImageView>
+                  <VBox alignment="CENTER_LEFT" prefHeight="212.0" prefWidth="746.0" styleClass="background2" stylesheets="@../../resources/styles/Styles.css" BorderPane.alignment="CENTER">
+                     <children>
+                        <HBox alignment="CENTER" prefHeight="45.0" prefWidth="823.0" styleClass="hbox" stylesheets="@../../resources/styles/styles.css">
+                           <children>
+                              <Label alignment="CENTER" prefHeight="20.0" prefWidth="60.0" text="ID">
+                                 <HBox.margin>
+                                    <Insets />
+                                 </HBox.margin>
+                              </Label>
+                              <TextField fx:id="id" editable="false" prefHeight="25.0" prefWidth="230.0">
+                                 <HBox.margin>
+                                    <Insets />
+                                 </HBox.margin>
+                              </TextField>
+                              <Label alignment="CENTER" prefHeight="20.0" prefWidth="60.0" text="Author">
+                                 <HBox.margin>
+                                    <Insets />
+                                 </HBox.margin>
+                              </Label>
+                              <TextField fx:id="author" prefHeight="25.0" prefWidth="230.0">
+                                 <HBox.margin>
+                                    <Insets />
+                                 </HBox.margin>
+                              </TextField>
+                              <Button fx:id="bookAdd" mnemonicParsing="false" onAction="#addBookbtn" prefHeight="25.0" prefWidth="98.0" text="Add" />
+                           </children>
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                        </HBox>
+                        <HBox alignment="CENTER" prefHeight="45.0" prefWidth="823.0" styleClass="hbox" stylesheets="@../../resources/styles/styles.css">
+                           <children>
+                              <Label alignment="CENTER" prefHeight="20.0" prefWidth="60.0" text="Name">
+                                 <HBox.margin>
+                                    <Insets />
+                                 </HBox.margin>
+                              </Label>
+                              <TextField fx:id="book" prefHeight="25.0" prefWidth="230.0">
+                                 <HBox.margin>
+                                    <Insets />
+                                 </HBox.margin>
+                              </TextField>
+                              <Label alignment="CENTER" prefHeight="20.0" prefWidth="60.0" text="Category">
+                                 <HBox.margin>
+                                    <Insets />
+                                 </HBox.margin>
+                              </Label>
+                              <TextField fx:id="category" prefHeight="25.0" prefWidth="230.0">
+                                 <HBox.margin>
+                                    <Insets />
+                                 </HBox.margin>
+                              </TextField>
+                              <Button fx:id="bookUpdate" mnemonicParsing="false" onAction="#updateBookBtn" prefHeight="25.0" prefWidth="98.0" text="Update" />
+                           </children>
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                        </HBox>
+                        <HBox alignment="CENTER" prefHeight="45.0" prefWidth="823.0" styleClass="hbox" stylesheets="@../../resources/styles/styles.css">
+                           <children>
+                              <Label alignment="CENTER" prefHeight="20.0" prefWidth="60.0" text="Publisher">
+                                 <HBox.margin>
+                                    <Insets />
+                                 </HBox.margin>
+                              </Label>
+                              <TextField fx:id="publisher" prefHeight="25.0" prefWidth="230.0">
+                                 <HBox.margin>
+                                    <Insets />
+                                 </HBox.margin>
+                              </TextField>
+                              <Label alignment="CENTER" prefHeight="20.0" prefWidth="60.0" text="Price">
+                                 <HBox.margin>
+                                    <Insets />
+                                 </HBox.margin>
+                              </Label>
+                              <TextField fx:id="price" prefHeight="25.0" prefWidth="230.0">
+                                 <HBox.margin>
+                                    <Insets />
+                                 </HBox.margin>
+                              </TextField>
+                              <Button fx:id="bookRefresh" mnemonicParsing="false" onAction="#loadBook" prefHeight="25.0" prefWidth="98.0" text="Refresh" />
+                           </children>
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                        </HBox>
+                        <HBox alignment="CENTER" prefHeight="45.0" prefWidth="823.0" styleClass="hbox" stylesheets="@../../resources/styles/styles.css">
+                           <children>
+                              <Label alignment="CENTER" prefHeight="20.0" prefWidth="60.0" text="Available" />
+                              <TextField fx:id="available" prefHeight="25.0" prefWidth="230.0" />
+                              <Button fx:id="bookRemove" mnemonicParsing="false" onAction="#rmv" prefHeight="25.0" prefWidth="98.0" text="Remove">
+                                 <HBox.margin>
+                                    <Insets left="320.0" />
+                                 </HBox.margin>
+                              </Button>
+                           </children>
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                        </HBox>
+                     </children>
+                     <BorderPane.margin>
+                        <Insets bottom="20.0" top="20.0" />
+                     </BorderPane.margin>
+                  </VBox>
                </children>
-               <VBox.margin>
-                  <Insets />
-               </VBox.margin>
-            </HBox>
-            <HBox alignment="CENTER" prefHeight="45.0" prefWidth="823.0" styleClass="hbox" stylesheets="@../../resources/styles/styles.css">
-               <children>
-                  <Label alignment="CENTER" prefHeight="20.0" prefWidth="60.0" text="Name">
-                     <HBox.margin>
-                        <Insets />
-                     </HBox.margin>
-                  </Label>
-                  <TextField fx:id="book" prefHeight="25.0" prefWidth="230.0">
-                     <HBox.margin>
-                        <Insets />
-                     </HBox.margin>
-                  </TextField>
-                  <Label alignment="CENTER" prefHeight="20.0" prefWidth="60.0" text="Category">
-                     <HBox.margin>
-                        <Insets />
-                     </HBox.margin>
-                  </Label>
-                  <TextField fx:id="category" prefHeight="25.0" prefWidth="230.0">
-                     <HBox.margin>
-                        <Insets />
-                     </HBox.margin>
-                  </TextField>
-                  <Button fx:id="bookUpdate" mnemonicParsing="false" onAction="#updateBookBtn" prefHeight="25.0" prefWidth="98.0" text="Update" />
-               </children>
-               <VBox.margin>
-                  <Insets />
-               </VBox.margin>
-            </HBox>
-            <HBox alignment="CENTER" prefHeight="45.0" prefWidth="823.0" styleClass="hbox" stylesheets="@../../resources/styles/styles.css">
-               <children>
-                  <Label alignment="CENTER" prefHeight="20.0" prefWidth="60.0" text="Publisher">
-                     <HBox.margin>
-                        <Insets />
-                     </HBox.margin>
-                  </Label>
-                  <TextField fx:id="publisher" prefHeight="25.0" prefWidth="230.0">
-                     <HBox.margin>
-                        <Insets />
-                     </HBox.margin>
-                  </TextField>
-                  <Label alignment="CENTER" prefHeight="20.0" prefWidth="60.0" text="Price">
-                     <HBox.margin>
-                        <Insets />
-                     </HBox.margin>
-                  </Label>
-                  <TextField fx:id="price" prefHeight="25.0" prefWidth="230.0">
-                     <HBox.margin>
-                        <Insets />
-                     </HBox.margin>
-                  </TextField>
-                  <Button fx:id="bookRefresh" mnemonicParsing="false" onAction="#loadBook" prefHeight="25.0" prefWidth="98.0" text="Refresh" />
-               </children>
-               <VBox.margin>
-                  <Insets />
-               </VBox.margin>
-            </HBox>
-            <HBox alignment="CENTER" prefHeight="45.0" prefWidth="823.0" styleClass="hbox" stylesheets="@../../resources/styles/styles.css">
-               <children>
-                  <Label alignment="CENTER" prefHeight="20.0" prefWidth="60.0" text="Available" />
-                  <TextField fx:id="available" prefHeight="25.0" prefWidth="230.0" />
-                  <Button fx:id="bookRemove" mnemonicParsing="false" onAction="#rmv" prefHeight="25.0" prefWidth="98.0" text="Remove">
-                     <HBox.margin>
-                        <Insets left="320.0" />
-                     </HBox.margin>
-                  </Button>
-               </children>
-               <VBox.margin>
-                  <Insets />
-               </VBox.margin>
             </HBox>
             <HBox alignment="CENTER" prefHeight="45.0" prefWidth="823.0" spacing="15.0">
                <children>
@@ -127,9 +146,6 @@
                </VBox.margin>
             </HBox>
          </children>
-         <BorderPane.margin>
-            <Insets bottom="20.0" top="20.0" />
-         </BorderPane.margin>
       </VBox>
    </center>
    <bottom>
@@ -150,6 +166,9 @@
          <font>
             <Font name="Bookman Old Style Bold Italic" size="24.0" />
          </font>
+         <padding>
+            <Insets top="10.0" />
+         </padding>
       </Label>
    </top>
 </BorderPane>

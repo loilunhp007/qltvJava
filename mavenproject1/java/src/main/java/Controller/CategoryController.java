@@ -22,6 +22,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.collections.*;
 import javafx.scene.control.cell.*;
+import javafx.collections.transformation.FilteredList;
+
 /**
  * FXML Controller class
  *
@@ -48,7 +50,16 @@ public class CategoryController implements Initializable {
     @FXML
     private TableColumn<Categories, String> t_name;
     @FXML
+    private RadioButton idsearch;
+    @FXML
+    private ToggleGroup searchbar;
+    @FXML
+    private RadioButton namesearch;
+    @FXML
+    private TextField searchAuthor;
+
     ObservableList<Categories> l_cate =FXCollections.observableArrayList();
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         loadCate();
@@ -121,5 +132,19 @@ public class CategoryController implements Initializable {
     public void clearALL(){
         id.clear();
         name.clear();
+    }
+
+    public void searchBar(){
+        FilteredList<Categories> flaccount = new FilteredList(l_cate, p -> true);
+        flaccount.removeAll();
+        tableCate.setItems(flaccount);
+        if (searchAuthor.getText().isEmpty()) tableCate.setItems(l_cate);        
+        else {
+            if (namesearch.isSelected()==true) flaccount.setPredicate(p -> p.getCategoryName().toLowerCase().contains(searchAuthor.getText().toLowerCase().trim()));
+            else {
+                if(searchAuthor.getText().matches("[1-9]*")) flaccount.setPredicate(p -> p.getCategoryID() == Integer.parseInt(searchAuthor.getText()));
+                else tableCate.setItems(l_cate);
+            }
+        }
     }
 }

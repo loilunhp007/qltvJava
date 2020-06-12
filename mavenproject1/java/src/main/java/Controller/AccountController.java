@@ -24,6 +24,10 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.*;
 import javafx.util.StringConverter;
 import javafx.collections.*;
+import javafx.scene.image.*;
+import javafx.collections.transformation.FilteredList;
+
+
 /**
  * FXML Controller class
  *
@@ -66,10 +70,22 @@ public class AccountController implements Initializable {
     @FXML
     private TableColumn<Account, String> t_staffName;
     @FXML
+    private ImageView userimg;
+    @FXML
+    private RadioButton namesearch;
+    @FXML
+    private RadioButton idsearch;
+    @FXML
+    private ToggleGroup searchbar;
+    @FXML
+    private TextField searchAccount;
     /**
      * Initializes the controller class.
      */
     ObservableList<Account> l_account= FXCollections.observableArrayList();
+    
+
+
     @Override
     public void initialize( URL url, ResourceBundle rb){
         convertDate();
@@ -230,5 +246,18 @@ public class AccountController implements Initializable {
         userPass.clear();
         staffID.clear();
     }
-    
+
+    public void searchBar(){
+        FilteredList<Account> flaccount = new FilteredList(l_account, p -> true);
+        flaccount.removeAll();
+        tableAccount.setItems(flaccount);
+        if (searchAccount.getText().isEmpty()) tableAccount.setItems(l_account);        
+        else {
+            if (namesearch.isSelected()==true) flaccount.setPredicate(p -> p.getUserName().toLowerCase().contains(searchAccount.getText().toLowerCase().trim()));
+            else {
+                if(searchAccount.getText().matches("[1-9]*")) flaccount.setPredicate(p -> p.getUserID() == Integer.parseInt(searchAccount.getText()));
+                else tableAccount.setItems(l_account);
+            }
+        }
+    }
 }

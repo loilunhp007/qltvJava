@@ -25,6 +25,9 @@ import javafx.collections.*;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.*;
 import javafx.util.StringConverter;
+import javafx.collections.transformation.FilteredList;
+import javafx.scene.image.*;
+
 /**
  * FXML Controller class
  *
@@ -77,6 +80,9 @@ public class AuthorController implements Initializable {
     @FXML
     private TableColumn<Author, String> t_gender;
     @FXML
+    private ImageView userimg;
+    @FXML
+    private TextField searchAuthor;
 
     /**
      * Initializes the controller class.
@@ -222,4 +228,17 @@ public class AuthorController implements Initializable {
         male.setSelected(true);;
     }
     
+    public void searchBar(){
+        FilteredList<Author> flaccount = new FilteredList(authorList, p -> true);
+        flaccount.removeAll();
+        tableAuthor.setItems(flaccount);
+        if (searchAuthor.getText().isEmpty()) tableAuthor.setItems(authorList);        
+        else {
+            if (namesearch.isSelected()==true) flaccount.setPredicate(p -> p.getAuthorName().toLowerCase().contains(searchAuthor.getText().toLowerCase().trim()));
+            else {
+                if(searchAuthor.getText().matches("[1-9]*")) flaccount.setPredicate(p -> p.getAuthorID() == Integer.parseInt(searchAuthor.getText()));
+                else tableAuthor.setItems(authorList);
+            }
+        }
+    }
 }

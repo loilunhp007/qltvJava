@@ -1,85 +1,100 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.image.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.StaffController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="671.0" prefWidth="1003.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.StaffController">
    <center>
-      <VBox styleClass="background2" stylesheets="@../../resources/styles/styles.css" BorderPane.alignment="CENTER">
+      <HBox alignment="CENTER_LEFT">
          <children>
-            <HBox alignment="CENTER" prefWidth="823.0" styleClass="hbox" stylesheets="@../../resources/styles/styles.css">
+            <ImageView fx:id="staffimg" fitHeight="200.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
+               <HBox.margin>
+                  <Insets left="30.0" right="10.0" />
+               </HBox.margin>
+               <image>
+                  <Image url="@../../resources/res/person.png" />
+               </image>
+            </ImageView>
+            <VBox prefHeight="242.0" prefWidth="800.0" styleClass="background2" stylesheets="@../../resources/styles/styles.css" BorderPane.alignment="CENTER">
                <children>
-                  <Label alignment="CENTER" prefHeight="20.0" prefWidth="60.0" text="ID" />
-                  <TextField fx:id="txtID" editable="false" prefHeight="25.0" prefWidth="230.0" />
-                  <Label alignment="CENTER" prefHeight="20.0" prefWidth="60.0" text="Role" />
-                  <TextField fx:id="role" prefHeight="25.0" prefWidth="100.0" />
-                  <ChoiceBox fx:id="role_choice" prefHeight="25.0" prefWidth="115.0" />
-                  <Button fx:id="addBtn" mnemonicParsing="false" onAction="#addStaffbtn" prefHeight="25.0" prefWidth="98.0" text="Add" />
+                  <HBox alignment="CENTER" prefWidth="823.0" styleClass="hbox" stylesheets="@../../resources/styles/styles.css">
+                     <children>
+                        <Label alignment="CENTER" prefHeight="20.0" prefWidth="60.0" text="ID" />
+                        <TextField fx:id="txtID" editable="false" prefHeight="25.0" prefWidth="230.0" />
+                        <Label alignment="CENTER" prefHeight="20.0" prefWidth="60.0" text="Role" />
+                        <TextField fx:id="role" prefHeight="25.0" prefWidth="100.0" />
+                        <ChoiceBox fx:id="role_choice" prefHeight="25.0" prefWidth="115.0" />
+                        <Button fx:id="addBtn" mnemonicParsing="false" onAction="#addStaffbtn" prefHeight="25.0" prefWidth="98.0" text="Add" />
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" prefWidth="823.0" styleClass="hbox" stylesheets="@../../resources/styles/styles.css">
+                     <children>
+                        <Label alignment="CENTER" prefHeight="20.0" prefWidth="60.0" text="Name" />
+                        <TextField fx:id="name" prefHeight="25.0" prefWidth="230.0" />
+                        <Label alignment="CENTER" prefHeight="20.0" prefWidth="60.0" text="DOB" />
+                        <TextField fx:id="dob" prefHeight="25.0" prefWidth="230.0" />
+                        <Button fx:id="updateBtn" mnemonicParsing="false" onAction="#updateStaffBtn" prefHeight="25.0" prefWidth="98.0" text="Update" />
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" prefWidth="823.0" styleClass="hbox" stylesheets="@../../resources/styles/styles.css">
+                     <children>
+                        <Label alignment="CENTER" prefHeight="20.0" prefWidth="60.0" text="Gender" />
+                        <RadioButton fx:id="male" mnemonicParsing="false" selected="true" text="Male">
+                           <toggleGroup>
+                              <ToggleGroup fx:id="gender" />
+                           </toggleGroup>
+                           <HBox.margin>
+                              <Insets left="40.0" />
+                           </HBox.margin>
+                        </RadioButton>
+                        <RadioButton fx:id="female" mnemonicParsing="false" text="Female" toggleGroup="$gender">
+                           <HBox.margin>
+                              <Insets left="24.0" />
+                           </HBox.margin>
+                        </RadioButton>
+                        <Label alignment="CENTER" prefHeight="20.0" prefWidth="60.0" text="Phone">
+                           <HBox.margin>
+                              <Insets left="44.0" />
+                           </HBox.margin>
+                        </Label>
+                        <TextField fx:id="phone" prefHeight="25.0" prefWidth="230.0" />
+                        <Button fx:id="removeBtn" mnemonicParsing="false" onAction="#rmvStaff" prefHeight="25.0" prefWidth="98.0" text="Remove" />
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" prefHeight="45.0" prefWidth="823.0" styleClass="hbox" stylesheets="@../../resources/styles/styles.css">
+                     <children>
+                        <Label alignment="CENTER" prefHeight="20.0" prefWidth="60.0" text="Address" />
+                        <TextField fx:id="address" prefHeight="25.0" prefWidth="550.0" />
+                        <Button fx:id="clearBtn" mnemonicParsing="false" onAction="#clearAll" prefHeight="25.0" prefWidth="98.0" text="Clear" />
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" prefWidth="200.0" spacing="15.0">
+                     <children>
+                        <Label alignment="CENTER" prefHeight="20.0" prefWidth="60.0" text="Search by" />
+                        <RadioButton fx:id="namesearch" mnemonicParsing="false" selected="true" text="Username">
+                           <toggleGroup>
+                              <ToggleGroup fx:id="searchbar" />
+                           </toggleGroup>
+                        </RadioButton>
+                        <RadioButton fx:id="idsearch" mnemonicParsing="false" text="ID" toggleGroup="$searchbar" />
+                        <TextField fx:id="searchStaff" prefHeight="25.0" prefWidth="413.0" />
+                        <Button fx:id="searchBtn" defaultButton="true" mnemonicParsing="false" onAction="#searchBar" prefHeight="25.0" prefWidth="98.0" text="Search" />
+                     </children>
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
+                  </HBox>
                </children>
-            </HBox>
-            <HBox alignment="CENTER" prefWidth="823.0" styleClass="hbox" stylesheets="@../../resources/styles/styles.css">
-               <children>
-                  <Label alignment="CENTER" prefHeight="20.0" prefWidth="60.0" text="Name" />
-                  <TextField fx:id="name" prefHeight="25.0" prefWidth="230.0" />
-                  <Label alignment="CENTER" prefHeight="20.0" prefWidth="60.0" text="DOB" />
-                  <TextField fx:id="dob" prefHeight="25.0" prefWidth="230.0" />
-                  <Button fx:id="updateBtn" mnemonicParsing="false" onAction="#updateStaffBtn" prefHeight="25.0" prefWidth="98.0" text="Update" />
-               </children>
-            </HBox>
-            <HBox alignment="CENTER" prefWidth="823.0" styleClass="hbox" stylesheets="@../../resources/styles/styles.css">
-               <children>
-                  <Label alignment="CENTER" prefHeight="20.0" prefWidth="60.0" text="Gender" />
-                  <RadioButton fx:id="male" mnemonicParsing="false" selected="true" text="Male">
-                     <toggleGroup>
-                        <ToggleGroup fx:id="gender" />
-                     </toggleGroup>
-                     <HBox.margin>
-                        <Insets left="40.0" />
-                     </HBox.margin>
-                  </RadioButton>
-                  <RadioButton fx:id="female" mnemonicParsing="false" text="Female" toggleGroup="$gender">
-                     <HBox.margin>
-                        <Insets left="24.0" />
-                     </HBox.margin></RadioButton>
-                  <Label alignment="CENTER" prefHeight="20.0" prefWidth="60.0" text="Phone">
-                     <HBox.margin>
-                        <Insets left="44.0" />
-                     </HBox.margin></Label>
-                  <TextField fx:id="phone" prefHeight="25.0" prefWidth="230.0" />
-                  <Button fx:id="removeBtn" mnemonicParsing="false" onAction="#rmvStaff" prefHeight="25.0" prefWidth="98.0" text="Remove" />
-               </children>
-            </HBox>
-            <HBox alignment="CENTER" prefHeight="45.0" prefWidth="823.0" styleClass="hbox" stylesheets="@../../resources/styles/styles.css">
-               <children>
-                  <Label alignment="CENTER" prefHeight="20.0" prefWidth="60.0" text="Address" />
-                  <TextField fx:id="address" prefHeight="25.0" prefWidth="550.0" />
-                  <Button fx:id="clearBtn" mnemonicParsing="false" onAction="#clearAll" prefHeight="25.0" prefWidth="98.0" text="Clear" />
-               </children>
-            </HBox>
-            <HBox alignment="CENTER" prefWidth="200.0" spacing="15.0">
-               <children>
-                  <Label alignment="CENTER" prefHeight="20.0" prefWidth="60.0" text="Search by" />
-                  <RadioButton fx:id="namesearch" mnemonicParsing="false" selected="true" text="Name">
-                     <toggleGroup>
-                        <ToggleGroup fx:id="searchbar" />
-                     </toggleGroup>
-                  </RadioButton>
-                  <RadioButton fx:id="idsearch" mnemonicParsing="false" text="ID" toggleGroup="$searchbar" />
-                  <TextField fx:id="searchStaff" prefHeight="25.0" prefWidth="435.0" />
-                  <Button fx:id="searchBtn" defaultButton="true" mnemonicParsing="false" onAction="#searchBar" prefHeight="25.0" prefWidth="98.0" text="Search" />
-               </children>
-               <VBox.margin>
-                  <Insets top="10.0" />
-               </VBox.margin>
-            </HBox>
+               <BorderPane.margin>
+                  <Insets bottom="20.0" top="20.0" />
+               </BorderPane.margin>
+            </VBox>
          </children>
-         <BorderPane.margin>
-            <Insets bottom="20.0" top="20.0" />
-         </BorderPane.margin>
-      </VBox>
+      </HBox>
    </center>
    <bottom>
       <TableView fx:id="staffTable" BorderPane.alignment="CENTER">

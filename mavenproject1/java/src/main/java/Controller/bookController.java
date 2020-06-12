@@ -12,6 +12,7 @@ import javafx.collections.*;
 import javafx.scene.control.cell.*;
 import javafx.event.*;
 import javafx.collections.transformation.FilteredList;
+import javafx.scene.image.*;
 
 public class bookController implements Initializable {
     @FXML
@@ -60,11 +61,13 @@ public class bookController implements Initializable {
     private TextField available;
     @FXML
     private TextField bookSearch;
+    @FXML
+    private ImageView bookimg;
     /**
      * Initializes the controller class.
      */
     ObservableList<Book> bookList = FXCollections.observableArrayList();
-    FilteredList<Book> flbook = new FilteredList(bookList, p -> true);
+    
      
     @Override
     public void initialize( URL url, ResourceBundle rb){
@@ -203,11 +206,12 @@ public void refreshBook(){
         price.clear();
     }
     public void searchBar(){
+        FilteredList<Book> flbook = new FilteredList(bookList, p -> true);
         flbook.removeAll();
         bookTable.setItems(flbook);
-        if (namesearch.isSelected()==true) flbook.setPredicate(p -> p.getBookName().toLowerCase().contains(bookSearch.getText().toLowerCase().trim()));
+        if (bookSearch.getText().isEmpty()) bookTable.setItems(bookList);            
         else {
-            if (bookSearch.getText().isEmpty()) bookTable.setItems(bookList);
+            if (namesearch.isSelected()==true) flbook.setPredicate(p -> p.getBookName().toLowerCase().contains(bookSearch.getText().toLowerCase().trim()));
             else {
                 if(bookSearch.getText().matches("[1-9]*")) flbook.setPredicate(p -> p.getBookID() == Integer.parseInt(bookSearch.getText()));
                 else bookTable.setItems(bookList);

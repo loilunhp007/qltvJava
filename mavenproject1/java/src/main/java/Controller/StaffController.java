@@ -23,6 +23,7 @@ import javafx.collections.*;
 import javafx.scene.control.cell.*;
 import javafx.event.*;
 import javafx.collections.transformation.FilteredList;
+import javafx.scene.image.*;
 
 
 /**
@@ -84,7 +85,9 @@ public class StaffController implements Initializable {
     private RadioButton idsearch;
     @FXML
     private ToggleGroup searchbar;
-
+    @FXML
+    private ImageView staffimg;
+    
     ObservableList<Staff> staffList = FXCollections.observableArrayList();
     FilteredList<Staff> flstaff = new FilteredList(staffList, p -> true);
 
@@ -256,9 +259,9 @@ public void refreshstaff(){
     public void searchBar(){
         flstaff.removeAll();
         staffTable.setItems(flstaff);
-        if (namesearch.isSelected()==true) flstaff.setPredicate(p -> p.getStaffName().toLowerCase().contains(searchStaff.getText().toLowerCase().trim()));
+        if (searchStaff.getText().isEmpty()) staffTable.setItems(staffList);            
         else {
-            if (searchStaff.getText().isEmpty()) staffTable.setItems(staffList);
+            if (namesearch.isSelected()==true) flstaff.setPredicate(p -> p.getStaffName().toLowerCase().contains(searchStaff.getText().toLowerCase().trim()));
             else {
                 if(searchStaff.getText().matches("[1-9]*")) flstaff.setPredicate(p -> p.getStaffID() == Integer.parseInt(searchStaff.getText()));
                 else staffTable.setItems(staffList);
