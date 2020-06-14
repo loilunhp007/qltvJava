@@ -94,5 +94,16 @@ public class Account {
     public void setStaffName(String staffName) {
         this.staffName = staffName;
     }
+
+    public Account(int userID, int staffID, String userName, String userPassword, String staffName, String createday,
+            String outofday) {
+        this.userID = userID;
+        this.staffID = staffID;
+        this.userName = userName;
+        this.userPassword = userPassword;
+        this.staffName = staffName;
+        this.createday = createday;
+        this.outofday = outofday;
+    }
     
 }

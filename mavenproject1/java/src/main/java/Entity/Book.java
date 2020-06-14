@@ -31,6 +31,7 @@ public class Book {
         this.bookPrice = bookPrice;
         this.bookPages = bookPages;
     }
+    
 
     public int getBookID() {
         return bookID;
@@ -108,6 +109,19 @@ public class Book {
     public String toString() {
         return "Book [ bookID=" + bookID + ", bookName=" + bookName + ", bookAuthorID=" + bookAuthorID + ", bookCategoryID=" + bookAuthorID
         + ", bookPages=" + bookPages + ", bookPrice=" + bookPrice + ", bookPublisher=" + bookPublisher + "]";
+    }
+
+    public Book(int bookID, int bookPrice, int bookPages, int bookAuthorID, int bookCategoryID, String bookName,
+            String bookPublisher, String bookAuthor, String bookCategory) {
+        this.bookID = bookID;
+        this.bookPrice = bookPrice;
+        this.bookPages = bookPages;
+        this.bookAuthorID = bookAuthorID;
+        this.bookCategoryID = bookCategoryID;
+        this.bookName = bookName;
+        this.bookPublisher = bookPublisher;
+        this.bookAuthor = bookAuthor;
+        this.bookCategory = bookCategory;
     }
 
     

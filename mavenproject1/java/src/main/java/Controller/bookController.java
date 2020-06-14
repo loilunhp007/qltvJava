@@ -22,9 +22,9 @@ public class bookController implements Initializable {
     @FXML
     private TableColumn<Book, String> bookName;
     @FXML
-    private TableColumn<Book, Integer> bookAuthorID;
+    private TableColumn<Book, String> bookAuthorID;
     @FXML
-    private TableColumn<Book, Integer> bookCategoryID;
+    private TableColumn<Book, String> bookCategoryID;
     @FXML
     private TableColumn<Book, String> bookPub;
     @FXML
@@ -81,18 +81,19 @@ public class bookController implements Initializable {
         try {
             db.getConnect();
             //ResultSet rs=db.execution("SELECT b.bookID,b.bookName,a.authorName,c.categoryName,b.bookPublisher,b.bookprice,b.bookPages FROM book b join Author a on b.bookAuthorID=a.authorID join Categories c on b.bookCategoryID=c.categoryID WHERE 1;");
-            ResultSet rs=db.execution("SELECT * FROM book");
-            while(rs.next()){
-                bookList.add(new Book(rs.getInt(1),rs.getString(2),rs.getInt(3),rs.getInt(4),rs.getString(5),rs.getInt(6), rs.getInt(7)));
-            }
-        } catch (SQLException e) {
+            //ResultSet rs=db.execution("SELECT * FROM book");
+            //while(rs.next()){
+                //bookList.add(new Book(rs.getInt(1),rs.getString(2),rs.getInt(3),rs.getInt(4),rs.getString(5),rs.getInt(6), rs.getInt(7)));
+                bookList=bookDAO.load();
+            //}
+        } catch (Exception e) {
             Logger.getLogger(bookController.class.getName());
         }
         db.disconnect();
         bookID.setCellValueFactory(new PropertyValueFactory<>("bookID"));
         bookName.setCellValueFactory(new PropertyValueFactory<>("bookName"));
-        bookAuthorID.setCellValueFactory(new PropertyValueFactory<>("bookAuthorID"));
-        bookCategoryID.setCellValueFactory(new PropertyValueFactory<>("bookCategoryID"));
+        bookAuthorID.setCellValueFactory(new PropertyValueFactory<>("bookAuthor"));
+        bookCategoryID.setCellValueFactory(new PropertyValueFactory<>("bookCategory"));
         bookPub.setCellValueFactory(new PropertyValueFactory<>("bookPublisher"));
         bookPrice.setCellValueFactory(new PropertyValueFactory<>("bookPrice"));
         bookQuantity.setCellValueFactory(new PropertyValueFactory<>("bookPages"));

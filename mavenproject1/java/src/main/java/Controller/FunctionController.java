@@ -124,7 +124,7 @@ public class FunctionController implements Initializable {
     
     public void reportOpen() throws Exception{
         reportBtn.getScene().getWindow().hide();
-        Parent root = FXMLLoader.load(getClass().getResource("../View/Report.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("../View/Export.fxml"));
                 Stage mainStage=new Stage();
                 Scene scene=new Scene(root);
                 mainStage.setScene(scene);

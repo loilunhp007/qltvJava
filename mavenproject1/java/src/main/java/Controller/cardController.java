@@ -165,6 +165,7 @@ public class cardController implements Initializable {
                 this.id.setText(Integer.toString(student.getStudentID()));
                 this.name.setText((student.getStudentName()));
                 LocalDate dob1=LocalDate.parse(student.getStudentDOB());
+                this.email.setText(student.getStudentEmail());
                 this.dob.setValue(dob1);
                 this.studentclass.setText(student.getStudentClass());
             });

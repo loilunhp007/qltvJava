@@ -16,7 +16,7 @@ public class AccountDAO  {
         ObservableList<Account> list_ac=FXCollections.observableArrayList();
         database db=new database();
         db.getConnect();
-        ResultSet rs= db.execution("SELECT ac.userID,ac.userName,ac.userPassword,ac.startDay,ac.outofDay,s.staffName FROM account ac join staff s on ac.staffid=s.staffID WHERE 1;");
+        ResultSet rs= db.execution("SELECT ac.userID,ac.userName,ac.userPassword,ac.startDay,ac.outofDay,ac.staffID,s.staffName FROM account ac join staff s on ac.staffid=s.staffID WHERE 1;");
         try {
             while(rs.next()){
                 Account ac=new Account(rs.getInt(1));
@@ -24,7 +24,8 @@ public class AccountDAO  {
                 ac.setUserPassword(rs.getString(3));
                 ac.setCreateday(rs.getString(4));
                 ac.setOutofday(rs.getString(5));
-                ac.setStaffName(rs.getString(6));
+                ac.setStaffID(rs.getInt(6));
+                ac.setStaffName(rs.getString(7));
                 list_ac.add(ac);
             }
         } catch (Exception e) {

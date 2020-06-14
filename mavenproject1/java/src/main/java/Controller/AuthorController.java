@@ -211,6 +211,7 @@ public class AuthorController implements Initializable {
                 Author aut = this.tableAuthor.getSelectionModel().getSelectedItem();
                 this.id.setText(Integer.toString(aut.getAuthorID()));
                 this.authorName.setText((aut.getAuthorName()));
+                this.authorEmail.setText(aut.getAuthorEmail());
                 LocalDate dob1=LocalDate.parse(aut.getAuthorDOB());
                 this.dob.setValue(dob1);
                 if (aut.getAuthorGender().equals("Male")) male.setSelected(true);

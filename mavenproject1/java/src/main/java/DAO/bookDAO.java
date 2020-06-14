@@ -16,7 +16,7 @@ public class bookDAO{
         ObservableList<Book> l_book =FXCollections.observableArrayList();
         database db = new database();
         db.getConnect();
-        ResultSet rs = db.execution("SELECT * From book;");
+        ResultSet rs = db.execution("SELECT b.bookID,b.bookName,b.bookAuthorID,b.bookCategoryID,b.bookPublisher,b.bookPrice,b.bookPages,a.authorName,cate.categoryName From book b left join author a on b.bookAuthorID=a.authorID left join categories cate on b.bookCategoryID=cate.categoryID ;");
         try {
             while(rs.next()){
                 Book book = new Book(rs.getInt(1));
@@ -26,6 +26,8 @@ public class bookDAO{
                 book.setBookPublisher(rs.getString(5));
                 book.setBookPrice(rs.getInt(6));
                 book.setBookPages(rs.getInt(7));
+                book.setBookAuthor(rs.getString(8));
+                book.setBookCategory(rs.getString(9));
                 l_book.add(book);
             }
         } catch (Exception e) {
