@@ -17,9 +17,9 @@ public class MainApp extends Application {
         Scene scene = new Scene(root);
         stage.setTitle("Library Management System");
         stage.setScene(scene);
-        stage.setHeight(503);
-        stage.setWidth(757);
-        stage.setResizable(false);
+        //stage.setHeight(503);
+        //stage.setWidth(757);
+        //stage.setResizable(false);
         stage.show();
     }
 

@@ -1,9 +1,8 @@
 package Entity;
 
 public class Staff {
-    private String staffName,staffdob,staffAddr,staffGender;
-    private  String staffPhone,role_name;
-    private int staffID,staff_role;
+    private String staffName,staffdob,staffAddr,staffGender, role_name;
+    private int staffID,staff_role, staffSalary, staffPhone;
 
     public Staff() {
     }
@@ -12,7 +11,7 @@ public class Staff {
         this.staffID = staffID;
     }
 
-    public Staff(int staffID, String staffName, String staffDOB, String staffAddr,String staffGender,String staffPhone, int staff_role) {
+    public Staff(int staffID, String staffName, String staffDOB, String staffAddr,String staffGender,int staffPhone, int staff_role, int staffSalary) {
         this.staffID = staffID;
         this.staffName = staffName;
         this.staffdob = staffDOB;
@@ -20,8 +19,9 @@ public class Staff {
         this.staffGender = staffGender;
         this.staffPhone = staffPhone;
         this.staff_role = staff_role;
+        this.staffSalary=staffSalary;
     }
-    public Staff(int staffID, String staffName, String staffDOB, String staffAddr,String staffGender,String staffPhone, String role_name) {
+    public Staff(int staffID, String staffName, String staffDOB, String staffAddr,String staffGender,int staffPhone, String role_name, int staffSalary) {
         this.staffID = staffID;
         this.staffName = staffName;
         this.staffdob = staffDOB;
@@ -29,6 +29,7 @@ public class Staff {
         this.staffGender = staffGender;
         this.staffPhone = staffPhone;
         this.role_name = role_name;
+        this.staffSalary=staffSalary;
     }
 
     public int getStaffID() {
@@ -78,11 +79,11 @@ public class Staff {
         this.staffGender = staffGender;
     }
 
-    public String getStaffPhone() {
+    public int getStaffPhone() {
         return staffPhone;
     }
 
-    public void setStaffPhone(String staffPhone) {
+    public void setStaffPhone(int staffPhone) {
         this.staffPhone = staffPhone;
     }
 
@@ -96,6 +97,7 @@ public class Staff {
                 ", staffGender='" + staffGender + '\'' +
                 ", staffPhone=" + staffPhone +
                 ", staff_role=" + staff_role +
+                ", staffSalary=" + staffSalary +
                 '}';
     }
 
@@ -111,5 +113,11 @@ public class Staff {
         this.role_name = role_name;
         this.staff_role = staff_role;
     }
-    
+    public int getStaffSalary() {
+        return staffSalary;
+    }
+
+    public void setStaffSalary(int staffSalary) {
+        this.staffSalary = staffSalary;
+    }
 }

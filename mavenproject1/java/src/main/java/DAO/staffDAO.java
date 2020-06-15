@@ -19,7 +19,7 @@ public class staffDAO {
         ObservableList<Staff> l_staff=FXCollections.observableArrayList();
         database db=new database();
         db.getConnect();
-        ResultSet rs = db.execution("SELECT s.staffID,s.staffName,s.staffdob,s.staffAddr,s.staffGender,s.staffPhone,r.roleName From staff s join role r on s.staff_roleID = r.roleID;");
+        ResultSet rs = db.execution("SELECT s.staffID,s.staffName,s.staffdob,s.staffAddr,s.staffGender,s.staffPhone,r.roleName,s.staffSalary From staff s join role r on s.staff_roleID = r.roleID;");
         try {
             while(rs.next()){
                 Staff staff = new Staff(rs.getInt(1));
@@ -27,8 +27,9 @@ public class staffDAO {
                 staff.setStaffDOB(rs.getString(3));
                 staff.setStaffAddr(rs.getString(4));
                 staff.setStaffGender(rs.getString(5));
-                staff.setStaffPhone(rs.getString(6));
+                staff.setStaffPhone(rs.getInt(6));
                 staff.setRole_name(rs.getString(7));
+                staff.setStaffSalary(rs.getInt(8));
                 l_staff.add(staff);
             }
         } catch (Exception e) {
@@ -39,13 +40,14 @@ public class staffDAO {
     public static void addStaff(Staff staff){
         database db = new database();
         db.getConnect();
-        String sql = "INSERT INTO staff (staffName,staffdob,staffAddr,staffGender,staffPhone,staff_roleID ) VALUES ('";
+        String sql = "INSERT INTO staff (staffName,staffdob,staffAddr,staffGender,staffPhone,staff_roleID,staffSalary ) VALUES ('";
         sql +=staff.getStaffName()+"','";
         sql += staff.getStaffDOB() +"','";
         sql += staff.getStaffAddr() +"','";
         sql +=staff.getStaffGender()+"','";
         sql +=staff.getStaffPhone()+"','";
-        sql +=staff.getStaff_role()+"');";
+        sql +=staff.getStaff_role()+"','";
+        sql +=staff.getStaffSalary()+"');";
         db.update(sql);
         db.disconnect();
     }
@@ -65,7 +67,9 @@ public class staffDAO {
         sql+="staffAddr='"+ staff.getStaffAddr()+"',";
         sql+="staffGender='"+ staff.getStaffGender()+"',";
         sql+="staffPhone='"+staff.getStaffPhone()+"',";
-        sql+="staff_roleID='"+staff.getStaff_role()+"' WHERE staffID="+staff.getStaffID()+";";
+        sql+="staff_roleID='"+staff.getStaff_role()+"',";
+        sql+="staffSalary='"+staff.getStaffSalary()+"',";
+        sql+="staffPhone='"+staff.getStaffPhone()+"' WHERE staffID="+staff.getStaffID()+";";
         db.update(sql);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Error");
@@ -83,8 +87,9 @@ public class staffDAO {
                 staff.setStaffDOB(rs.getString(3));
                 staff.setStaffAddr(rs.getString(4));
                 staff.setStaffGender(rs.getString(5));
-                staff.setStaffPhone(rs.getString(6));
+                staff.setStaffPhone(rs.getInt(6));
                 staff.setStaff_role(rs.getInt(7));
+                staff.setStaffSalary(rs.getInt(8));
                 return staff;
             }
         } catch (Exception e) {
