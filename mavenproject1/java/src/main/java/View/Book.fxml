@@ -162,13 +162,19 @@
       </TableView>
    </bottom>
    <top>
-      <Label alignment="CENTER" text="Book" BorderPane.alignment="CENTER">
-         <font>
-            <Font name="Bookman Old Style Bold Italic" size="24.0" />
-         </font>
-         <padding>
-            <Insets top="10.0" />
-         </padding>
-      </Label>
+      <HBox alignment="CENTER" prefHeight="50.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <VBox alignment="CENTER">
+               <children>
+                  <JFXButton fx:id="menuBtn" onAction="#menuOpen" text="Menu" />
+                  <Label alignment="CENTER" text="Book">
+                     <font>
+                        <Font name="Bookman Old Style Bold Italic" size="24.0" />
+                     </font>
+                  </Label>
+               </children>
+            </VBox>
+         </children>
+      </HBox>
    </top>
 </BorderPane>
