@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.text.*?>
@@ -8,13 +9,6 @@
 <?import javafx.scene.layout.*?>
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="571.0" prefWidth="915.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.AuthorController">
-   <top>
-      <Label alignment="CENTER" style="-fx-background-color: white;" text="Author" BorderPane.alignment="CENTER">
-         <font>
-            <Font name="Bookman Old Style Bold Italic" size="24.0" />
-         </font>
-      </Label>
-   </top>
    <center>
       <HBox alignment="CENTER">
          <children>
@@ -116,4 +110,20 @@
         </columns>
       </TableView>
    </bottom>
+   <top>
+      <HBox alignment="CENTER" prefHeight="50.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <VBox alignment="CENTER">
+               <children>
+                  <JFXButton fx:id="menuBtn" onAction="#menuOpen" text="Menu" />
+                  <Label alignment="CENTER" style="-fx-background-color: white;" text="Author">
+                     <font>
+                        <Font name="Bookman Old Style Bold Italic" size="24.0" />
+                     </font>
+                  </Label>
+               </children>
+            </VBox>
+         </children>
+      </HBox>
+   </top>
 </BorderPane>

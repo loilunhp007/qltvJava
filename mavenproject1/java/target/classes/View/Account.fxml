@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.text.*?>
@@ -8,16 +9,6 @@
 <?import javafx.scene.layout.*?>
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="601.0" prefWidth="932.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.AccountController">
-   <top>
-      <Label alignment="CENTER" text="Account" textAlignment="CENTER" BorderPane.alignment="CENTER">
-         <font>
-            <Font name="Bookman Old Style Bold Italic" size="24.0" />
-         </font>
-         <padding>
-            <Insets top="10.0" />
-         </padding>
-      </Label>
-   </top>
    <center>
       <HBox alignment="CENTER" prefHeight="100.0" styleClass="background2" stylesheets="@../../resources/styles/Styles.css" BorderPane.alignment="CENTER">
          <children>
@@ -133,4 +124,20 @@
         </columns>
       </TableView>
    </bottom>
+   <top>
+      <HBox alignment="CENTER" prefHeight="50.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <VBox alignment="CENTER">
+               <children>
+                  <JFXButton fx:id="menuBtn" onAction="#menuOpen" text="Menu" />
+                  <Label alignment="CENTER" text="Account" textAlignment="CENTER">
+                     <font>
+                        <Font name="Bookman Old Style Bold Italic" size="24.0" />
+                     </font>
+                  </Label>
+               </children>
+            </VBox>
+         </children>
+      </HBox>
+   </top>
 </BorderPane>

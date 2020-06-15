@@ -9,12 +9,13 @@ import java.net.URL;
 import java.sql.*;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.Date;
 import java.util.logging.Logger;
 
 import javax.swing.JOptionPane;
-
 import Controller.database;
 import DAO.bookDAO;
 import DAO.staffDAO;
@@ -26,6 +27,7 @@ import javafx.scene.control.cell.*;
 import javafx.event.*;
 import javafx.collections.transformation.FilteredList;
 import javafx.scene.image.*;
+import javafx.util.StringConverter;
 
 
 /**
@@ -56,7 +58,7 @@ public class StaffController implements Initializable {
     @FXML
     private TextField name;
     @FXML
-    private TextField dob;
+    private DatePicker dob;
     @FXML
     private TextField role;
     @FXML
@@ -80,8 +82,6 @@ public class StaffController implements Initializable {
     @FXML
     private RadioButton female;
     @FXML 
-    private ChoiceBox role_choice;
-    @FXML
     private RadioButton namesearch;
     @FXML
     private RadioButton idsearch;
@@ -98,10 +98,33 @@ public class StaffController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        role.setVisible(false);
         fillCombobox();
         loadStaff();
         onSelect();
     }
+    public void convertDate(){
+        String pattern="yyyy-MM-dd";
+        dob.setPromptText(pattern.toLowerCase());
+        dob.setConverter(new StringConverter<LocalDate>(){
+         DateTimeFormatter DTF=DateTimeFormatter.ofPattern(pattern);
+            @Override
+            public String toString(LocalDate t) {
+                if(t !=null){
+                    return DTF.format(t);
+                }
+                return null;
+            }
+     
+            @Override
+            public LocalDate fromString(String string) {
+                if(string !=null && !string.isEmpty()){
+                    return LocalDate.parse(string,DTF);
+                }
+                return null;
+            }
+        }); 
+     }
     public void loadStaff() {
         database db=new database();
         try {
@@ -130,9 +153,8 @@ public class StaffController implements Initializable {
     public void addStaffbtn(ActionEvent event) throws Exception{
         Staff staff= new Staff();
         String Name=name.getText();
-        DateFormat df=new SimpleDateFormat("yyyy-MM-dd"); 
-        Date date1=new SimpleDateFormat("yyyy-MM-dd").parse(dob.getText());
-        String dob=df.format(date1);
+        LocalDate d1=dob.getValue();
+        String date1=d1.toString();
         String  Addr=address.getText();
         String gender1=null;
         String rolename=cbox.getSelectionModel().getSelectedItem().toString();
@@ -145,7 +167,7 @@ public class StaffController implements Initializable {
         }
         String phone1=phone.getText();
         staff.setStaffName(Name);
-        staff.setStaffDOB(dob);
+        staff.setStaffDOB(date1);
         staff.setStaffAddr(Addr);
         staff.setStaffGender(gender1);
         staff.setStaffPhone(phone1);
@@ -158,9 +180,8 @@ public class StaffController implements Initializable {
         Staff staff = new Staff();
         int idd=Integer.parseInt(txtID.getText());
         String Name=name.getText();
-        DateFormat df=new SimpleDateFormat("yyyy-MM-dd"); 
-        Date date1=new SimpleDateFormat("yyyy-MM-dd").parse(dob.getText());
-        String dob1=df.format(date1);
+        LocalDate d1=dob.getValue();
+        String dob1=d1.toString();
         String  Addr=address.getText();
         String gender1=null;
         if(male.isSelected()==true){
@@ -169,7 +190,8 @@ public class StaffController implements Initializable {
         if(female.isSelected()==true){
             gender1=female.getText();
         }
-        int role1= Integer.parseInt(role.getText());
+        String role=cbox.getSelectionModel().getSelectedItem().toString();
+        int role1= staffDAO.findRoleByName(role);
         String phone1=phone.getText();
         staff.setStaffID(idd);
         staff.setStaffName(Name);
@@ -233,18 +255,13 @@ public void refreshstaff(){
                 Staff s = this.staffTable.getSelectionModel().getSelectedItem();
                 this.txtID.setText(Integer.toString(s.getStaffID()));
                 this.name.setText((s.getStaffName()));
-                this.dob.setText(s.getStaffDOB());
+                String d1=s.getStaffDOB();
+                LocalDate date1= LocalDate.parse(d1);
+                this.dob.setValue(date1);
                 if (s.getStaffGender().equals("Male")) male.setSelected(true);
                 else female.setSelected(true);
-                int r1=0;
-                if(s.getRole_name().equals("Staff")){
-                    r1=1;
-                }else{
-                    if(s.getRole_name().equals("Admin")){
-                        r1=2;
-                    }
-                }
-                this.role.setText(Integer.toString(r1));
+                cbox.setValue(s.getRole_name());
+                this.role.setText(Integer.toString(staffDAO.findRoleByName(s.getRole_name())));
                 this.phone.setText(s.getStaffPhone());
                 this.address.setText(s.getStaffAddr());
             });
@@ -255,7 +272,7 @@ public void refreshstaff(){
     public void clearAll(){
         txtID.clear();
         name.clear();
-        dob.clear();
+        dob.setValue(null);
         phone.clear();
         address.clear();
         role.clear();
@@ -288,6 +305,9 @@ public void refreshstaff(){
         db.disconnect();
         cbox.setItems(optional);
     
+    }
+    public void menuOpen(ActionEvent event){
+
     }
 }
 
