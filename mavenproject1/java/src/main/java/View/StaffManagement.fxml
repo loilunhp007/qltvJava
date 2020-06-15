@@ -27,7 +27,7 @@
                         <TextField fx:id="txtID" editable="false" prefHeight="25.0" prefWidth="230.0" />
                         <Label alignment="CENTER" prefHeight="20.0" prefWidth="60.0" text="Role" />
                         <TextField fx:id="role" prefHeight="25.0" prefWidth="100.0" />
-                        <ChoiceBox fx:id="role_choice" prefHeight="25.0" prefWidth="115.0" />
+                        <ComboBox fx:id="cbox" prefWidth="150.0" promptText="Role" />
                         <Button fx:id="addBtn" mnemonicParsing="false" onAction="#addStaffbtn" prefHeight="25.0" prefWidth="98.0" text="Add" />
                      </children>
                   </HBox>

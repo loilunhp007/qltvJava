@@ -4,13 +4,10 @@
  * and open the template in the editor.
  */
 package Controller;
-
 import Entity.Book;
 import java.net.URL;
 import java.util.ResourceBundle;
-
 import javax.swing.ImageIcon;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;

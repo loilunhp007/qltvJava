@@ -106,4 +106,10 @@ public class Staff {
     public void setRole_name(String role_name) {
         this.role_name = role_name;
     }
+
+    public Staff(int staff_role,String role_name) {
+        this.role_name = role_name;
+        this.staff_role = staff_role;
+    }
+    
 }

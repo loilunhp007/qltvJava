@@ -93,4 +93,19 @@ public class staffDAO {
         db.disconnect();
         return null;
     }
+    public static int findRoleByName(String roleName){
+        int role=0;
+        database db = new database();
+        db.getConnect();
+        ResultSet rs = db.execution("SELECT roleID From role WHERE roleName='"+roleName+"'");
+        try {
+            while(rs.next()){
+                role=rs.getInt(1);
+            }
+        } catch (Exception e) {
+            
+        }
+        db.disconnect();
+        return role;
+    }
 }

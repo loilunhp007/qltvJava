@@ -13,6 +13,8 @@ import java.util.*;
 import java.util.Date;
 import java.util.logging.Logger;
 
+import javax.swing.JOptionPane;
+
 import Controller.database;
 import DAO.bookDAO;
 import DAO.staffDAO;
@@ -87,15 +89,16 @@ public class StaffController implements Initializable {
     private ToggleGroup searchbar;
     @FXML
     private ImageView staffimg;
+    @FXML 
+    private ComboBox cbox;
     
     ObservableList<Staff> staffList = FXCollections.observableArrayList();
+    ObservableList optional = FXCollections.observableArrayList();
     FilteredList<Staff> flstaff = new FilteredList(staffList, p -> true);
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        role_choice.getItems().addAll("Staff","Admin");
-        role_choice.setValue("Staff");
-        //role_choice.setValue("role");
+        fillCombobox();
         loadStaff();
         onSelect();
     }
@@ -132,7 +135,8 @@ public class StaffController implements Initializable {
         String dob=df.format(date1);
         String  Addr=address.getText();
         String gender1=null;
-        int role1= Integer.parseInt(role.getText());
+        String rolename=cbox.getSelectionModel().getSelectedItem().toString();
+        int role1= staffDAO.findRoleByName(rolename);
         if(male.isSelected()==true){
             gender1=male.getText();
         }
@@ -268,4 +272,22 @@ public void refreshstaff(){
             }
         }
     }
+    public void fillCombobox(){
+        database db=new database();
+        try {
+            db.getConnect();
+              String sql="SELECT roleName FROM role WHERE 1";
+              ResultSet rs=db.execution(sql);
+              while(rs.next()){
+                      optional.add(rs.getString(1));
+              }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null,"Error while loading combobox");
+        }
+        db.disconnect();
+        cbox.setItems(optional);
+    
+    }
 }
+
