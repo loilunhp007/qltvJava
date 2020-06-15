@@ -116,7 +116,7 @@
                      <children>
                         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="50.0">
                            <children>
-                              <Button fx:id="backBtn" mnemonicParsing="false" prefHeight="55.0" prefWidth="110.0" style="-fx-background-radius: 5px;" text="BACK" />
+                              <Button fx:id="logoutBtn" mnemonicParsing="false" onAction="#logoutOpen" prefHeight="55.0" prefWidth="110.0" style="-fx-background-radius: 5px;" text="LOGOUT" />
                               <Button fx:id="addBtn" defaultButton="true" mnemonicParsing="false" onAction="#addLendBtn" prefHeight="55.0" prefWidth="110.0" style="-fx-background-radius: 5px;" text="ADD" />
                            </children>
                            <opaqueInsets>
