@@ -7,6 +7,7 @@ package Controller;
 
 import java.net.URL;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -15,6 +16,8 @@ import java.util.logging.Logger;
 import DAO.AccountDAO;
 import Entity.Account;
 import com.jfoenix.controls.JFXButton;
+import com.mysql.cj.result.LocalDateValueFactory;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -31,6 +34,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.scene.control.Alert.AlertType; 
 
 
 /**
@@ -145,13 +149,7 @@ public class AccountController implements Initializable {
     public void loadAccount() {
         database db=new database();
         try {
-            
-            db.getConnect();
-            //ResultSet rs=db.execution("SELECT * FROM student");
-            //while(rs.next()){
-                //studentList.add(new Account(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getString(5),rs.getString(6), rs.getInt(7)));
-                l_account=AccountDAO.loadAccount();
-            //}
+            l_account=AccountDAO.loadAccount();
         } catch (Exception e) {
             Logger.getLogger(cardController.class.getName());
         }
@@ -163,6 +161,7 @@ public class AccountController implements Initializable {
         t_outdate.setCellValueFactory(new PropertyValueFactory<>("outofday"));
         t_staffName.setCellValueFactory(new PropertyValueFactory<>("staffName"));
         tableAccount.setItems(l_account);     
+        System.out.println(l_account);
     }
     //        ADD student Start
     
@@ -175,37 +174,63 @@ public class AccountController implements Initializable {
             LocalDate date2= outday.getValue();
             String dob1=date1.toString();
             String dob2=date2.toString();
-            int staffidd=Integer.parseInt(staffID.getText());
+            int staffidd;
+            if (Name.equals("")) throw new Exception();
+            if (Pass.equals("")) throw new Exception();
+            try {
+                staffidd=Integer.parseInt(staffID.getText());
+            } catch(Exception e) {
+                Alert a=new Alert(AlertType.ERROR, "Staff ID must be number!\nAdd account failed!");
+                a.show();
+                return;
+            }
             ac.setUserName(Name);
             ac.setUserPassword(Pass);
             ac.setCreateday(dob1);
             ac.setOutofday(dob2);
             ac.setStaffID(staffidd);
-            AccountDAO.addAccount(ac);}
-            catch(Exception e){e.printStackTrace();}
-            clearALL();
-            loadAccount();
+            AccountDAO.addAccount(ac);
+        } catch(Exception e){
+            Alert a=new Alert(AlertType.ERROR, "Please make sure that you have filled all the information!\nAdd account failed!");
+            a.show();
         }
-        public void updateAccountBtn(ActionEvent event) throws Exception{
-            try{
-            Account ac = new Account();
-            int idd=Integer.parseInt(id.getText());
-            String username=userName.getText();
-            String userpass=userPass.getText();
-            int staffidd=Integer.parseInt(staffID.getText());
-            LocalDate date1=outday.getValue();
-            String dob1=date1.toString();
-            LocalDate date2=createday.getValue();
-            String dob2=date2.toString();
-            ac.setUserID(idd);
-            ac.setUserName(username);
-            ac.setUserPassword(userpass);
-            ac.setCreateday(dob2);
-            ac.setOutofday(dob1);
-            ac.setStaffID(staffidd);
-            AccountDAO.editAccount(ac);}
-            catch(Exception e){e.printStackTrace();}
-            loadAccount();
+        clearALL();
+        loadAccount();
+    }
+    public void updateAccountBtn(ActionEvent event) throws Exception{
+        try{
+        Account ac = new Account();
+        int idd;
+        try {
+            idd=Integer.parseInt(id.getText());           
+        }
+        catch (Exception e) {
+            Alert a= new Alert (AlertType.ERROR,"Please choose a staff to make changes!\nUpdate staff failed!");
+            a.show();
+            return;   
+        }
+        String username=userName.getText();
+        String userpass=userPass.getText();
+        int staffidd=Integer.parseInt(staffID.getText());
+        LocalDate date1=outday.getValue();
+        String dob1=date1.toString();
+        LocalDate date2=createday.getValue();
+        String dob2=date2.toString();
+        
+        if (username.equals("")) throw new Exception();
+        if (userpass.equals("")) throw new Exception();
+        ac.setUserID(idd);
+        ac.setUserName(username);
+        ac.setUserPassword(userpass);
+        ac.setCreateday(dob2);
+        ac.setOutofday(dob1);
+        ac.setStaffID(staffidd);
+        AccountDAO.editAccount(ac);
+        } catch(Exception e) {
+            Alert a=new Alert(AlertType.ERROR, "Please make sure that you have filled all the information!\nUpdate account failed!");
+            a.show();
+        }
+        loadAccount();
     }
 
 //delete start
@@ -232,7 +257,7 @@ public class AccountController implements Initializable {
             row.setOnMouseClicked(et -> {
                 Account ac = this.tableAccount.getSelectionModel().getSelectedItem();
                 this.id.setText(Integer.toString(ac.getUserID()));
-                this.userName.setText((ac.getUserName()));
+                this.userName.setText(ac.getUserName());
                 this.userPass.setText(ac.getUserPassword());
                 LocalDate dob1=LocalDate.parse(ac.getOutofday());
                 LocalDate dob2=LocalDate.parse(ac.getCreateday());
@@ -260,7 +285,7 @@ public class AccountController implements Initializable {
         else {
             if (namesearch.isSelected()==true) flaccount.setPredicate(p -> p.getUserName().toLowerCase().contains(searchAccount.getText().toLowerCase().trim()));
             else {
-                if(searchAccount.getText().matches("[1-9]*")) flaccount.setPredicate(p -> p.getUserID() == Integer.parseInt(searchAccount.getText()));
+                if(searchAccount.getText().matches("-?([1-9][0-9]*)?")) flaccount.setPredicate(p -> p.getUserID() == Integer.parseInt(searchAccount.getText()));
                 else tableAccount.setItems(l_account);
             }
         }

@@ -61,10 +61,10 @@ public class bookDAO{
         db.getConnect();
         try {
             String sql="UPDATE book SET ";
-        sql+="bookName='"+ book.getBookName()+"',";
-        sql+="bookAuthorID='"+ book.getBookAuthorID()+"',";
-        sql+="bookCategoryID='"+ book.getBookCategoryID()+"',";
-        sql+="bookPublisher='"+ book.getBookPublisher()+"',";
+        sql+="bookName='"+book.getBookName()+"',";
+        sql+="bookAuthorID='"+book.getBookAuthorID()+"',";
+        sql+="bookCategoryID='"+book.getBookCategoryID()+"',";
+        sql+="bookPublisher='"+book.getBookPublisher()+"',";
         sql+="bookPrice='"+book.getBookPrice()+"',";
         sql+="bookPages='"+book.getBookPages()+"' WHERE bookID="+book.getBookID()+";";
         db.update(sql);

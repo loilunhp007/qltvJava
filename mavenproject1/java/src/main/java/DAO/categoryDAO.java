@@ -77,4 +77,20 @@ public class categoryDAO {
         db.disconnect();
         return null;
     }
+
+    public static int findRoleByName(String categoryName){
+        int categoryid=0;
+        database db = new database();
+        db.getConnect();
+        ResultSet rs = db.execution("SELECT categoryID From categories WHERE categoryName='"+categoryName+"'");
+        try {
+            while(rs.next()){
+                categoryid=rs.getInt(1);
+            }
+        } catch (Exception e) {
+
+        }
+        db.disconnect();
+        return categoryid;
+    }
 }
