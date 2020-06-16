@@ -15,6 +15,7 @@ import javafx.scene.control.*;
 
 import DAO.categoryDAO;
 import Entity.Categories;
+import com.jfoenix.controls.JFXButton;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -23,6 +24,10 @@ import javafx.scene.control.TextField;
 import javafx.collections.*;
 import javafx.scene.control.cell.*;
 import javafx.collections.transformation.FilteredList;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -146,5 +151,16 @@ public class CategoryController implements Initializable {
                 else tableCate.setItems(l_cate);
             }
         }
+    }
+    @FXML
+    private JFXButton menuBtn;
+    @FXML
+    public void menuOpen() throws Exception{
+        menuBtn.getScene().getWindow().hide();
+        Parent root = FXMLLoader.load(getClass().getResource("../View/Function.fxml"));
+                Stage mainStage=new Stage();
+                Scene scene=new Scene(root);
+                mainStage.setScene(scene);
+                mainStage.show();
     }
 }

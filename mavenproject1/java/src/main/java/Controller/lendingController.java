@@ -29,6 +29,9 @@ import javafx.scene.control.cell.*;
 import javafx.util.StringConverter;
 import javafx.event.*;
 import javafx.collections.transformation.FilteredList;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 public class lendingController implements Initializable {
     
     @FXML
@@ -47,12 +50,6 @@ public class lendingController implements Initializable {
     private TableColumn<BookLending, Integer > t_total;
     @FXML
     private Button addBtn;
-    @FXML
-    private Button updateBtn;
-    @FXML
-    private Button removeBtn;
-    @FXML
-    private Button clear;
     @FXML
     private Button checkbookBtn;
     @FXML
@@ -122,11 +119,15 @@ public class lendingController implements Initializable {
     private TextField RstudentClass;
     @FXML
     private TextField Rprice;
-    @FXML
-    private TextField search1;
     //Book return END
     ObservableList<BookLending> lendList = FXCollections.observableArrayList();
     ObservableList<Lending_Detail> returnList = FXCollections.observableArrayList();
+    @FXML
+    private Button logoutBtn;
+    @FXML
+    private Button checkRbookID;
+    @FXML
+    private TableColumn<?, ?> r_status1;
 
     @Override
     public void initialize( URL url, ResourceBundle rb){
@@ -195,12 +196,14 @@ public class lendingController implements Initializable {
         tableReturn.setItems(returnList);
     }
     //Check book
+    @FXML
     public void checkBook(ActionEvent event) throws Exception{
         int bookid1=Integer.parseInt(bookID.getText());
         Book b1=new Book();
         b1=bookDAO.findBookByID(bookid1);
         book.setText(b1.getBookName());
     }
+    @FXML
     public void checkBook1(ActionEvent event) throws Exception{
         if(book2ID.getText()!=null){
             int bookid=Integer.parseInt(book2ID.getText());
@@ -209,6 +212,7 @@ public class lendingController implements Initializable {
             bookName1.setText(b.getBookName());
         }
     }
+    @FXML
     public void checkBook2(ActionEvent event) throws Exception{
         if(book2ID.getText()!=null){
             int bookid=Integer.parseInt(book3ID.getText());
@@ -221,7 +225,8 @@ public class lendingController implements Initializable {
 
 //Check card student
 
-public void checkCard(ActionEvent event) throws Exception{
+    @FXML
+    public void checkCard(ActionEvent event) throws Exception{
     try {
         int cardid1=Integer.parseInt(cardID.getText());
     Student st1=new Student();
@@ -233,7 +238,8 @@ public void checkCard(ActionEvent event) throws Exception{
     }
     
 }
-public void checkReturnStudent(ActionEvent event) throws Exception{
+    @FXML
+    public void checkReturnStudent(ActionEvent event) throws Exception{
     try {
         int returnid=Integer.parseInt(RlendID.getText());
         BookLending bl=new BookLending();
@@ -251,7 +257,8 @@ public void checkReturnStudent(ActionEvent event) throws Exception{
         JOptionPane.showMessageDialog(null, "No student or lendID Found");
     }
 }
-public void checkReturnBook(ActionEvent event) throws Exception{
+    @FXML
+    public void checkReturnBook(ActionEvent event) throws Exception{
     try {
         int returnbook=Integer.parseInt(RbookID.getText());
         Book b=new Book();
@@ -272,7 +279,8 @@ public void checkReturnBook(ActionEvent event) throws Exception{
 //Check card student end
 
 //staff check
-public void checkStaff(ActionEvent event) throws Exception{
+    @FXML
+    public void checkStaff(ActionEvent event) throws Exception{
     try {
         int staffid1=Integer.parseInt(staffID.getText());
         Staff staff1=new Staff();
@@ -287,6 +295,7 @@ public void checkStaff(ActionEvent event) throws Exception{
 //staff check end
     //        ADD borrow Start
     
+    @FXML
     public void addLendBtn(ActionEvent event) throws Exception{
         try {
         BookLending bl = new BookLending();
@@ -399,6 +408,7 @@ public void checkStaff(ActionEvent event) throws Exception{
             return row;
         });
     }
+    @FXML
     public void clearALL(){
         lendID.clear();
         bookID.clear();
@@ -415,6 +425,7 @@ public void checkStaff(ActionEvent event) throws Exception{
         staffName.clear();
     }
     // return book
+    @FXML
     public void ReturnBtn(ActionEvent event){
         
         Lending_Detail ld=new Lending_Detail();
@@ -439,5 +450,13 @@ public void checkStaff(ActionEvent event) throws Exception{
     }
     public void get_accountID(int ID){
         staffID.setText(Integer.toString(ID));
+    }
+    public void logoutOpen() throws Exception{
+    logoutBtn.getScene().getWindow().hide();
+    Parent root = FXMLLoader.load(getClass().getResource("../View/Login.fxml"));
+            Stage mainStage=new Stage();
+            Scene scene=new Scene(root);
+            mainStage.setScene(scene);
+            mainStage.show();
     }
 }

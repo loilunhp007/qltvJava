@@ -138,11 +138,6 @@ public class FunctionController implements Initializable {
     }
     
     public void categoryOpen() throws Exception{
-        categoryBtn.getScene().getWindow().hide();
-        Parent root = FXMLLoader.load(getClass().getResource("../View/Category.fxml"));
-                Stage mainStage=new Stage();
-                Scene scene=new Scene(root);
-                mainStage.setScene(scene);
-                mainStage.show();
+        
     }  
 }

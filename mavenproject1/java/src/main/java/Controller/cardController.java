@@ -13,6 +13,7 @@ import java.util.logging.Logger;
 import Controller.database;
 import DAO.studentDAO;
 import Entity.*;
+import com.jfoenix.controls.JFXButton;
 import javafx.fxml.*;
 import javafx.scene.control.*;
 import javafx.collections.*;
@@ -20,6 +21,9 @@ import javafx.scene.control.cell.*;
 import javafx.util.StringConverter;
 import javafx.event.*;
 import javafx.collections.transformation.FilteredList;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 public class cardController implements Initializable {
     
     @FXML
@@ -179,5 +183,16 @@ public class cardController implements Initializable {
         dob.setValue(null);
         email.clear();
         studentclass.clear();
+    }
+    @FXML
+    private JFXButton menuBtn;
+    @FXML
+    public void menuOpen() throws Exception{
+        menuBtn.getScene().getWindow().hide();
+        Parent root = FXMLLoader.load(getClass().getResource("../View/Function.fxml"));
+                Stage mainStage=new Stage();
+                Scene scene=new Scene(root);
+                mainStage.setScene(scene);
+                mainStage.show();
     }
 }

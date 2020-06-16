@@ -20,18 +20,24 @@ import Controller.database;
 import DAO.bookDAO;
 import DAO.staffDAO;
 import Entity.*;
+import com.jfoenix.controls.JFXButton;
 import javafx.fxml.*;
 import javafx.scene.control.*;
 import javafx.collections.*;
 import javafx.scene.control.cell.*;
 import javafx.event.*;
 import javafx.collections.transformation.FilteredList;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.image.*;
+import javafx.stage.Stage;
 public class exportController implements Initializable {
     @FXML 
     private FileInputStream fis;
     @FXML 
     private Button export;
+    @FXML
+    private JFXButton menuBtn;
     @FXML 
     private ComboBox<String> cbox;
     ObservableList Option =FXCollections.observableArrayList();
@@ -340,5 +346,14 @@ public class exportController implements Initializable {
         db.disconnect();
         cbox.setItems(Option);
 
+    }
+    @FXML
+    public void menuOpen() throws Exception{
+        menuBtn.getScene().getWindow().hide();
+        Parent root = FXMLLoader.load(getClass().getResource("../View/Function.fxml"));
+                Stage mainStage=new Stage();
+                Scene scene=new Scene(root);
+                mainStage.setScene(scene);
+                mainStage.show();
     }
 }

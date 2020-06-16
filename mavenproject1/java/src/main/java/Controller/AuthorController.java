@@ -14,6 +14,7 @@ import java.util.logging.Logger;
 
 import DAO.authorDAO;
 import Entity.Author;
+import com.jfoenix.controls.JFXButton;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -26,7 +27,11 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.*;
 import javafx.util.StringConverter;
 import javafx.collections.transformation.FilteredList;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.image.*;
+import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -242,4 +247,15 @@ public class AuthorController implements Initializable {
             }
         }
     }
+    @FXML
+    public void menuOpen() throws Exception{
+        menuBtn.getScene().getWindow().hide();
+        Parent root = FXMLLoader.load(getClass().getResource("../View/Function.fxml"));
+                Stage mainStage=new Stage();
+                Scene scene=new Scene(root);
+                mainStage.setScene(scene);
+                mainStage.show();
+    }
+    @FXML
+    private JFXButton menuBtn;
 }

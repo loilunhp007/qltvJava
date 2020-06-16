@@ -14,6 +14,7 @@ import java.util.logging.Logger;
 
 import DAO.AccountDAO;
 import Entity.Account;
+import com.jfoenix.controls.JFXButton;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -26,6 +27,10 @@ import javafx.util.StringConverter;
 import javafx.collections.*;
 import javafx.scene.image.*;
 import javafx.collections.transformation.FilteredList;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 
 
 /**
@@ -49,6 +54,8 @@ public class AccountController implements Initializable {
     private TextField staffID;
     @FXML
     private Button addBtn;
+    @FXML
+    private JFXButton menuBtn;
     @FXML
     private Button removeBtn;
     @FXML
@@ -259,5 +266,14 @@ public class AccountController implements Initializable {
                 else tableAccount.setItems(l_account);
             }
         }
+    }
+    @FXML
+    public void menuOpen() throws Exception{
+        menuBtn.getScene().getWindow().hide();
+        Parent root = FXMLLoader.load(getClass().getResource("../View/Function.fxml"));
+                Stage mainStage=new Stage();
+                Scene scene=new Scene(root);
+                mainStage.setScene(scene);
+                mainStage.show();
     }
 }

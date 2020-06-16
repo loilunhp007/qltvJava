@@ -16,7 +16,7 @@
                <children>
                   <ImageView fx:id="userimg" fitHeight="200.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true" smooth="false">
                      <VBox.margin>
-                        <Insets />
+                        <Insets bottom="50.0" />
                      </VBox.margin>
                      <image>
                         <Image url="@../../resources/res/person.png" />
