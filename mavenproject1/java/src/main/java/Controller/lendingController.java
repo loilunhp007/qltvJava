@@ -126,15 +126,13 @@ public class lendingController implements Initializable {
     private Button logoutBtn;
     @FXML
     private Button checkRbookID;
-    @FXML
-    private TableColumn<?, ?> r_status1;
 
     @Override
     public void initialize( URL url, ResourceBundle rb){
         convertDate();
         loadLend();
         loadDetail();
-        //onSelect();
+        onSelect();
     }
     public void convertDate(){
        String pattern="yyyy-MM-dd";
@@ -390,20 +388,27 @@ public class lendingController implements Initializable {
     
     //          Add student end
     public void onSelect() {
-        this.tableLend.setRowFactory(param -> {
+        this.tableReturn.setRowFactory(param -> {
             TableRow row = new TableRow();
             row.setOnMouseClicked(et -> {
-                if(this.tableLend.getSelectionModel().getSelectedItem()!=null){
-                    BookLending bl = this.tableLend.getSelectionModel().getSelectedItem();
+                Lending_Detail ld = this.tableReturn.getSelectionModel().getSelectedItem();
                 BookLending bl2=new BookLending();
-                this.lendID.setText(Integer.toString(bl.getLendID()));
-                int id=bl.getLendID();
+                this.RlendID.setText(Integer.toString(ld.getLendID()));
+                int id=ld.getLendID();
                 bl2=bookLendingDAO.findLendByID(id);
-                this.cardID.setText(Integer.toString(bl2.getLendStudentID()));
-                LocalDate create1=LocalDate.parse(bl.getCreateDay());
-                this.createday.setValue(create1);
-                }
-                
+                this.RcardID.setText(Integer.toString(bl2.getLendStudentID()));
+                Student st=new Student();
+                st=studentDAO.findStudentByID(bl2.getLendStudentID());
+                this.RstudentName.setText(st.getStudentName());
+                this.RstudentClass.setText(st.getStudentClass());
+                Book b=new Book();
+                b=bookDAO.findBookByID(ld.getBookID());
+                this.RbookID.setText(Integer.toString(ld.getBookID()));
+                this.Rbook.setText(b.getBookName());
+                Author aut=new Author();
+                aut=authorDAO.findAuthorByID(b.getBookAuthorID());
+                this.RbookAuthor.setText(aut.getAuthorName());
+                this.Rprice.setText(Integer.toString(b.getBookPrice()));
             });
             return row;
         });
@@ -438,15 +443,6 @@ public class lendingController implements Initializable {
         Lending_detailDAO.editLend(ld);
         loadDetail();
         loadLend();       
-    }
-    public void onselect1(){
-        Student st=new Student();
-        BookLending bl=new BookLending();
-        bl=bookLendingDAO.findLendByID(Integer.parseInt(RlendID.getText()));
-        RcardID.setText(Integer.toString(bl.getLendStudentID()));
-        RstudentName.setText(st.getStudentName());
-        RstudentClass.setText(st.getStudentClass());
-        st=studentDAO.findStudentByID(Integer.parseInt(RcardID.getText()));
     }
     public void get_accountID(int ID){
         staffID.setText(Integer.toString(ID));

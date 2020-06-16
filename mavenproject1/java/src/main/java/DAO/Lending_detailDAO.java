@@ -17,7 +17,7 @@ public class Lending_detailDAO {
     public static ObservableList<Lending_Detail> load(){
         ObservableList<Lending_Detail> l_lenddetail = FXCollections.observableArrayList();
         database db = new database();
-        ResultSet rs= db.execution("SELECT ld.lendID,b.bookName,ld.dueDay,ld.lendStatus FROM lending_detail ld join booklending bl on ld.lendID=bl.lendID join book b on ld.bookID=b.bookID WHERE 1 ORDER BY lendID ASC;");
+        ResultSet rs= db.execution("SELECT ld.lendID,b.bookName,ld.dueDay,ld.lendStatus,ld.bookID FROM lending_detail ld join booklending bl on ld.lendID=bl.lendID join book b on ld.bookID=b.bookID WHERE 1 ORDER BY lendID ASC;");
         try {
             while(rs.next()){
                 Lending_Detail ld=new Lending_Detail();
@@ -25,6 +25,7 @@ public class Lending_detailDAO {
                 ld.setBookName(rs.getString(2));
                 ld.setDueDay(rs.getString(3));
                 ld.setLendStatus(rs.getString(4));
+                ld.setBookID(rs.getInt(5));
                 l_lenddetail.add(ld);
             }
         } catch (Exception e) {

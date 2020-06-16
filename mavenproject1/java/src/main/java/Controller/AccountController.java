@@ -77,8 +77,6 @@ public class AccountController implements Initializable {
     @FXML
     private TableColumn<Account, String> t_staffName;
     @FXML
-    private ImageView userimg;
-    @FXML
     private RadioButton namesearch;
     @FXML
     private RadioButton idsearch;

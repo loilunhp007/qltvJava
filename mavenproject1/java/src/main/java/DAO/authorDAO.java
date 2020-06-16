@@ -55,7 +55,7 @@ public class authorDAO {
         sql+="authorName='"+ author.getAuthorName()+"',";
         sql+="authorGender='"+ author.getAuthorGender()+"',";
         sql+="authorDOB='"+ author.getAuthorDOB()+"',";
-        sql+="AuthorPublisher='"+ author.getAuthorEmail() + " WHERE suthorID="+author.getAuthorID()+";";
+        sql+="authorEmail='"+ author.getAuthorEmail() + "' WHERE authorID='"+author.getAuthorID()+"';";
         db.update(sql);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Error");
