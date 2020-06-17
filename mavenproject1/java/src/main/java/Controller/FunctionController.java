@@ -54,6 +54,10 @@ public class FunctionController implements Initializable {
     @FXML
     private ImageView cardimg;
     @FXML
+    private Button lendingBtn;
+    @FXML
+    private ImageView lendingimg;
+    @FXML
     private Button authorBtn;
     @FXML
     private ImageView authorimg;
@@ -110,6 +114,15 @@ public class FunctionController implements Initializable {
                 mainStage.show();
     }
     
+    public void lendOpen() throws Exception{
+        lendingBtn.getScene().getWindow().hide();
+        Parent root = FXMLLoader.load(getClass().getResource("../View/Lending.fxml"));
+                Stage mainStage=new Stage();
+                Scene scene=new Scene(root);
+                mainStage.setScene(scene);
+                mainStage.show();
+    }
+
     public void authorOpen() throws Exception{
         authorBtn.getScene().getWindow().hide();
         Parent root = FXMLLoader.load(getClass().getResource("../View/Author.fxml"));
