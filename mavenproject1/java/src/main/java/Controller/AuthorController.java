@@ -16,22 +16,17 @@ import DAO.authorDAO;
 import Entity.Author;
 import com.jfoenix.controls.JFXButton;
 import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.TextField;
-import javafx.scene.control.ToggleGroup;
-import javafx.collections.*;
+import javafx.fxml.*;
 import javafx.scene.control.*;
+import javafx.collections.*;
 import javafx.scene.control.cell.*;
 import javafx.util.StringConverter;
 import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
+import javafx.scene.*;
 import javafx.scene.image.*;
 import javafx.stage.Stage;
+import javafx.scene.control.Alert.AlertType; 
 
 /**
  * FXML Controller class
@@ -124,13 +119,7 @@ public class AuthorController implements Initializable {
     public void loadAuthor() {
         database db=new database();
         try {
-            
-            db.getConnect();
-            //ResultSet rs=db.execution("SELECT * FROM student");
-            //while(rs.next()){
-                //studentList.add(new Author(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getString(5),rs.getString(6), rs.getInt(7)));
-                authorList=authorDAO.load();
-            //}
+            authorList=authorDAO.load();
         } catch (Exception e) {
             Logger.getLogger(cardController.class.getName());
         }
@@ -145,50 +134,65 @@ public class AuthorController implements Initializable {
     //        ADD student Start
     
     public void addAuthorBtn(ActionEvent event) throws Exception{
-        try{Author aut= new Author();
-        String Name=authorName.getText();
-        LocalDate date1= dob.getValue();
-        String dob1=date1.toString();
-        String  email1=authorEmail.getText();
-        String gender1=null;
-        if(male.isSelected()==true){
-            gender1=male.getText();
-        }
-        if(female.isSelected()==true){
-            gender1=female.getText();
-        }
-        aut.setAuthorName(Name);
-        aut.setAuthorGender(gender1);
-        aut.setAuthorDOB(dob1);
-        aut.setAuthorEmail(email1);
-        authorDAO.addAuthor(aut);}
-        catch(Exception e){e.printStackTrace();}
-        clearALL();
-        loadAuthor();
+        try{
+            Author aut= new Author();
+            String Name=authorName.getText();
+            if (Name.equals("")) throw new Exception();
+            String dob1=dob.getValue().toString();
+            String  email1=authorEmail.getText();
+            String gender1;
+            if(male.isSelected()==true){
+                gender1="Male";
+            }
+            else {
+                gender1="Female";
+            }
+            aut.setAuthorName(Name);
+            aut.setAuthorGender(gender1);
+            aut.setAuthorDOB(dob1);
+            aut.setAuthorEmail(email1);
+            authorDAO.addAuthor(aut);
+            clearALL();
+            loadAuthor();
+        } catch (Exception e) {
+            Alert a=new Alert(AlertType.ERROR, "Please make sure that you have filled all the information!\nAdd author failed!");
+            a.show();
+        }       
     }
     public void updateAuthorBtn(ActionEvent event) throws Exception{
         try{
-        Author aut = new Author();
-        int idd=Integer.parseInt(id.getText());
-        String Name=authorName.getText();
-        LocalDate date1=dob.getValue();
-        String dob1=date1.toString();
-        String  email1=authorEmail.getText();
-        String gender1=null;
-        if(male.isSelected()==true){
-            gender1=male.getText();
-        }
-        if(female.isSelected()==true){
-            gender1=female.getText();
-        }
-        aut.setAuthorID(idd);
-        aut.setAuthorName(Name);
-        aut.setAuthorDOB(dob1);
-        aut.setAuthorEmail(email1);
-        aut.setAuthorGender(gender1);
-        authorDAO.editAuthor(aut);}
-        catch(Exception e){e.printStackTrace();}
-        loadAuthor();
+            Author aut = new Author();
+            int idd;
+            try {
+                idd=Integer.parseInt(id.getText());           
+            }
+            catch (Exception e) {
+                Alert a= new Alert (AlertType.ERROR,"Please choose an author to make changes!\nUpdate author failed!");
+                a.show();
+                return;   
+            }
+            String Name=authorName.getText();
+            if (Name.equals("")) throw new Exception();
+            String dob1=dob.getValue().toString();
+            String email1=authorEmail.getText();
+            String gender1;
+            if(male.isSelected()==true) {
+                gender1="Male";
+            }
+            else {
+                gender1="Female";
+            }
+            aut.setAuthorID(idd);
+            aut.setAuthorName(Name);
+            aut.setAuthorDOB(dob1);
+            aut.setAuthorEmail(email1);
+            aut.setAuthorGender(gender1);
+            authorDAO.editAuthor(aut);
+            loadAuthor();
+        } catch (Exception e) {
+            Alert a=new Alert(AlertType.ERROR, "Please make sure that you have filled all the information!\nUpdate author failed!");
+            a.show();
+        }       
     }
 
 //delete start
@@ -242,7 +246,7 @@ public class AuthorController implements Initializable {
         else {
             if (namesearch.isSelected()==true) flaccount.setPredicate(p -> p.getAuthorName().toLowerCase().contains(searchAuthor.getText().toLowerCase().trim()));
             else {
-                if(searchAuthor.getText().matches("[1-9]*")) flaccount.setPredicate(p -> p.getAuthorID() == Integer.parseInt(searchAuthor.getText()));
+                if(searchAuthor.getText().matches("-?([1-9][0-9]*)?")) flaccount.setPredicate(p -> p.getAuthorID() == Integer.parseInt(searchAuthor.getText()));
                 else tableAuthor.setItems(authorList);
             }
         }

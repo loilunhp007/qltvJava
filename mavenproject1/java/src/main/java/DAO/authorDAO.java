@@ -82,5 +82,19 @@ public class authorDAO {
         return null;
     }
 
-    
+    public static int findRoleByName(String authorName){
+        int authorid=0;
+        database db = new database();
+        db.getConnect();
+        ResultSet rs = db.execution("SELECT authorID From author WHERE authorName='"+authorName+"'");
+        try {
+            while(rs.next()){
+                authorid=rs.getInt(1);
+            }
+        } catch (Exception e) {
+            
+        }
+        db.disconnect();
+        return authorid;
+    }
 }

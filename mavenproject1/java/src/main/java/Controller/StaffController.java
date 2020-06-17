@@ -217,14 +217,14 @@ public class StaffController implements Initializable {
             String gender1;
             int sal, phone1; 
             if (txtID.getText().equals("")) {
-                 Alert a= new Alert (AlertType.ERROR,"Please choose a staff to make changes!\nUpdate staff failed!");
+                Alert a= new Alert (AlertType.ERROR,"Please choose a staff to make changes!\nUpdate staff failed!");
                 a.show();
                 return;
             }                       
             try {
                 phone1= Integer.parseInt(phone.getText());
             } catch(Exception e) {
-                 Alert a=new Alert(AlertType.ERROR, "Phone must be number!\nAdd staff failed!");
+                Alert a=new Alert(AlertType.ERROR, "Phone must be number!\nAdd staff failed!");
                 a.show();
                 return;
             }
@@ -241,8 +241,8 @@ public class StaffController implements Initializable {
             else {
                 gender1="Female";
             }
-             String role=cbox.getSelectionModel().getSelectedItem().toString();
-             int role1= staffDAO.findRoleByName(role);
+            String role=cbox.getSelectionModel().getSelectedItem().toString();
+            int role1= staffDAO.findRoleByName(role);
             staff.setStaffID(idd);
             staff.setStaffName(Name);
             staff.setStaffDOB(dob1);
@@ -254,7 +254,7 @@ public class StaffController implements Initializable {
             staffDAO.editStaff(staff);        
             loadStaff();
         } catch (Exception e) {
-             Alert a=new Alert(AlertType.ERROR, "Please make sure that you have filled all the information!\nAdd staff failed!");
+            Alert a=new Alert(AlertType.ERROR, "Please make sure that you have filled all the information!\nAdd staff failed!");
             a.show();
         }
     }

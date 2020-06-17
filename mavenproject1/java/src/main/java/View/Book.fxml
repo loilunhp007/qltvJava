@@ -41,11 +41,7 @@
                                     <Insets />
                                  </HBox.margin>
                               </Label>
-                              <TextField fx:id="author" prefHeight="25.0" prefWidth="230.0">
-                                 <HBox.margin>
-                                    <Insets />
-                                 </HBox.margin>
-                              </TextField>
+                              <ComboBox fx:id="author" prefHeight="25.0" prefWidth="230.0" promptText="Author" />
                               <Button fx:id="bookAdd" mnemonicParsing="false" onAction="#addBookbtn" prefHeight="25.0" prefWidth="98.0" text="Add" />
                            </children>
                            <VBox.margin>
@@ -69,11 +65,7 @@
                                     <Insets />
                                  </HBox.margin>
                               </Label>
-                              <TextField fx:id="category" prefHeight="25.0" prefWidth="230.0">
-                                 <HBox.margin>
-                                    <Insets />
-                                 </HBox.margin>
-                              </TextField>
+                              <ComboBox fx:id="category" prefHeight="25.0" prefWidth="230.0" promptText="Category" />
                               <Button fx:id="bookUpdate" mnemonicParsing="false" onAction="#updateBookBtn" prefHeight="25.0" prefWidth="98.0" text="Update" />
                            </children>
                            <VBox.margin>

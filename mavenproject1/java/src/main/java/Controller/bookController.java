@@ -1,10 +1,13 @@
 package Controller;
+
 import java.net.URL;
 import java.sql.*;
 import java.util.*;
 import java.util.logging.Logger;
 import Controller.database;
+import DAO.authorDAO;
 import DAO.bookDAO;
+import DAO.categoryDAO;
 import Entity.*;
 import com.jfoenix.controls.JFXButton;
 import javafx.fxml.*;
@@ -17,6 +20,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.*;
 import javafx.stage.Stage;
+import javafx.scene.control.Alert.AlertType; 
 
 public class bookController implements Initializable {
     @FXML
@@ -54,9 +58,9 @@ public class bookController implements Initializable {
     @FXML
     private TextField book;
     @FXML
-    private TextField author;
+    private ComboBox author;
     @FXML
-    private TextField category;
+    private ComboBox category;
     @FXML
     private TextField publisher;
     @FXML
@@ -71,10 +75,12 @@ public class bookController implements Initializable {
      * Initializes the controller class.
      */
     ObservableList<Book> bookList = FXCollections.observableArrayList();
-    
+    ObservableList optional = FXCollections.observableArrayList();
+    ObservableList optional1 = FXCollections.observableArrayList();
      
     @Override
     public void initialize( URL url, ResourceBundle rb){
+        fillCombobox();
         loadBook();
         onSelect();
     }
@@ -103,43 +109,153 @@ public class bookController implements Initializable {
         bookQuantity.setCellValueFactory(new PropertyValueFactory<>("bookPages"));
         bookTable.setItems(bookList);     
     }
-    @FXML
+    
+    public void fillCombobox() {
+        database db=new database();
+        try {
+            db.getConnect();
+            String sql="SELECT authorName FROM author WHERE 1";
+            ResultSet rs=db.execution(sql);
+            while(rs.next()) {
+                optional.add(rs.getString(1));
+            }
+        } catch ( SQLException e) {
+            e.printStackTrace();
+        }
+        author.setItems(optional);
+        try {
+            String sql="SELECT categoryName FROM categories";
+            ResultSet rs=db.execution(sql);
+            while(rs.next()) {
+                optional1.add(rs.getString(1));
+            }
+        } catch ( SQLException e) {
+            e.printStackTrace();
+        }
+        db.disconnect();
+        category.setItems(optional1);
+   }
+
     public void addBookbtn(ActionEvent event) throws SQLException{
-        Book book1= new Book();
-        String Name=book.getText();
-        int  Author=Integer.parseInt(author.getText());
-        int cate= Integer.parseInt(category.getText());
-        String publish=publisher.getText();
-        int cpri=Integer.parseInt(price.getText());
-        int avai=Integer.parseInt(available.getText());
-        book1.setBookName(Name);
-        book1.setBookAuthorID(Author);
-        book1.setBookCategoryID(cate);
-        book1.setBookPublisher(publish);
-        book1.setBookPrice(cpri);
-        book1.setBookPages(avai);
-        bookDAO.addBook(book1);
-        loadBook();
+        try {
+            Book book1= new Book();
+            String Name=book.getText();
+            String publish=publisher.getText();
+            int cpri, avai;
+            String Author, Category;
+            if (Name.equals("")) throw new Exception();
+            if (publish.equals("")) throw new Exception();        
+            try {
+                Author=author.getSelectionModel().getSelectedItem().toString();
+                
+            } catch (Exception e) {
+                Alert a=new Alert(AlertType.ERROR, "Author can't be empty!\nAdd book failed!");
+                a.show();
+                return;
+            }
+            try {
+                Category=category.getSelectionModel().getSelectedItem().toString();
+                
+            } catch (Exception e) {
+                Alert a=new Alert(AlertType.ERROR, "Category can't be empty!\nAdd book failed!");
+                a.show();
+                return;
+            }
+            try {
+                cpri=Integer.parseInt(price.getText());
+            } catch(Exception e) {
+                Alert a=new Alert(AlertType.ERROR, "Price must be number!\nAdd book failed!");
+                a.show();
+                return;
+            }
+            try {
+                avai= Integer.parseInt(available.getText());
+            } catch(Exception e) {
+                Alert a=new Alert(AlertType.ERROR, "The number of available books must be number!\nAdd book failed!");
+                a.show();
+                return;
+            }
+            int authorid= authorDAO.findRoleByName(author.getSelectionModel().getSelectedItem().toString());
+            int categoryid= categoryDAO.findRoleByName(author.getSelectionModel().getSelectedItem().toString());
+            book1.setBookName(Name);
+            book1.setBookAuthorID(authorid);
+            book1.setBookCategoryID(categoryid);
+            book1.setBookPublisher(publish);
+            book1.setBookPrice(cpri);
+            book1.setBookPages(avai);
+            bookDAO.addBook(book1);
+            loadBook();
+        } catch (Exception e) {
+            Alert a=new Alert(AlertType.ERROR, "Please make sure that you have filled all the information!\nAdd book failed!");
+            a.show();
+        }
     }
     public void updateBookBtn(ActionEvent event) throws Exception{
-        //error
-        Book book1 = new Book();
-        String Name=book.getText();
-        int  Author=Integer.parseInt(author.getText());
-        int cate= Integer.parseInt(category.getText());
-        String publish=publisher.getText();
-        int cpri=Integer.parseInt(price.getText());
-        int avai=Integer.parseInt(available.getText());
-        int idd=Integer.parseInt(id.getText());
-        book1.setBookID(idd);
-        book1.setBookName(Name);
-        book1.setBookAuthorID(Author);
-        book1.setBookCategoryID(cate);
-        book1.setBookPublisher(publish);
-        book1.setBookPrice(cpri);
-        book1.setBookPages(avai);
-        bookDAO.editBook(book1);
-        loadBook();
+        try {
+            Book book1 = new Book();
+            String Name=book.getText();
+            String Author, Category;
+            String publish=publisher.getText();
+            int cpri=Integer.parseInt(price.getText());
+            int avai=Integer.parseInt(available.getText());
+            int idd;
+            if (id.getText().equals("")) {
+                Alert a= new Alert (AlertType.ERROR,"Please choose a staff to make changes!\nUpdate staff failed!");
+                a.show();
+                return;
+            }
+            else {
+                idd=Integer.parseInt(id.getText());
+            }
+            if (Name.equals("")) throw new Exception();
+            if (publish.equals("")) throw new Exception(); 
+            try {
+                Author=author.getSelectionModel().getSelectedItem().toString();
+                
+            } catch (Exception e) {
+                Alert a=new Alert(AlertType.ERROR, "Author can't be empty!\nAdd book failed!");
+                a.show();
+                return;
+            }
+            try {
+                Category=category.getSelectionModel().getSelectedItem().toString();
+                
+            } catch (Exception e) {
+                Alert a=new Alert(AlertType.ERROR, "Category can't be empty!\nAdd book failed!");
+                a.show();
+                return;
+            }
+            try {
+                cpri=Integer.parseInt(price.getText());
+            } catch(Exception e) {
+                Alert a=new Alert(AlertType.ERROR, "Price must be number!\nAdd book failed!");
+                a.show();
+                return;
+            }
+            try {
+                avai= Integer.parseInt(available.getText());
+            } catch(Exception e) {
+                Alert a=new Alert(AlertType.ERROR, "The number of available books must be number!\nAdd book failed!");
+                a.show();
+                return;
+            }
+            int authorid= authorDAO.findRoleByName(author.getSelectionModel().getSelectedItem().toString());
+            int categoryid= categoryDAO.findRoleByName(category.getSelectionModel().getSelectedItem().toString());
+            book1.setBookID(idd);
+            book1.setBookName(Name);
+            book1.setBookAuthorID(authorid);
+            book1.setBookCategoryID(categoryid);
+            book1.setBookPublisher(publish);
+            book1.setBookPrice(cpri);
+            book1.setBookPages(avai);
+            System.out.println(book1);
+            System.out.println(book1.getBookCategoryID());
+            bookDAO.editBook(book1);
+            loadBook();
+        } catch (Exception e) {
+            Alert a=new Alert(AlertType.ERROR, "Please make sure that you have filled all the information!\nAdd book failed!");
+            a.show();
+        }
     }
 
 //delete start
@@ -192,8 +308,8 @@ public void refreshBook(){
                 Book b = this.bookTable.getSelectionModel().getSelectedItem();
                 this.id.setText(Integer.toString(b.getBookID()));
                 this.book.setText((b.getBookName()));
-                this.author.setText(Integer.toString(b.getBookAuthorID()));
-                this.category.setText(Integer.toString(b.getBookCategoryID()));
+                author.setValue(b.getBookAuthor());
+                category.setValue(b.getBookCategory());
                 this.publisher.setText(b.getBookPublisher());
                 this.available.setText(Integer.toString(b.getBookPages()));
                 this.price.setText(Integer.toString(b.getBookPrice()));
@@ -204,8 +320,8 @@ public void refreshBook(){
     public void clearAll(){
         id.clear();
         book.clear();
-        author.clear();
-        category.clear();
+        author.setValue(null);;
+        category.setValue(null);
         publisher.clear();
         available.clear();
         price.clear();
@@ -218,7 +334,7 @@ public void refreshBook(){
         else {
             if (namesearch.isSelected()==true) flbook.setPredicate(p -> p.getBookName().toLowerCase().contains(bookSearch.getText().toLowerCase().trim()));
             else {
-                if(bookSearch.getText().matches("[1-9]*")) flbook.setPredicate(p -> p.getBookID() == Integer.parseInt(bookSearch.getText()));
+                if(bookSearch.getText().matches("-?([1-9][0-9]*)?")) flbook.setPredicate(p -> p.getBookID() == Integer.parseInt(bookSearch.getText()));
                 else bookTable.setItems(bookList);
             }
         }
