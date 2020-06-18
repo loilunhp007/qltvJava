@@ -8,7 +8,6 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-
 <GridPane alignment="CENTER" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.StaffController">
    <columnConstraints>
       <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" />
@@ -21,14 +20,19 @@
          <center>
             <HBox alignment="CENTER" maxWidth="1.7976931348623157E308" prefHeight="600.0" prefWidth="1003.0" BorderPane.alignment="CENTER">
                <children>
-                  <ImageView fx:id="staffimg" fitHeight="200.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
-                     <HBox.margin>
-                        <Insets bottom="30.0" left="50.0" right="10.0" />
-                     </HBox.margin>
-                     <image>
-                        <Image url="@../../resources/res/person.png" />
-                     </image>
-                  </ImageView>
+                  <VBox alignment="CENTER" spacing="20.0">
+                     <children>
+                        <ImageView fx:id="staffimg" fitHeight="200.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
+                           <HBox.margin>
+                              <Insets bottom="30.0" left="50.0" right="10.0" />
+                           </HBox.margin>
+                           <image>
+                              <Image url="@../../resources/res/person.png" />
+                           </image>
+                        </ImageView>
+                        <Button fx:id="filepickerbtn" mnemonicParsing="false" onAction="#fileChooser" text="Open image" VBox.vgrow="NEVER" />
+                     </children>
+                  </VBox>
                   <VBox alignment="CENTER" prefHeight="242.0" prefWidth="800.0" styleClass="background2" stylesheets="@../../resources/styles/styles.css" BorderPane.alignment="CENTER">
                      <children>
                         <HBox alignment="CENTER_LEFT" prefWidth="0.0" styleClass="hbox" stylesheets="@../../resources/styles/styles.css">

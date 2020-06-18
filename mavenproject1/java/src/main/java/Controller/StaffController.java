@@ -4,11 +4,15 @@
  * and open the template in the editor.
  */
 package Controller;
+
 import Controller.database;
 import DAO.bookDAO;
 import DAO.staffDAO;
 import Entity.*;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStream;
 import java.net.URL;
 import java.sql.*;
 import java.text.*;
@@ -17,7 +21,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.logging.Logger;
 
-import javafx.scene.control.Alert.AlertType; 
+import javafx.scene.control.Alert.AlertType;
 import javax.swing.JOptionPane;
 import com.jfoenix.controls.JFXButton;
 import javafx.fxml.*;
@@ -30,7 +34,7 @@ import javafx.scene.*;
 import javafx.scene.image.*;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
-
+import javafx.stage.FileChooser;
 
 /**
  * FXML Controller class
@@ -46,7 +50,7 @@ public class StaffController implements Initializable {
     @FXML
     private TableColumn<Staff, String> nameC;
     @FXML
-    private TableColumn<Staff,String> dobC;
+    private TableColumn<Staff, String> dobC;
     @FXML
     private TableColumn<Staff, String> genderC;
     @FXML
@@ -87,7 +91,7 @@ public class StaffController implements Initializable {
     private ToggleGroup gender;
     @FXML
     private RadioButton female;
-    @FXML 
+    @FXML
     private RadioButton namesearch;
     @FXML
     private RadioButton idsearch;
@@ -95,47 +99,50 @@ public class StaffController implements Initializable {
     private ToggleGroup searchbar;
     @FXML
     private ImageView staffimg;
-    @FXML 
+    @FXML
     private ComboBox cbox;
     @FXML
     private Button menuBtn;
-    
+
     ObservableList<Staff> staffList = FXCollections.observableArrayList();
     ObservableList optional = FXCollections.observableArrayList();
-    
+    String imgURL;
 
     @Override
-    public void initialize(URL url,ResourceBundle rb) {
+    public void initialize(URL url, ResourceBundle rb) {
         fillCombobox();
         loadStaff();
         onSelect();
     }
-    public void convertDate(){
-        String pattern="yyyy-MM-dd";
+
+    public void convertDate() {
+        String pattern = "yyyy-MM-dd";
         dob.setPromptText(pattern.toLowerCase());
-        dob.setConverter(new StringConverter<LocalDate>(){
-         DateTimeFormatter DTF=DateTimeFormatter.ofPattern(pattern);
+        dob.setConverter(new StringConverter<LocalDate>() {
+            DateTimeFormatter DTF = DateTimeFormatter.ofPattern(pattern);
+
             @Override
             public String toString(LocalDate t) {
-                if(t !=null){
+                if (t != null) {
                     return DTF.format(t);
                 }
                 return null;
             }
-     
+
             @Override
             public LocalDate fromString(String string) {
-                if(string !=null && !string.isEmpty()){
-                    return LocalDate.parse(string,DTF);
+                if (string != null && !string.isEmpty()) {
+                    return LocalDate.parse(string, DTF);
                 }
                 return null;
             }
-        }); 
-     }
+        });
+    }
+
     public void loadStaff() {
-         database db=new database();
-        try {      
-            staffList=staffDAO.load();
+        database db = new database();
+        try {
+            staffList = staffDAO.load();
         } catch (Exception e) {
             Logger.getLogger(StaffController.class.getName());
         }
@@ -148,49 +155,51 @@ public class StaffController implements Initializable {
         addressC.setCellValueFactory(new PropertyValueFactory<>("staffAddr"));
         roleC.setCellValueFactory(new PropertyValueFactory<>("role_name"));
         salaryC.setCellValueFactory(new PropertyValueFactory<>("staffSalary"));
-        staffTable.setItems(staffList);     
+        staffTable.setItems(staffList);
     }
-    //        ADD staff Start
-    
-    public void addStaffbtn(ActionEvent event) throws Exception{
+    // ADD staff Start
+
+    public void addStaffbtn(ActionEvent event) throws Exception {
         try {
-             Staff staff= new Staff();
-             String Name=name.getText();
-             LocalDate d1=dob.getValue();
-             String date1=d1.toString();
-             String Addr=address.getText();
-            if (Addr.equals("")) throw new Exception();
+            Staff staff = new Staff();
+            String Name = name.getText();
+            LocalDate d1 = dob.getValue();
+            String date1 = d1.toString();
+            String Addr = address.getText();
+            if (Addr.equals(""))
+                throw new Exception();
             String gender1, rolename;
             int sal, phone1;
             try {
-                rolename=cbox.getSelectionModel().getSelectedItem().toString();
-                
+                rolename = cbox.getSelectionModel().getSelectedItem().toString();
+
             } catch (Exception e) {
-                 Alert a=new Alert(AlertType.ERROR, "Role can't be empty!\nAdd staff failed!");
+                Alert a = new Alert(AlertType.ERROR, "Role can't be empty!\nAdd staff failed!");
                 a.show();
                 return;
             }
             try {
-                phone1= Integer.parseInt(phone.getText());
-            } catch(Exception e) {
-                 Alert a=new Alert(AlertType.ERROR, "Phone must be number!\nAdd staff failed!");
+                phone1 = Integer.parseInt(phone.getText());
+            } catch (Exception e) {
+                Alert a = new Alert(AlertType.ERROR, "Phone must be number!\nAdd staff failed!");
                 a.show();
                 return;
             }
             try {
-                sal= Integer.parseInt(salary.getText());
-            } catch(Exception e) {
-                 Alert a=new Alert(AlertType.ERROR, "Salary must be number!\nAdd staff failed!");
+                sal = Integer.parseInt(salary.getText());
+            } catch (Exception e) {
+                Alert a = new Alert(AlertType.ERROR, "Salary must be number!\nAdd staff failed!");
                 a.show();
                 return;
             }
-             int role1= staffDAO.findRoleByName(rolename);
-            if(male.isSelected()==true){
-                gender1="Male";
+            int role1 = staffDAO.findRoleByName(rolename);
+            if (male.isSelected() == true) {
+                gender1 = "Male";
+            } else {
+                gender1 = "Female";
             }
-            else {
-                gender1="Female";
-            }        
+            if (imgURL.equals(""))
+                throw new Exception();
             staff.setStaffName(Name);
             staff.setStaffDOB(date1);
             staff.setStaffAddr(Addr);
@@ -198,51 +207,54 @@ public class StaffController implements Initializable {
             staff.setStaffPhone(phone1);
             staff.setStaff_role(role1);
             staff.setStaffSalary(sal);
+            staff.setStaffImg(imgURL);
             staffDAO.addStaff(staff);
             loadStaff();
         } catch (Exception e) {
-             Alert a=new Alert(AlertType.ERROR, "Please make sure that you have filled all the information!\nAdd staff failed!");
+            Alert a = new Alert(AlertType.ERROR,
+                    "Please make sure that you have filled all the information!\nAdd staff failed!");
             a.show();
         }
     }
-    public void updateStaffBtn( ActionEvent event) throws Exception{
+
+    public void updateStaffBtn(ActionEvent event) throws Exception {
         try {
-             Staff staff = new Staff();
-             int idd=Integer.parseInt(txtID.getText());
-             String Name=name.getText();
-             LocalDate d1=dob.getValue();
-             String dob1=d1.toString();
-             String  Addr=address.getText();
-            if (Addr.equals("")) throw new Exception();
+            Staff staff = new Staff();
+            int idd = Integer.parseInt(txtID.getText());
+            String Name = name.getText();
+            LocalDate d1 = dob.getValue();
+            String dob1 = d1.toString();
+            String Addr = address.getText();
+            if (Addr.equals(""))
+                throw new Exception();
             String gender1;
-            int sal, phone1; 
+            int sal, phone1;
             if (txtID.getText().equals("")) {
-                Alert a= new Alert (AlertType.ERROR,"Please choose a staff to make changes!\nUpdate staff failed!");
-                a.show();
-                return;
-            }                       
-            try {
-                phone1= Integer.parseInt(phone.getText());
-            } catch(Exception e) {
-                Alert a=new Alert(AlertType.ERROR, "Phone must be number!\nAdd staff failed!");
+                Alert a = new Alert(AlertType.ERROR, "Please choose a staff to make changes!\nUpdate staff failed!");
                 a.show();
                 return;
             }
             try {
-                sal= Integer.parseInt(salary.getText());
-            } catch(Exception e) {
-                 Alert a=new Alert(AlertType.ERROR, "Salary must be number!\nAdd staff failed!");
+                phone1 = Integer.parseInt(phone.getText());
+            } catch (Exception e) {
+                Alert a = new Alert(AlertType.ERROR, "Phone must be number!\nAdd staff failed!");
                 a.show();
                 return;
-            }        
-            if(male.isSelected()==true){
-                gender1="Male";
             }
-            else {
-                gender1="Female";
+            try {
+                sal = Integer.parseInt(salary.getText());
+            } catch (Exception e) {
+                Alert a = new Alert(AlertType.ERROR, "Salary must be number!\nAdd staff failed!");
+                a.show();
+                return;
             }
-            String role=cbox.getSelectionModel().getSelectedItem().toString();
-            int role1= staffDAO.findRoleByName(role);
+            if (male.isSelected() == true) {
+                gender1 = "Male";
+            } else {
+                gender1 = "Female";
+            }
+            String role = cbox.getSelectionModel().getSelectedItem().toString();
+            int role1 = staffDAO.findRoleByName(role);
             staff.setStaffID(idd);
             staff.setStaffName(Name);
             staff.setStaffDOB(dob1);
@@ -251,43 +263,46 @@ public class StaffController implements Initializable {
             staff.setStaffPhone(phone1);
             staff.setStaff_role(role1);
             staff.setStaffSalary(sal);
-            staffDAO.editStaff(staff);        
+            staff.setStaffImg(imgURL);
+            staffDAO.editStaff(staff);
             loadStaff();
         } catch (Exception e) {
-            Alert a=new Alert(AlertType.ERROR, "Please make sure that you have filled all the information!\nAdd staff failed!");
+            Alert a = new Alert(AlertType.ERROR,
+                    "Please make sure that you have filled all the information!\nAdd staff failed!");
             a.show();
         }
     }
 
-//delete start
-    public void rmvStaff( ActionEvent event){
+    // delete start
+    public void rmvStaff(ActionEvent event) {
         if (txtID.getText().equals("")) {
-             Alert a= new Alert (AlertType.ERROR,"Please choose a staff to make changes!\nUpdate staff failed!");
+            Alert a = new Alert(AlertType.ERROR, "Please choose a staff to make changes!\nUpdate staff failed!");
             a.show();
             return;
-        }   
-         Alert al= new Alert (AlertType.CONFIRMATION,"Are you sure you want to delete this?");
+        }
+        Alert al = new Alert(AlertType.CONFIRMATION, "Are you sure you want to delete this?");
         al.setTitle("Confirm");
-         Optional<ButtonType> res= al.showAndWait();
-        if(res.get() == ButtonType.OK){
-             int idd=Integer.parseInt(txtID.getText());
+        Optional<ButtonType> res = al.showAndWait();
+        if (res.get() == ButtonType.OK) {
+            int idd = Integer.parseInt(txtID.getText());
             staffDAO.deleteStaff(idd);
             loadStaff();
         }
     }
-//delete end
+    // delete end
 
-    public void refreshstaff(){
+    public void refreshstaff() {
         staffList.clear();
-         database db=new database();
+        database db = new database();
         try {
-            
+
             db.getConnect();
-             ResultSet rs=db.execution("SELECT * FROM Staff");
-            while(rs.next()){
-                staffList.add(new Staff(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getString(5),rs.getInt(6),rs.getInt(7),rs.getInt(8)));
+            ResultSet rs = db.execution("SELECT * FROM Staff");
+            while (rs.next()) {
+                staffList.add(new Staff(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4),
+                        rs.getString(5), rs.getInt(6), rs.getInt(7), rs.getInt(8), rs.getString(9)));
             }
-        } catch ( SQLException e) {
+        } catch (SQLException e) {
             Logger.getLogger(StaffController.class.getName());
         }
         db.disconnect();
@@ -299,26 +314,36 @@ public class StaffController implements Initializable {
         addressC.setCellValueFactory(new PropertyValueFactory<>("staffAddr"));
         roleC.setCellValueFactory(new PropertyValueFactory<>("staff_role"));
         salaryC.setCellValueFactory(new PropertyValueFactory<>("staffSalary"));
-        staffTable.setItems(staffList); 
+        staffTable.setItems(staffList);
     }
 
     public void onSelect() {
         this.staffTable.setRowFactory(param -> {
-             TableRow row = new TableRow();
+            TableRow row = new TableRow();
             row.setOnMouseClicked(et -> {
-                 Staff s = this.staffTable.getSelectionModel().getSelectedItem();
+                Staff s = this.staffTable.getSelectionModel().getSelectedItem();
                 this.txtID.setText(Integer.toString(s.getStaffID()));
                 this.name.setText((s.getStaffName()));
-                 String d1=s.getStaffDOB();
-                 LocalDate date1= LocalDate.parse(d1);
+                String d1 = s.getStaffDOB();
+                LocalDate date1 = LocalDate.parse(d1);
                 this.dob.setValue(date1);
-                if (s.getStaffGender().equals("Male")) male.setSelected(true);
-                else female.setSelected(true);
+                if (s.getStaffGender().equals("Male"))
+                    male.setSelected(true);
+                else
+                    female.setSelected(true);
                 cbox.setValue(s.getRole_name());
-                //this.role.setText(Integer.toString(staffDAO.findRoleByName(s.getRole_name())));
+                // this.role.setText(Integer.toString(staffDAO.findRoleByName(s.getRole_name())));
                 this.phone.setText(Integer.toString(s.getStaffPhone()));
                 this.address.setText(s.getStaffAddr());
                 this.salary.setText(Integer.toString(s.getStaffSalary()));
+                InputStream input;
+                try {
+                    input = s.getBlob().getBinaryStream();
+                } catch (SQLException e) {
+                    return;
+                }
+                Image usrimg=new Image (input);
+                staffimg.setImage(usrimg);
             });
 			return row;
         });
@@ -370,6 +395,17 @@ public class StaffController implements Initializable {
                  Scene scene=new Scene(root);
                 mainStage.setScene(scene);
                 mainStage.show();
+    }
+
+    public void fileChooser() {
+        Stage stage=new Stage();
+        FileChooser fc= new FileChooser();
+        fc.setTitle("Choose an image");
+        fc.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Image Files", "*.jpg", "*.jpeg", "*.png"));
+        File file = fc.showOpenDialog(stage);
+        imgURL= file.toString()/*.replaceAll("\\\\", "\\\\\\\\")*/;
+        Image img = new Image(file.toURI().toString());
+        staffimg.setImage(img);
     }
 }
 

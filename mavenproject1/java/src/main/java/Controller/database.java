@@ -7,6 +7,7 @@ package Controller;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -25,11 +26,15 @@ public class database {
             Class.forName("com.mysql.cj.jdbc.Driver").newInstance();
             con = DriverManager.getConnection("jdbc:mysql://localhost:3306/qltv1","root","7826");
             stmt=con.createStatement();
-            
         } catch (Exception e) {
             System.out.println("Kết nối không thành công");
         }
     }
+
+    public Connection getCon() {
+        return con;
+    }
+
     public ResultSet execution(String sql) {
         try{
             rs=stmt.executeQuery(sql);
@@ -47,6 +52,16 @@ public class database {
             e.printStackTrace();;
         }
     }
+    public void updateStaff(PreparedStatement st){
+        try{
+            st.executeUpdate();
+            System.out.println("Done");
+        }
+        catch(Exception e){
+            e.printStackTrace();;
+        }
+    }
+
     public void disconnect(){
         try{
             if(rs !=null){

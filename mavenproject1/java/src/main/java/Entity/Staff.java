@@ -1,9 +1,13 @@
 package Entity;
 
-public class Staff {
-    private String staffName,staffdob,staffAddr,staffGender, role_name;
-    private int staffID,staff_role, staffSalary, staffPhone;
+import java.io.FileInputStream;
 
+import com.mysql.cj.jdbc.Blob;
+
+public class Staff {
+    private String staffName,staffdob,staffAddr,staffGender, role_name, staffImg;
+    private int staffID,staff_role, staffSalary, staffPhone;
+    private java.sql.Blob staffBlob;
     public Staff() {
     }
 
@@ -11,7 +15,7 @@ public class Staff {
         this.staffID = staffID;
     }
 
-    public Staff(int staffID, String staffName, String staffDOB, String staffAddr,String staffGender,int staffPhone, int staff_role, int staffSalary) {
+    public Staff(int staffID, String staffName, String staffDOB, String staffAddr,String staffGender,int staffPhone, int staff_role, int staffSalary, String staffImg) {
         this.staffID = staffID;
         this.staffName = staffName;
         this.staffdob = staffDOB;
@@ -19,9 +23,10 @@ public class Staff {
         this.staffGender = staffGender;
         this.staffPhone = staffPhone;
         this.staff_role = staff_role;
-        this.staffSalary=staffSalary;
+        this.staffSalary = staffSalary;
+        this.staffImg = staffImg;
     }
-    public Staff(int staffID, String staffName, String staffDOB, String staffAddr,String staffGender,int staffPhone, String role_name, int staffSalary) {
+    public Staff(int staffID, String staffName, String staffDOB, String staffAddr,String staffGender,int staffPhone, String role_name, int staffSalary, String staffImg) {
         this.staffID = staffID;
         this.staffName = staffName;
         this.staffdob = staffDOB;
@@ -30,6 +35,33 @@ public class Staff {
         this.staffPhone = staffPhone;
         this.role_name = role_name;
         this.staffSalary=staffSalary;
+        this.staffImg = staffImg;
+    }
+    public Staff(int staffID, String staffName, String staffDOB, String staffAddr,String staffGender,int staffPhone, int staff_role, int staffSalary, java.sql.Blob staffBlob) {
+        this.staffID = staffID;
+        this.staffName = staffName;
+        this.staffdob = staffDOB;
+        this.staffAddr = staffAddr;
+        this.staffGender = staffGender;
+        this.staffPhone = staffPhone;
+        this.staff_role = staff_role;
+        this.staffSalary = staffSalary;
+        this.staffBlob = staffBlob;
+    }
+
+    public java.sql.Blob getBlob(){
+        return staffBlob;
+    }
+
+    public void setBlob(java.sql.Blob staffBlob){
+        this.staffBlob=staffBlob;
+    }
+
+    public String getStaffImg() {
+        return staffImg;
+    }
+    public void setStaffImg(String staffImg) {
+        this.staffImg = staffImg;
     }
 
     public int getStaffID() {
