@@ -64,12 +64,12 @@ public class Lending_detailDAO {
         }        
         db.disconnect();
     }
-    public static void deleteLend(int lendID,int bookID){
+    public static void deleteLend(int lendID){
         try {
             database db = new database();
         db.getConnect();
         db.update("SET FOREIGN_KEY_CHECKS=0;");
-        db.update("DELETE FROM lending_detail WHERE lendID='"+lendID+"' and bookID='"+bookID+"';");
+        db.update("DELETE FROM lending_detail WHERE lendID='"+lendID+"';");
         db.update("SET FOREIGN_KEY_CHECKS=1;");
         db.disconnect();    
         } catch (Exception e) {
@@ -80,7 +80,7 @@ public class Lending_detailDAO {
     public static Lending_Detail findLendByID(int lendID,int bookID){
         database db = new database();
         db.getConnect();
-        ResultSet rs = db.execution("SELECT * From booklending WHERE lendID=''"+ lendID+"' and bookID='"+bookID+"';");
+        ResultSet rs = db.execution("SELECT * From lending_detail WHERE lendID='"+ lendID+"' and bookID='"+bookID+"';");
         try {
             while(rs.next()){
                 Lending_Detail ld = new Lending_Detail();
@@ -111,5 +111,6 @@ public class Lending_detailDAO {
         }
         db.disconnect();
         return -1;
-    }    
+    }
+        
 }

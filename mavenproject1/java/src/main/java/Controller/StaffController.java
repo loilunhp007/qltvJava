@@ -355,8 +355,8 @@ public class StaffController implements Initializable {
         dob.setValue(null);
         phone.clear();
         address.clear();
+        salary.clear();
     }
-
     public void searchBar(){
         FilteredList<Staff> flstaff = new FilteredList(staffList, p -> true);
         flstaff.removeAll();
@@ -398,6 +398,7 @@ public class StaffController implements Initializable {
     }
 
     public void fileChooser() {
+        try {
         Stage stage=new Stage();
         FileChooser fc= new FileChooser();
         fc.setTitle("Choose an image");
@@ -406,6 +407,9 @@ public class StaffController implements Initializable {
         imgURL= file.toString()/*.replaceAll("\\\\", "\\\\\\\\")*/;
         Image img = new Image(file.toURI().toString());
         staffimg.setImage(img);
+        } catch (NullPointerException e) {
+            JOptionPane.showMessageDialog(null,"No image found");
+        }
     }
 }
 

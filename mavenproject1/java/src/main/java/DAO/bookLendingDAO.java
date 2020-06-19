@@ -17,7 +17,7 @@ public class bookLendingDAO {
     public static ObservableList<BookLending> load(){
         ObservableList<BookLending> l_lending = FXCollections.observableArrayList();
         database db = new database();
-        ResultSet rs= db.execution("SELECT bl.lendID,st.studentName,bl.createDay,bl.returndate,s.staffName,count(*) FROM booklending bl join student st on bl.lendStudentID = st.studentID join staff s on s.staffID=bl.issued_by join lending_detail ld on bl.lendID=ld.lendID WHERE ld.lendStatus='Lending' GROUP BY ld.lendID;");
+        ResultSet rs= db.execution("SELECT bl.lendID,st.studentName,bl.createDay,bl.returndate,s.staffName,count(*),bl.lendStudentID,bl.issued_by FROM booklending bl join student st on bl.lendStudentID = st.studentID join staff s on s.staffID=bl.issued_by join lending_detail ld on bl.lendID=ld.lendID WHERE ld.lendStatus='Lending' GROUP BY ld.lendID;");
         try {
             while(rs.next()){
                 BookLending bl=new BookLending(rs.getInt(1));
@@ -26,6 +26,8 @@ public class bookLendingDAO {
                 bl.setReturnDate(rs.getString(4));
                 bl.setStaffName(rs.getString(5));
                 bl.setTotal(rs.getInt(6));
+                bl.setLendStudentID(rs.getInt(7));
+                bl.setIssued_by(rs.getInt(8));
                 l_lending.add(bl);
             }
         } catch (Exception e) {
@@ -55,7 +57,6 @@ public class bookLendingDAO {
         try {
             String sql="UPDATE booklending SET ";
         sql+="lendStudentID='"+ bl.getLendStudentID()+"',";
-        sql+="createDay='"+ bl.getCreateDay()+"',";
         sql+="returndate='"+ bl.getReturnDate()+"',";
         sql+="issued_by='"+bl.getIssued_by()+"' WHERE lendID="+bl.getLendID()+";";
         db.update(sql);

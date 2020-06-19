@@ -14,6 +14,7 @@ import java.util.*;
 import java.util.Date;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+
 import Controller.database;
 import DAO.Lending_detailDAO;
 import DAO.authorDAO;
@@ -32,7 +33,7 @@ import javafx.collections.transformation.FilteredList;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-public class lendingController implements Initializable {
+public class adminLendingController implements Initializable {
     
     @FXML
     private TableView<BookLending> tableLend;
@@ -61,6 +62,10 @@ public class lendingController implements Initializable {
     @FXML
     private Button checkstaffBtn;
     @FXML
+    private Button deleteBtn;
+    @FXML
+    private Button updateBtn;
+    @FXML
     private TextField lendID;
     @FXML
     private TextField cardID;
@@ -75,7 +80,7 @@ public class lendingController implements Initializable {
     @FXML
     private TextField bookName2;
     @FXML
-    private DatePicker createday;
+    private DatePicker setReturn;
     @FXML
     private TextField book;
     @FXML
@@ -104,6 +109,7 @@ public class lendingController implements Initializable {
     @FXML
     private Button checkreturnID;
     @FXML
+
     private TextField RlendID;
     @FXML
     private TextField RcardID;
@@ -133,11 +139,12 @@ public class lendingController implements Initializable {
         loadLend();
         loadDetail();
         onSelect();
+        onSelectlending();
     }
     public void convertDate(){
        String pattern="yyyy-MM-dd";
-       createday.setPromptText(pattern.toLowerCase());
-       createday.setConverter(new StringConverter<LocalDate>(){
+       setReturn.setPromptText(pattern.toLowerCase());
+       setReturn.setConverter(new StringConverter<LocalDate>(){
         DateTimeFormatter DTF=DateTimeFormatter.ofPattern(pattern);
            @Override
            public String toString(LocalDate t) {
@@ -167,7 +174,7 @@ public class lendingController implements Initializable {
                 lendList=bookLendingDAO.load();
             //}
         } catch (Exception e) {
-            Logger.getLogger(lendingController.class.getName());
+            Logger.getLogger(adminLendingController.class.getName());
         }
         db.disconnect();
         t_ID.setCellValueFactory(new PropertyValueFactory<>("lendID"));
@@ -199,7 +206,14 @@ public class lendingController implements Initializable {
         int bookid1=Integer.parseInt(bookID.getText());
         Book b1=new Book();
         b1=bookDAO.findBookByID(bookid1);
-        book.setText(b1.getBookName());
+        if(b1.getBookPages()>0){
+            book.setText(b1.getBookName());
+        }
+        else{
+            bookID.setText(null);
+            JOptionPane.showMessageDialog(null,"Books are not Available");
+        }
+
     }
     @FXML
     public void checkBook1(ActionEvent event) throws Exception{
@@ -207,7 +221,13 @@ public class lendingController implements Initializable {
             int bookid=Integer.parseInt(book2ID.getText());
             Book b=new Book();
             b=bookDAO.findBookByID(bookid);
-            bookName1.setText(b.getBookName());
+            if(b.getBookPages()>0){
+                bookName1.setText(b.getBookName());
+            }
+            else{
+                book2ID.setText(null);
+                JOptionPane.showMessageDialog(null,"Books are not Available");
+            }
         }
     }
     @FXML
@@ -216,7 +236,13 @@ public class lendingController implements Initializable {
             int bookid=Integer.parseInt(book3ID.getText());
             Book b=new Book();
             b=bookDAO.findBookByID(bookid);
-            bookName2.setText(b.getBookName());
+            if(b.getBookPages()>0){
+                bookName2.setText(b.getBookName());
+            }
+            else{
+                book3ID.setText(null);
+                JOptionPane.showMessageDialog(null,"Books are not Available");
+            }
         }
     }
 //Check book end
@@ -301,7 +327,7 @@ public class lendingController implements Initializable {
         int cardid1=Integer.parseInt(cardID.getText());
         LocalDate date1= LocalDate.now();
         String create1=date1.toString();
-        String returndate=createday.getValue().toString();
+        String returndate=setReturn.getValue().toString();
         int staff1=Integer.parseInt(staffID.getText());
         bl.setLendStudentID(cardid1);
         bl.setCreateDay(create1);
@@ -319,6 +345,7 @@ public class lendingController implements Initializable {
         ld.setDueDay(out);
         ld.setLendStatus("Lending");//add to detail
         Lending_detailDAO.addLend(ld);
+        bookDAO.forlend(ld.getBookID());
         if(book2ID.getText()!=null){
         Lending_Detail ld2= new Lending_Detail();
         String txtID1=book2ID.getText();
@@ -328,6 +355,7 @@ public class lendingController implements Initializable {
         ld2.setDueDay(out);
         ld2.setLendStatus("Lending");
         Lending_detailDAO.addLend(ld2);
+        bookDAO.forlend(ld2.getBookID());
         //add to detail
         }
         if(book3ID.getText()!=null){
@@ -339,48 +367,61 @@ public class lendingController implements Initializable {
         ld3.setDueDay(out);
         ld3.setLendStatus("Lending");//add to detail
         Lending_detailDAO.addLend(ld3);
-        //clearALL();
+        bookDAO.forlend(ld3.getBookID());
+        clearALL();
         loadLend();
         loadDetail();
         }
     } 
-        catch (Exception e) {
+        catch (NumberFormatException e) {
             loadLend();
             loadDetail();
-            
+            if(bookID==null&&book2ID==null&&book3ID==null){
+                JOptionPane.showMessageDialog(null,"TextField can not null");
+            }
         }
     }
 
 
     //Borrowed book End
     public void updateLendBtn(ActionEvent event) throws Exception{
-        //error
-        BookLending bl = new BookLending();
+        try {
+            BookLending bl = new BookLending();
         int idd=Integer.parseInt(lendID.getText());
         String cardid1=cardID.getText();
         int cardid=Integer.parseInt(cardid1);
         String  staff1=staffID.getText();
         int issued_by=Integer.parseInt(staff1);
+        LocalDate date1=setReturn.getValue();
+        String date2=date1.toString();
         bl.setLendID(idd);
         bl.setLendStudentID(cardid);
         bl.setIssued_by(issued_by);
+        bl.setReturnDate(date2);
         bookLendingDAO.editLend(bl);
         loadLend();
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null,"Please fill textfield");
+        }
     }
 
 //delete start
     public void removeLendBtn(ActionEvent event){
-        Alert.AlertType type=Alert.AlertType.CONFIRMATION;
+        try {
+            Alert.AlertType type=Alert.AlertType.CONFIRMATION;
         Alert al=new Alert(type,"");
         al.setTitle("Confirm");
         al.setContentText("Are you sure you want to delete this?");
         Optional<ButtonType> res= al.showAndWait();
         if(res.get() == ButtonType.OK){
             int idd=Integer.parseInt(lendID.getText());
-            int idd2=Integer.parseInt(bookID.getText());
             Lending_detailDAO.deleteLend(idd);
             bookLendingDAO.deleteLend(idd);
             loadLend();
+            loadDetail();
+        }
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null,"No lendID found");
         }
       
     }
@@ -413,6 +454,24 @@ public class lendingController implements Initializable {
             return row;
         });
     }
+    public void onSelectlending() {
+        this.tableLend.setRowFactory(param -> {
+            TableRow row = new TableRow();
+            row.setOnMouseClicked(et -> {
+                BookLending bl = this.tableLend.getSelectionModel().getSelectedItem();
+                this.lendID.setText(Integer.toString(bl.getLendID()));
+                this.cardID.setText(Integer.toString(bl.getLendStudentID()));
+                Student st=new Student();
+                st=studentDAO.findStudentByID(bl.getLendStudentID());
+                this.studentName.setText(st.getStudentName());
+                this.studentClass.setText(st.getStudentClass());
+                String sdate=bl.getReturnDate();
+                LocalDate sDate2=LocalDate.parse(sdate);
+                this.setReturn.setValue(sDate2);
+            });
+            return row;
+        });
+    }
     @FXML
     public void clearALL(){
         lendID.clear();
@@ -425,15 +484,17 @@ public class lendingController implements Initializable {
         cardID.clear();
         studentName.clear();
         studentClass.clear();
-        createday.setValue(null);
+        setReturn.setValue(null);
         staffID.clear();
         staffName.clear();
     }
     // return book
     @FXML
     public void ReturnBtn(ActionEvent event){
-        
-        Lending_Detail ld=new Lending_Detail();
+        Lending_Detail ld1=new Lending_Detail();
+        ld1=Lending_detailDAO.findLendByID(Integer.parseInt(RlendID.getText()),Integer.parseInt(RbookID.getText()));
+        if(ld1.getLendStatus().equals("Lending")){
+            Lending_Detail ld=new Lending_Detail();
         ld.setLendID(Integer.parseInt(RlendID.getText()));
         ld.setBookID(Integer.parseInt(RbookID.getText()));
         LocalDate date1=LocalDate.now();
@@ -441,8 +502,14 @@ public class lendingController implements Initializable {
         ld.setDueDay(returndate);
         ld.setLendStatus("Returned");
         Lending_detailDAO.editLend(ld);
+        bookDAO.returnlend(ld.getBookID());
         loadDetail();
         loadLend();       
+        }
+        else{
+            JOptionPane.showMessageDialog(null,"It already Returned");
+        }
+        
     }
     public void get_accountID(int ID){
         staffID.setText(Integer.toString(ID));

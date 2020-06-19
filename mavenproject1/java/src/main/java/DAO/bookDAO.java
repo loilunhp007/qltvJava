@@ -39,15 +39,19 @@ public class bookDAO{
     }
     public static  void addBook(Book book) {
         database db = new database();
-        db.getConnect();
-        String sql = "INSERT INTO book (bookName,bookAuthorID,bookCategoryID,bookPublisher,bookPrice,bookPages ) VALUES ('";
-        sql +=book.getBookName()+"','";
-        sql += book.getBookAuthorID() +"','";
-        sql += book.getBookCategoryID() +"','";
-        sql +=book.getBookPublisher()+"','";
-        sql +=book.getBookPrice()+"','";
-        sql +=book.getBookPages()+"');";
-        db.update(sql);
+        try {
+            db.getConnect();
+            String sql = "INSERT INTO book (bookName,bookAuthorID,bookCategoryID,bookPublisher,bookPrice,bookPages ) VALUES ('";
+            sql +=book.getBookName()+"','";
+            sql += book.getBookAuthorID() +"','";
+            sql += book.getBookCategoryID() +"','";
+            sql +=book.getBookPublisher()+"','";
+            sql +=book.getBookPrice()+"','";
+            sql +=book.getBookPages()+"');";
+            db.update(sql);
+        } catch (Exception e) {
+            e.getMessage();
+        }
         db.disconnect();
     }
     public static void deleteBook(int bookID){
@@ -93,5 +97,40 @@ public class bookDAO{
         }
         db.disconnect();
         return null;
+    }
+    public static void forlend(int bookID){
+        database db=new database();
+        db.getConnect();
+        try {
+            Book book=new Book();
+            book=findBookByID(bookID);
+            int available=(book.getBookPages()-1);
+            if(available > 0){
+                String sql="UPDATE book SET ";
+                sql+="bookPages='"+available+"' WHERE bookID="+book.getBookID()+";";
+                db.update(sql);
+            }
+            else{
+                JOptionPane.showMessageDialog(null,"this book is over");
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null,"Error While Lending book");
+        }        
+        db.disconnect();
+    }
+    public static void returnlend(int bookID){
+        database db=new database();
+        db.getConnect();
+        try {
+            Book book=new Book();
+            book=findBookByID(bookID);
+            int available=book.getBookPages()+1;
+                String sql="UPDATE book SET ";
+                sql+="bookPages='"+available+"' WHERE bookID="+book.getBookID()+";";
+                db.update(sql);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null,"Error While Returning book");
+        }        
+        db.disconnect();
     }
 }
