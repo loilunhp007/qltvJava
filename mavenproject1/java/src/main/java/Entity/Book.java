@@ -1,10 +1,16 @@
 package Entity;
+
+import java.io.FileInputStream;
+
+import com.mysql.cj.jdbc.Blob;
+
 public class Book {
     private int bookID;
     private int bookPrice;
     private int bookPages;
     private int bookAuthorID,bookCategoryID;
-    private String bookName,bookPublisher,bookAuthor,bookCategory;
+    private String bookName,bookPublisher,bookAuthor,bookCategory,bookImg;
+    private java.sql.Blob bookBlob;
 
     public Book() {
     }
@@ -13,7 +19,7 @@ public class Book {
         this.bookID = bookID;
     }
 
-    public Book(int bookID, String bookName, int bookAuthorID, int bookCategoryID,String bookPublisher,int bookPrice,int bookPages) {
+    public Book(int bookID, String bookName, int bookAuthorID, int bookCategoryID,String bookPublisher,int bookPrice,int bookPages, String bookImg) {
         this.bookID = bookID;
         this.bookName = bookName;
         this.bookAuthorID = bookAuthorID;
@@ -21,8 +27,10 @@ public class Book {
         this.bookPublisher = bookPublisher;
         this.bookPrice = bookPrice;
         this.bookPages = bookPages;
+        this.bookImg = bookImg;
     }
-    public Book(int bookID, String bookName, String bookAuthor, String bookCategory,String bookPublisher,int bookPrice,int bookPages) {
+    
+    public Book(int bookID, String bookName, String bookAuthor, String bookCategory,String bookPublisher,int bookPrice,int bookPages, String bookImg) {
         this.bookID = bookID;
         this.bookName = bookName;
         this.bookAuthor = bookAuthor;
@@ -30,8 +38,34 @@ public class Book {
         this.bookPublisher = bookPublisher;
         this.bookPrice = bookPrice;
         this.bookPages = bookPages;
+        this.bookImg = bookImg;
     }
     
+    public Book(int bookID, String bookName, String bookAuthor, String bookCategory,String bookPublisher,int bookPrice,int bookPages, java.sql.Blob bookBlob) {
+        this.bookID = bookID;
+        this.bookName = bookName;
+        this.bookAuthor = bookAuthor;
+        this.bookCategory = bookCategory;
+        this.bookPublisher = bookPublisher;
+        this.bookPrice = bookPrice;
+        this.bookPages = bookPages;
+        this.bookBlob = bookBlob;
+    }
+
+    public java.sql.Blob getBlob(){
+        return bookBlob;
+    }
+
+    public void setBlob(java.sql.Blob bookBlob){
+        this.bookBlob = bookBlob;
+    }
+
+    public String getBookImg() {
+        return bookImg;
+    }
+    public void setBookImg(String bookImg) {
+        this.bookImg = bookImg;
+    }
 
     public int getBookID() {
         return bookID;

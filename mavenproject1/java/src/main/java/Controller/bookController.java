@@ -14,13 +14,17 @@ import javafx.fxml.*;
 import javafx.scene.control.*;
 import javafx.collections.*;
 import javafx.scene.control.cell.*;
+import javafx.scene.image.*;
 import javafx.event.*;
 import javafx.collections.transformation.FilteredList;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.image.*;
 import javafx.stage.Stage;
 import javafx.scene.control.Alert.AlertType; 
+import javafx.stage.FileChooser;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStream;
 
 public class bookController implements Initializable {
     @FXML
@@ -77,6 +81,7 @@ public class bookController implements Initializable {
     ObservableList<Book> bookList = FXCollections.observableArrayList();
     ObservableList optional = FXCollections.observableArrayList();
     ObservableList optional1 = FXCollections.observableArrayList();
+    String imgURL;
      
     @Override
     public void initialize( URL url, ResourceBundle rb){
@@ -282,7 +287,7 @@ public void refreshBook(){
         db.getConnect();
         ResultSet rs=db.execution("SELECT * FROM book");
         while(rs.next()){
-            bookList.add(new Book(rs.getInt(1),rs.getString(2),rs.getInt(3),rs.getInt(4),rs.getString(5),rs.getInt(6), rs.getInt(7)));
+            bookList.add(new Book(rs.getInt(1),rs.getString(2),rs.getInt(3),rs.getInt(4),rs.getString(5),rs.getInt(6), rs.getInt(7), rs.getString(8)));
         }
     } catch (SQLException e) {
         Logger.getLogger(bookController.class.getName());
@@ -349,5 +354,16 @@ public void refreshBook(){
                 Scene scene=new Scene(root);
                 mainStage.setScene(scene);
                 mainStage.show();
+    }
+
+    public void fileChooser() {
+        Stage stage=new Stage();
+        FileChooser fc= new FileChooser();
+        fc.setTitle("Choose an image");
+        fc.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Image Files", "*.jpg", "*.jpeg", "*.png"));
+        File file = fc.showOpenDialog(stage);
+        imgURL= file.toString()/*.replaceAll("\\\\", "\\\\\\\\")*/;
+        Image img = new Image(file.toURI().toString());
+        bookimg.setImage(img);
     }
 }
