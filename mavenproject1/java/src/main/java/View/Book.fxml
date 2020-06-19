@@ -10,7 +10,7 @@
 
 <BorderPane prefHeight="697.0" prefWidth="932.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.bookController">
    <center>
-      <VBox>
+      <VBox alignment="CENTER">
          <children>
             <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="193.0" prefWidth="932.0">
                <children>
@@ -23,6 +23,9 @@
                         </ImageView>
                         <Button fx:id="filepickerbtn" mnemonicParsing="false" onAction="#fileChooser" text="Open image" />
                      </children>
+                     <HBox.margin>
+                        <Insets right="20.0" />
+                     </HBox.margin>
                   </VBox>
                   <VBox alignment="CENTER_LEFT" prefHeight="212.0" prefWidth="746.0" styleClass="background2" stylesheets="@../../resources/styles/Styles.css" BorderPane.alignment="CENTER">
                      <children>
@@ -116,28 +119,28 @@
                               <Insets />
                            </VBox.margin>
                         </HBox>
+                        <HBox alignment="CENTER" prefHeight="45.0" prefWidth="823.0" spacing="12.0">
+                           <children>
+                              <Label text="Search by" />
+                              <RadioButton fx:id="namesearch" mnemonicParsing="false" selected="true" text="Name">
+                                 <toggleGroup>
+                                    <ToggleGroup fx:id="searchbar" />
+                                 </toggleGroup>
+                              </RadioButton>
+                              <RadioButton fx:id="idsearch" mnemonicParsing="false" text="ID" toggleGroup="$searchbar" />
+                              <TextField fx:id="bookSearch" prefHeight="25.0" prefWidth="442.0" />
+                              <Button defaultButton="true" mnemonicParsing="false" onAction="#searchBar" prefHeight="25.0" prefWidth="98.0" text="Search" />
+                           </children>
+                           <VBox.margin>
+                              <Insets top="10.0" />
+                           </VBox.margin>
+                        </HBox>
                      </children>
                      <BorderPane.margin>
                         <Insets bottom="20.0" top="20.0" />
                      </BorderPane.margin>
                   </VBox>
                </children>
-            </HBox>
-            <HBox alignment="CENTER" prefHeight="45.0" prefWidth="823.0" spacing="15.0">
-               <children>
-                  <Label text="Search by" />
-                  <RadioButton fx:id="namesearch" mnemonicParsing="false" selected="true" text="Name">
-                     <toggleGroup>
-                        <ToggleGroup fx:id="searchbar" />
-                     </toggleGroup>
-                  </RadioButton>
-                  <RadioButton fx:id="idsearch" mnemonicParsing="false" text="ID" toggleGroup="$searchbar" />
-                  <TextField fx:id="bookSearch" prefHeight="25.0" prefWidth="442.0" />
-                  <Button defaultButton="true" mnemonicParsing="false" onAction="#searchBar" prefHeight="25.0" prefWidth="98.0" text="Search" />
-               </children>
-               <VBox.margin>
-                  <Insets top="10.0" />
-               </VBox.margin>
             </HBox>
          </children>
       </VBox>
