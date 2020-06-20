@@ -4,11 +4,14 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
+import java.sql.PreparedStatement;
+import java.io.File;
+import java.io.FileInputStream;
 
 import javax.swing.JOptionPane;
 
 import Controller.database;
- import Entity.Book;
+import Entity.Book;
 import javafx.collections.*;
 public class bookDAO{
 
@@ -39,15 +42,25 @@ public class bookDAO{
     }
     public static  void addBook(Book book) {
         database db = new database();
+        db.getConnect();
         try {
-            db.getConnect();
-            String sql = "INSERT INTO book (bookName,bookAuthorID,bookCategoryID,bookPublisher,bookPrice,bookPages ) VALUES ('";
-            sql +=book.getBookName()+"','";
-            sql += book.getBookAuthorID() +"','";
-            sql += book.getBookCategoryID() +"','";
-            sql +=book.getBookPublisher()+"','";
-            sql +=book.getBookPrice()+"','";
-            sql +=book.getBookPages()+"');";
+            File file= new File(staff.getBookImg());
+            FileInputStream input= new FileInputStream(file);            
+            String sql = "INSERT INTO book (bookName,bookAuthorID,bookCategoryID,bookPublisher,bookPrice,bookPages,bookImg) VALUES (?,?,?,?,?,?,?,?)";
+            PreparedStatement st= db.getCon().prepareStatement(sql);
+            st.setString(1, book.getBookName());
+            //sql +=book.getBookName()+"','";
+            st.setInt(2, book.getBookAuthorID());
+            //sql += book.getBookAuthorID() +"','";
+            st.setInt(3, book.getBookCategoryID());
+            //sql += book.getBookCategoryID() +"','";
+            st.setString(4, book.getBookPublisher());
+            //sql +=book.getBookPublisher()+"','";
+            st.setInt(5, book.getBookPrice());
+            //sql +=book.getBookPrice()+"','";
+            st.setInt(6, book.getBookPages());
+            //sql +=book.getBookPages()+"');";
+            st.setBinaryStream(7, input);
             db.update(sql);
         } catch (Exception e) {
             e.getMessage();
@@ -64,13 +77,23 @@ public class bookDAO{
         database db=new database();
         db.getConnect();
         try {
-            String sql="UPDATE book SET ";
-        sql+="bookName='"+book.getBookName()+"',";
-        sql+="bookAuthorID='"+book.getBookAuthorID()+"',";
-        sql+="bookCategoryID='"+book.getBookCategoryID()+"',";
-        sql+="bookPublisher='"+book.getBookPublisher()+"',";
-        sql+="bookPrice='"+book.getBookPrice()+"',";
-        sql+="bookPages='"+book.getBookPages()+"' WHERE bookID="+book.getBookID()+";";
+            File file=new File(staff.getBookImg());
+            FileInputStream input= new FileInputStream(file);
+            String sql="UPDATE book SET bookName=?, bookAuthorID=?, bookCategoryID=?, bookPublisher=?, bookPrice=?, bookPages=?, bookImg=? WHERE bookID="+book.getBookID()+";";
+            PreparedStatement st = db.getCon().prepareStatement(sql);
+            st.setString(1, book.getBookName());
+            //sql +=book.getBookName()+"','";
+            st.setInt(2, book.getBookAuthorID());
+            //sql += book.getBookAuthorID() +"','";
+            st.setInt(3, book.getBookCategoryID());
+            //sql += book.getBookCategoryID() +"','";
+            st.setString(4, book.getBookPublisher());
+            //sql +=book.getBookPublisher()+"','";
+            st.setInt(5, book.getBookPrice());
+            //sql +=book.getBookPrice()+"','";
+            st.setInt(6, book.getBookPages());
+            //sql +=book.getBookPages()+"');";
+            st.setBinaryStream(7, input);
         db.update(sql);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Error");
@@ -90,6 +113,7 @@ public class bookDAO{
                 book.setBookPublisher(rs.getString(5));
                 book.setBookPrice(rs.getInt(6));
                 book.setBookPages(rs.getInt(7));
+                book.setBlob(rs.getBlob(8));
                 return book;
             }
         } catch (Exception e) {
