@@ -319,6 +319,7 @@ public class lendingController implements Initializable {
         ld.setDueDay(out);
         ld.setLendStatus("Lending");//add to detail
         Lending_detailDAO.addLend(ld);
+        bookDAO.forlend(ld.getBookID());
         if(book2ID.getText()!=null){
         Lending_Detail ld2= new Lending_Detail();
         String txtID1=book2ID.getText();
@@ -328,6 +329,7 @@ public class lendingController implements Initializable {
         ld2.setDueDay(out);
         ld2.setLendStatus("Lending");
         Lending_detailDAO.addLend(ld2);
+        bookDAO.forlend(ld2.getBookID());
         //add to detail
         }
         if(book3ID.getText()!=null){
@@ -339,6 +341,7 @@ public class lendingController implements Initializable {
         ld3.setDueDay(out);
         ld3.setLendStatus("Lending");//add to detail
         Lending_detailDAO.addLend(ld3);
+        bookDAO.forlend(ld3.getBookID());
         //clearALL();
         loadLend();
         loadDetail();
@@ -432,7 +435,9 @@ public class lendingController implements Initializable {
     // return book
     @FXML
     public void ReturnBtn(ActionEvent event){
-        
+        Lending_Detail ld1=new Lending_Detail();
+        ld1=Lending_detailDAO.findLendByID(Integer.parseInt(RlendID.getText()),Integer.parseInt(RbookID.getText()));
+        if(ld1.getLendStatus().equals("Lending")){
         Lending_Detail ld=new Lending_Detail();
         ld.setLendID(Integer.parseInt(RlendID.getText()));
         ld.setBookID(Integer.parseInt(RbookID.getText()));
@@ -441,8 +446,11 @@ public class lendingController implements Initializable {
         ld.setDueDay(returndate);
         ld.setLendStatus("Returned");
         Lending_detailDAO.editLend(ld);
-        loadDetail();
-        loadLend();       
+        bookDAO.returnlend(ld.getBookID());
+    }
+    else{
+        JOptionPane.showMessageDialog(null,"This ID  already Returned");
+    }     
     }
     public void get_accountID(int ID){
         staffID.setText(Integer.toString(ID));

@@ -66,34 +66,38 @@ public class LoginController implements Initializable {
     public void loginPressed(ActionEvent event) throws Exception {
         database db=new database();
         db.getConnect();
-        String txtName=username.getText();
-        String txtPass=password.getText();
-        ResultSet rs=db.execution("SELECT userName,userPassword,staffID FROM account");
-        while(rs.next()){
-            /*if(validateUser(txtName) &&validatePass(txtPass)){
-                if(txtName.equals(rs.getString(1)) && txtPass.equals(rs.getString(2))){
-                    loginBtn.getScene().getWindow().hide();
-                    Parent root = FXMLLoader.load(getClass().getResource("/fxml/Function.fxml"));
-                    Stage mainStage=new Stage();
-                    Scene scene=new Scene(root);
-                    mainStage.setScene(scene);
-                    mainStage.show();
-                }
-                else{
-                    JOptionPane.showMessageDialog(null,"Your UserName or Password Incorrect");
-                }
-            }
-            else{
-                JOptionPane.showMessageDialog(null,"wrong  regex");
-            }*/
-            if(txtName.equals(rs.getString(1)) && txtPass.equals(rs.getString(2))){
+        try {
+            Boolean check=false;
+            String txtName=username.getText();
+            String txtPass=password.getText();
+            ResultSet rs=db.execution("SELECT ac.userName,ac.userPassword,ac.staffID,s.staff_roleID FROM account ac join staff s on ac.staffID=s.staffID WHERE ac.username='"+txtName+"' and ac.userPassword='"+txtPass+"';");
+            while(rs.next()){
+                check=true;
+                int role=rs.getInt(4);
+                if(role==2){
                 loginBtn.getScene().getWindow().hide();
                 Parent root = FXMLLoader.load(getClass().getResource("../View/Function.fxml"));
                 Stage mainStage=new Stage();
                 Scene scene=new Scene(root);
                 mainStage.setScene(scene);
                 mainStage.show();
+                }
+                else{
+                    if(role==1){
+                        loginBtn.getScene().getWindow().hide();
+                        Parent root = FXMLLoader.load(getClass().getResource("../View/Lending.fxml"));
+                        Stage mainStage=new Stage();
+                        Scene scene=new Scene(root);
+                        mainStage.setScene(scene);
+                        mainStage.show();
+                        }
+                }
             }
+            if(check==false){
+                JOptionPane.showMessageDialog(null,"Incorrect username or password");
+            }
+        } catch (Exception e) {
+            
         }
         /*if (Connect.checkAccount(username.getText(),password.getText()) == 0) {
             ResultSet rs=db.excution("select ");

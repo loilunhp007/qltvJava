@@ -507,9 +507,8 @@ public class adminLendingController implements Initializable {
         loadLend();       
         }
         else{
-            JOptionPane.showMessageDialog(null,"It already Returned");
-        }
-        
+            JOptionPane.showMessageDialog(null,"This ID  already Returned");
+        }           
     }
     public void get_accountID(int ID){
         staffID.setText(Integer.toString(ID));

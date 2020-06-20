@@ -116,7 +116,7 @@ public class FunctionController implements Initializable {
     
     public void lendOpen() throws Exception{
         lendingBtn.getScene().getWindow().hide();
-        Parent root = FXMLLoader.load(getClass().getResource("../View/Lending.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("../View/AdminLending.fxml"));
                 Stage mainStage=new Stage();
                 Scene scene=new Scene(root);
                 mainStage.setScene(scene);
