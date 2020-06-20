@@ -99,7 +99,7 @@
                                     <Insets />
                                  </HBox.margin>
                               </TextField>
-                              <Button fx:id="bookRefresh" mnemonicParsing="false" onAction="#loadBook" prefHeight="25.0" prefWidth="98.0" text="Refresh" />
+                              <Button fx:id="bookRefresh" mnemonicParsing="false" onAction="#refreshBook" prefHeight="25.0" prefWidth="98.0" text="Refresh" />
                            </children>
                            <VBox.margin>
                               <Insets />

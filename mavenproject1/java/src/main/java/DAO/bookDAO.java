@@ -19,7 +19,7 @@ public class bookDAO{
         ObservableList<Book> l_book =FXCollections.observableArrayList();
         database db = new database();
         db.getConnect();
-        ResultSet rs = db.execution("SELECT b.bookID,b.bookName,b.bookAuthorID,b.bookCategoryID,b.bookPublisher,b.bookPrice,b.bookPages,a.authorName,cate.categoryName From book b left join author a on b.bookAuthorID=a.authorID left join categories cate on b.bookCategoryID=cate.categoryID ;");
+        ResultSet rs = db.execution("SELECT b.bookID,b.bookName,b.bookAuthorID,b.bookCategoryID,b.bookPublisher,b.bookPrice,b.bookPages,a.authorName,cate.categoryName,b.bookImg From book b left join author a on b.bookAuthorID=a.authorID left join categories cate on b.bookCategoryID=cate.categoryID ;");
         try {
             while(rs.next()){
                 Book book = new Book(rs.getInt(1));
@@ -31,6 +31,7 @@ public class bookDAO{
                 book.setBookPages(rs.getInt(7));
                 book.setBookAuthor(rs.getString(8));
                 book.setBookCategory(rs.getString(9));
+                book.setBlob(rs.getBlob(10));
                 l_book.add(book);
             }
         } catch (Exception e) {
@@ -44,9 +45,9 @@ public class bookDAO{
         database db = new database();
         db.getConnect();
         try {
-            File file= new File(staff.getBookImg());
+            File file= new File(book.getBookImg());
             FileInputStream input= new FileInputStream(file);            
-            String sql = "INSERT INTO book (bookName,bookAuthorID,bookCategoryID,bookPublisher,bookPrice,bookPages,bookImg) VALUES (?,?,?,?,?,?,?,?)";
+            String sql = "INSERT INTO book (bookName,bookAuthorID,bookCategoryID,bookPublisher,bookPrice,bookPages,bookImg) VALUES (?,?,?,?,?,?,?)";
             PreparedStatement st= db.getCon().prepareStatement(sql);
             st.setString(1, book.getBookName());
             //sql +=book.getBookName()+"','";
@@ -61,8 +62,9 @@ public class bookDAO{
             st.setInt(6, book.getBookPages());
             //sql +=book.getBookPages()+"');";
             st.setBinaryStream(7, input);
-            db.update(sql);
+            db.updateStaff(st);
         } catch (Exception e) {
+            e.printStackTrace();
             e.getMessage();
         }
         db.disconnect();
@@ -77,7 +79,7 @@ public class bookDAO{
         database db=new database();
         db.getConnect();
         try {
-            File file=new File(staff.getBookImg());
+            File file=new File(book.getBookImg());
             FileInputStream input= new FileInputStream(file);
             String sql="UPDATE book SET bookName=?, bookAuthorID=?, bookCategoryID=?, bookPublisher=?, bookPrice=?, bookPages=?, bookImg=? WHERE bookID="+book.getBookID()+";";
             PreparedStatement st = db.getCon().prepareStatement(sql);
@@ -93,9 +95,15 @@ public class bookDAO{
             //sql +=book.getBookPrice()+"','";
             st.setInt(6, book.getBookPages());
             //sql +=book.getBookPages()+"');";
-            st.setBinaryStream(7, input);
-        db.update(sql);
+            if(file!=null){
+                st.setBinaryStream(7, input);
+            }
+            else{
+                st.setBinaryStream(7, null);
+            }
+            db.updateStaff(st);
         } catch (Exception e) {
+            e.printStackTrace();
             JOptionPane.showMessageDialog(null, "Error");
         }        
         db.disconnect();

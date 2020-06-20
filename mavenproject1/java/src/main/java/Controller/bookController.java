@@ -4,6 +4,9 @@ import java.net.URL;
 import java.sql.*;
 import java.util.*;
 import java.util.logging.Logger;
+
+import javax.swing.ImageIcon;
+
 import Controller.database;
 import DAO.authorDAO;
 import DAO.bookDAO;
@@ -181,13 +184,14 @@ public class bookController implements Initializable {
                 return;
             }
             int authorid= authorDAO.findRoleByName(author.getSelectionModel().getSelectedItem().toString());
-            int categoryid= categoryDAO.findRoleByName(author.getSelectionModel().getSelectedItem().toString());
+            int categoryid= categoryDAO.findRoleByName(category.getSelectionModel().getSelectedItem().toString());
             book1.setBookName(Name);
             book1.setBookAuthorID(authorid);
             book1.setBookCategoryID(categoryid);
             book1.setBookPublisher(publish);
             book1.setBookPrice(cpri);
             book1.setBookPages(avai);
+            book1.setBookImg(imgURL);
             bookDAO.addBook(book1);
             loadBook();
         } catch (Exception e) {
@@ -253,6 +257,7 @@ public class bookController implements Initializable {
             book1.setBookPublisher(publish);
             book1.setBookPrice(cpri);
             book1.setBookPages(avai);
+            book1.setBookImg(imgURL);
             System.out.println(book1);
             System.out.println(book1.getBookCategoryID());
             bookDAO.editBook(book1);
@@ -280,27 +285,8 @@ public class bookController implements Initializable {
 //delete end
 
 public void refreshBook(){
-    bookList.clear();
-    database db=new database();
-    try {
-        
-        db.getConnect();
-        ResultSet rs=db.execution("SELECT * FROM book");
-        while(rs.next()){
-            bookList.add(new Book(rs.getInt(1),rs.getString(2),rs.getInt(3),rs.getInt(4),rs.getString(5),rs.getInt(6), rs.getInt(7), rs.getString(8)));
-        }
-    } catch (SQLException e) {
-        Logger.getLogger(bookController.class.getName());
-    }
-    db.disconnect();
-    bookID.setCellValueFactory(new PropertyValueFactory<>("bookID"));
-    bookName.setCellValueFactory(new PropertyValueFactory<>("bookName"));
-    bookAuthorID.setCellValueFactory(new PropertyValueFactory<>("bookAuthorID"));
-    bookCategoryID.setCellValueFactory(new PropertyValueFactory<>("bookCategoryID"));
-    bookPub.setCellValueFactory(new PropertyValueFactory<>("bookPublisher"));
-    bookPrice.setCellValueFactory(new PropertyValueFactory<>("bookPrice"));
-    bookQuantity.setCellValueFactory(new PropertyValueFactory<>("bookPages"));
-    bookTable.setItems(bookList); 
+    clearAll();
+    loadBook();
 }
 //refresh end
 
@@ -318,6 +304,21 @@ public void refreshBook(){
                 this.publisher.setText(b.getBookPublisher());
                 this.available.setText(Integer.toString(b.getBookPages()));
                 this.price.setText(Integer.toString(b.getBookPrice()));
+                InputStream input;
+                try {
+                    input = b.getBlob().getBinaryStream();
+                    Image bkimg=new Image(input);
+                    if(b.getBlob().getBinaryStream()!=null){
+                        bookimg.setImage(bkimg);
+                    }
+                    else{
+                        bookimg.setImage(null);
+                    }
+                } catch (SQLException e) {
+                    return;
+                }catch(NullPointerException ex){
+                    return;
+                }
             });
             return row;
         });
@@ -330,6 +331,7 @@ public void refreshBook(){
         publisher.clear();
         available.clear();
         price.clear();
+        bookimg.setImage(null);
     }
     public void searchBar(){
         FilteredList<Book> flbook = new FilteredList(bookList, p -> true);
