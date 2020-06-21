@@ -10,7 +10,7 @@ import java.util.Observable;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.logging.Logger;
-
+import javafx.scene.control.Alert.*;
 import javafx.scene.control.*;
 
 import DAO.categoryDAO;
@@ -87,15 +87,25 @@ public class CategoryController implements Initializable {
     //        ADD student Start
     
     public void addCateBtn(ActionEvent event) throws Exception{
-        Categories cate= new Categories();
+        try {
+            Categories cate= new Categories();
         String Name=name.getText();
-        cate.setCategoryName(Name);
-        categoryDAO.addcategories(cate);
-        clearALL();
-        loadCate();
+        if(Name.equals("")){
+            Alert a=new Alert(AlertType.ERROR, "Please fill all field!\nAdd category failed!");
+            a.show();
+        }
+        else{
+            cate.setCategoryName(Name);
+            categoryDAO.addcategories(cate);
+            clearALL();
+            loadCate();
+        }
+        } catch (Exception e) {   
+        }
     }
     public void updateCateBtn(ActionEvent event) throws Exception{
-        //error
+        try {
+            //error
         Categories cate= new Categories();
         int idd=Integer.parseInt(id.getText());
         String Name=name.getText();
@@ -103,11 +113,16 @@ public class CategoryController implements Initializable {
         cate.setCategoryName(Name);
         categoryDAO.editcategories(cate);
         loadCate();
+        } catch (NumberFormatException e) {
+            Alert a=new Alert(AlertType.ERROR, "Please choose Category to update!\nUpdate author failed!");
+        a.show();
+        }
     }
 
 //delete start
     public void removeCateBtn(ActionEvent event){
-        Alert.AlertType type=Alert.AlertType.CONFIRMATION;
+        try {
+            Alert.AlertType type=Alert.AlertType.CONFIRMATION;
         Alert al=new Alert(type,"");
         al.setTitle("Confirm");
         al.setContentText("Are you sure you want to delete this?");
@@ -118,6 +133,10 @@ public class CategoryController implements Initializable {
             loadCate();
         }
       
+        } catch (NumberFormatException e) {
+            Alert a=new Alert(AlertType.ERROR, "Please choose Category to remove!\nRemove author failed!");
+        a.show();
+        }
     }
 //delete end    
     

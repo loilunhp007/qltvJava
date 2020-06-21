@@ -247,7 +247,8 @@ public class AccountController implements Initializable {
                 AccountDAO.deleteAccount(idd);
                 loadAccount();
             }}
-        catch(Exception e){e.printStackTrace();}
+        catch(NumberFormatException e){Alert a=new Alert(AlertType.ERROR, "Please choose account to delete!\nUpdate account failed!");
+        a.show();}
     }
 //delete end    
     

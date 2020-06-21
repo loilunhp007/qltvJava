@@ -24,6 +24,7 @@ import javafx.collections.transformation.FilteredList;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.scene.control.Alert.*;
 public class cardController implements Initializable {
     
     @FXML
@@ -111,7 +112,8 @@ public class cardController implements Initializable {
     //        ADD student Start
     
     public void addCardBtn(ActionEvent event) throws Exception{
-        Student student= new Student();
+        try {
+            Student student= new Student();
         String Name=name.getText();
         LocalDate date1= dob.getValue();
         String dob1=date1.toString();
@@ -124,9 +126,14 @@ public class cardController implements Initializable {
         studentDAO.addStudent(student);
         clearALL();
         loadCard();
+        } catch (NullPointerException e) {
+            Alert a=new Alert(AlertType.ERROR, "Please fill all field!\nUpdate account failed!");
+        a.show();
+        }
     }
     public void updateCardBtn(ActionEvent event) throws Exception{
-        //error
+        try {
+            //error
         Student student = new Student();
         int idd=Integer.parseInt(id.getText());
         String Name=name.getText();
@@ -141,11 +148,16 @@ public class cardController implements Initializable {
         student.setStudentClass(class1);
         studentDAO.editStudent(student);
         loadCard();
+        } catch (NumberFormatException e) {
+            Alert a=new Alert(AlertType.ERROR, "Please fill all field!\nUpdate card failed!");
+            a.show();
+        }
     }
 
 //delete start
     public void removeCardBtn(ActionEvent event){
-        Alert.AlertType type=Alert.AlertType.CONFIRMATION;
+        try {
+            Alert.AlertType type=Alert.AlertType.CONFIRMATION;
         Alert al=new Alert(type,"");
         al.setTitle("Confirm");
         al.setContentText("Are you sure you want to delete this?");
@@ -154,6 +166,10 @@ public class cardController implements Initializable {
             int idd=Integer.parseInt(id.getText());
             studentDAO.deleteStudent(idd);
             loadCard();
+        }
+        } catch (NumberFormatException e) {
+            Alert a=new Alert(AlertType.ERROR, "Please select a card!\nDelete card failed!");
+            a.show();
         }
       
     }

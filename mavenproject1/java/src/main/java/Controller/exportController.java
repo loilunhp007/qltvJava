@@ -4,6 +4,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URL;
+import java.nio.channels.AlreadyConnectedException;
 import java.sql.*;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -15,7 +16,7 @@ import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import javax.swing.JOptionPane;
-
+import javafx.scene.control.Alert.*;
 import Controller.database;
 import DAO.bookDAO;
 import DAO.staffDAO;
@@ -49,6 +50,12 @@ public class exportController implements Initializable {
         String choice=cbox.getSelectionModel().getSelectedItem();
         database db=new database();
         db.getConnect();
+        try {
+            
+        } catch (NullPointerException e) {
+            Alert a=new Alert(AlertType.ERROR, "Empty Table");
+            a.show();
+        }
         if(choice.equals("staff") ){            
             try {
             XSSFWorkbook wb= new XSSFWorkbook();
