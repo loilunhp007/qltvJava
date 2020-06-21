@@ -69,16 +69,18 @@ public class AccountDAO  {
             db.update(sql);
         } catch (Exception e) {
             e.printStackTrace();
+            e.getMessage();
         }
         db.disconnect();
     }
     public static void deleteAccount(int acID){
         database db=new database();
         try {
-            db.getConnect();
+        db.getConnect();
         db.update("DELETE FROM account WHERE account.userID="+acID);
         } catch (Exception e) {
             e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Error");
         }
         db.disconnect();
     }
@@ -93,6 +95,7 @@ public class AccountDAO  {
             db.update(sql);
         } catch (Exception e) {
             e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Error");
         }
         db.disconnect();
     }
@@ -125,8 +128,8 @@ public class AccountDAO  {
             ac.setOutofday(rs.getString(6));
             list_ac.add(ac);
         }
-    } catch (Exception e) {
-        //TODO: handle exception
+    } catch (Exception e) {        
+        JOptionPane.showMessageDialog(null,"Can't find anything about this");
     }
     db.disconnect();
     return list_ac;
@@ -147,7 +150,7 @@ public Account findAccountByName(String userName) {
             return ac;
         }
     } catch (Exception e) {
-        //TODO: handle exception
+        JOptionPane.showMessageDialog(null,"Can't find anything about this");
     }
     db.disconnect();
     return null;

@@ -197,6 +197,7 @@ public class AccountController implements Initializable {
         clearALL();
         loadAccount();
     }
+
     public void updateAccountBtn(ActionEvent event) throws Exception{
         try{
         Account ac = new Account();
@@ -283,9 +284,11 @@ public class AccountController implements Initializable {
         tableAccount.setItems(flaccount);
         if (searchAccount.getText().isEmpty()) tableAccount.setItems(l_account);        
         else {
-            if (namesearch.isSelected()==true) flaccount.setPredicate(p -> p.getUserName().toLowerCase().contains(searchAccount.getText().toLowerCase().trim()));
+            if (namesearch.isSelected()==true) 
+            flaccount.setPredicate(p -> p.getUserName().toLowerCase().contains(searchAccount.getText().toLowerCase().trim()));
             else {
-                if(searchAccount.getText().matches("-?([1-9][0-9]*)?")) flaccount.setPredicate(p -> p.getUserID() == Integer.parseInt(searchAccount.getText()));
+                if(searchAccount.getText().matches("-?([1-9][0-9]*)?")) 
+                flaccount.setPredicate(p -> p.getUserID() == Integer.parseInt(searchAccount.getText()));
                 else tableAccount.setItems(l_account);
             }
         }

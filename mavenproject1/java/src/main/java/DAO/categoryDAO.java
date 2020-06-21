@@ -25,6 +25,7 @@ public class categoryDAO {
             }
         } catch (Exception e) {
             e.printStackTrace();
+            JOptionPane.showMessageDialog(null,"Error while loading Categories");
         }
         db.disconnect();
         return l_cate;
@@ -37,7 +38,8 @@ public class categoryDAO {
         sql +=cate.getCategoryName()+"');";
         db.update(sql);
        }catch(Exception e){
-        JOptionPane.showMessageDialog(null,"error");
+        e.printStackTrace();
+        e.getMessage();        
     }
         db.disconnect();
     }
@@ -47,6 +49,7 @@ public class categoryDAO {
         try{db.update("DELETE FROM categories WHERE categoryID="+categoryID);}
         catch(Exception e){
             e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Error");
         }
         db.disconnect();
     }
@@ -73,6 +76,7 @@ public class categoryDAO {
             }
         } catch (Exception e) {
             e.printStackTrace();
+            JOptionPane.showMessageDialog(null,"Can't find anything about this");
         }
         db.disconnect();
         return null;
@@ -88,7 +92,8 @@ public class categoryDAO {
                 categoryid=rs.getInt(1);
             }
         } catch (Exception e) {
-
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null,"Can't find anything about this");
         }
         db.disconnect();
         return categoryid;

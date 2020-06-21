@@ -68,9 +68,14 @@ public class bookLendingDAO {
     public static void deleteLend(int lendID){
         database db = new database();
         db.getConnect();
+        try{
         db.update("SET FOREIGN_KEY_CHECKS=0;");
         db.update("DELETE FROM booklending WHERE lendID='"+lendID+"';");
         db.update("SET FOREIGN_KEY_CHECKS=1;");
+        }catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Error");
+        }
         db.disconnect();
     }
     public static BookLending findLendByID(int lendID){
@@ -87,7 +92,7 @@ public class bookLendingDAO {
                 return bl;
             }
         } catch (Exception e) {
-            
+            JOptionPane.showMessageDialog(null,"Can't find anything about this");
         }
         db.disconnect();
         return null;
@@ -105,7 +110,7 @@ public class bookLendingDAO {
                 return bl;
             }
         } catch (Exception e) {
-            
+            JOptionPane.showMessageDialog(null,"Can't find anything about this");
         }
         db.disconnect();
         return null;

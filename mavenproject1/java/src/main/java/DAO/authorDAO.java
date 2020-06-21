@@ -26,6 +26,7 @@ public class authorDAO {
                 l_Author.add(author);
             }
         } catch (Exception e) {
+            JOptionPane.showMessageDialog(null,"Error while loading author");
         }
         db.disconnect();
         return l_Author;
@@ -33,31 +34,42 @@ public class authorDAO {
     public static void addAuthor(Author Author){
         database db = new database();
         db.getConnect();
-        String sql = "INSERT INTO author (authorName,authorGender,authorDOB,authorEmail ) VALUES ('";
-        sql +=Author.getAuthorName()+"','";
-        sql += Author.getAuthorGender() +"','";
-        sql += Author.getAuthorDOB() +"','";
-        sql +=Author.getAuthorEmail()+"');";
-        db.update(sql);
+        try{
+            String sql = "INSERT INTO author (authorName,authorGender,authorDOB,authorEmail ) VALUES ('";
+            sql +=Author.getAuthorName()+"','";
+            sql += Author.getAuthorGender() +"','";
+            sql += Author.getAuthorDOB() +"','";
+            sql +=Author.getAuthorEmail()+"');";
+            db.update(sql);
+        }catch (Exception e){
+            e.printStackTrace();
+            e.getMessage();
+        }
         db.disconnect();
     }
     public static void deleteAuthor(int authorID){
         database db = new database();
         db.getConnect();
+        try{
         db.update("DELETE FROM Author WHERE authorID="+authorID);
+        }catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Error");
+        }
         db.disconnect();
     }
     public static void editAuthor(Author author){
         database db=new database();
         db.getConnect();
         try {
-            String sql="UPDATE Author SET ";
+        String sql="UPDATE Author SET ";
         sql+="authorName='"+ author.getAuthorName()+"',";
         sql+="authorGender='"+ author.getAuthorGender()+"',";
         sql+="authorDOB='"+ author.getAuthorDOB()+"',";
         sql+="authorEmail='"+ author.getAuthorEmail() + "' WHERE authorID='"+author.getAuthorID()+"';";
         db.update(sql);
         } catch (Exception e) {
+            e.printStackTrace();
             JOptionPane.showMessageDialog(null, "Error");
         }        
         db.disconnect();
@@ -76,7 +88,7 @@ public class authorDAO {
                 return author;
             }
         } catch (Exception e) {
-            
+            JOptionPane.showMessageDialog(null,"Can't find anything about this");
         }
         db.disconnect();
         return null;
@@ -92,6 +104,7 @@ public class authorDAO {
                 authorid=rs.getInt(1);
             }
         } catch (Exception e) {
+            JOptionPane.showMessageDialog(null,"Can't find anything about this");
             
         }
         db.disconnect();

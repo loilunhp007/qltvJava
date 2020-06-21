@@ -25,6 +25,8 @@ public class studentDAO {
                 l_student.add(student);
             }
         } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null,"Error while loading Student");
         }
         db.disconnect();
         return l_student;
@@ -32,18 +34,27 @@ public class studentDAO {
     public static void addStudent(Student student){
         database db = new database();
         db.getConnect();
+        try{
         String sql = "INSERT INTO student (studentName,studentDOB,studentEmail,studentClass) VALUES ('";
         sql +=student.getStudentName()+"','";
         sql += student.getStudentDOB() +"','";
         sql += student.getStudentEmail() +"','";
         sql +=student.getStudentClass()+"');";
         db.update(sql);
-        db.disconnect();
+        }catch (Exception e) {
+            e.printStackTrace();
+            e.getMessage();
+        }db.disconnect();
     }
     public static void deleteStudent(int studentID){
         database db = new database();
         db.getConnect();
+        try{
         db.update("DELETE FROM Student WHERE StudentID="+studentID);
+        }catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Error");
+        }
         db.disconnect();
     }
     public static void editStudent(Student student){
@@ -57,6 +68,7 @@ public class studentDAO {
         sql+="studentClass='"+ student.getStudentClass()+"' WHERE StudentID="+student.getStudentID()+";";
         db.update(sql);
         } catch (Exception e) {
+            e.printStackTrace();
             JOptionPane.showMessageDialog(null, "Error");
         }        
         db.disconnect();
@@ -75,7 +87,7 @@ public class studentDAO {
                 return student;
             }
         } catch (Exception e) {
-            
+            JOptionPane.showMessageDialog(null,"Can't find anything about this");
         }
         db.disconnect();
         return null;

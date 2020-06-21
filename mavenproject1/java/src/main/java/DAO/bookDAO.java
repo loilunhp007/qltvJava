@@ -35,6 +35,8 @@ public class bookDAO{
                 l_book.add(book);
             }
         } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null,"Error while loading book");
         }
         db.disconnect();
         return l_book;
@@ -72,7 +74,12 @@ public class bookDAO{
     public static void deleteBook(int bookID){
         database db = new database();
         db.getConnect();
+        try{        
         db.update("DELETE FROM book WHERE bookID="+bookID);
+        }catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Error");
+        }
         db.disconnect();
     }
     public static void editBook(Book book){
@@ -125,7 +132,7 @@ public class bookDAO{
                 return book;
             }
         } catch (Exception e) {
-            
+            JOptionPane.showMessageDialog(null,"Can't find anything about this");
         }
         db.disconnect();
         return null;

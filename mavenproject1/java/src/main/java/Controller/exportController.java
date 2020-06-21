@@ -51,7 +51,7 @@ public class exportController implements Initializable {
         db.getConnect();
         if(choice.equals("staff") ){            
             try {
-                XSSFWorkbook wb= new XSSFWorkbook();
+            XSSFWorkbook wb= new XSSFWorkbook();
             XSSFSheet sheet= wb.createSheet("Staff Details");
             XSSFRow header = sheet.createRow(0);
             header.createCell(0).setCellValue("staffID");
