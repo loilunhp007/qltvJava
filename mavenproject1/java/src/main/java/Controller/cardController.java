@@ -59,6 +59,7 @@ public class cardController implements Initializable {
     private TextField studentclass;
     @FXML
     private TextField search;
+   
     ObservableList<Student> cardList= FXCollections.observableArrayList();
     @Override
     public void initialize( URL url, ResourceBundle rb){

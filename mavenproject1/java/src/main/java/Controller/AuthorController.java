@@ -116,6 +116,7 @@ public class AuthorController implements Initializable {
            }
        }); 
     }
+
     public void loadAuthor() {
         database db=new database();
         try {
@@ -131,8 +132,7 @@ public class AuthorController implements Initializable {
         t_email.setCellValueFactory(new PropertyValueFactory<>("authorEmail"));
         tableAuthor.setItems(authorList);     
     }
-    //        ADD student Start
-    
+    //        ADD student Start   
     public void addAuthorBtn(ActionEvent event) throws Exception{
         try{
             Author aut= new Author();
@@ -159,6 +159,7 @@ public class AuthorController implements Initializable {
             a.show();
         }       
     }
+
     public void updateAuthorBtn(ActionEvent event) throws Exception{
         try{
             Author aut = new Author();
@@ -245,9 +246,11 @@ public class AuthorController implements Initializable {
         tableAuthor.setItems(flaccount);
         if (searchAuthor.getText().isEmpty()) tableAuthor.setItems(authorList);        
         else {
-            if (namesearch.isSelected()==true) flaccount.setPredicate(p -> p.getAuthorName().toLowerCase().contains(searchAuthor.getText().toLowerCase().trim()));
+            if (namesearch.isSelected()==true) 
+            flaccount.setPredicate(p -> p.getAuthorName().toLowerCase().contains(searchAuthor.getText().toLowerCase().trim()));
             else {
-                if(searchAuthor.getText().matches("-?([1-9][0-9]*)?")) flaccount.setPredicate(p -> p.getAuthorID() == Integer.parseInt(searchAuthor.getText()));
+                if(searchAuthor.getText().matches("-?([1-9][0-9]*)?")) 
+                flaccount.setPredicate(p -> p.getAuthorID() == Integer.parseInt(searchAuthor.getText()));
                 else tableAuthor.setItems(authorList);
             }
         }

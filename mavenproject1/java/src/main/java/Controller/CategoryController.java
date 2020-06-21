@@ -103,6 +103,7 @@ public class CategoryController implements Initializable {
         } catch (Exception e) {   
         }
     }
+   
     public void updateCateBtn(ActionEvent event) throws Exception{
         try {
             //error
@@ -164,9 +165,11 @@ public class CategoryController implements Initializable {
         tableCate.setItems(flaccount);
         if (searchAuthor.getText().isEmpty()) tableCate.setItems(l_cate);        
         else {
-            if (namesearch.isSelected()==true) flaccount.setPredicate(p -> p.getCategoryName().toLowerCase().contains(searchAuthor.getText().toLowerCase().trim()));
+            if (namesearch.isSelected()==true) 
+            flaccount.setPredicate(p -> p.getCategoryName().toLowerCase().contains(searchAuthor.getText().toLowerCase().trim()));
             else {
-                if(searchAuthor.getText().matches("[1-9]*")) flaccount.setPredicate(p -> p.getCategoryID() == Integer.parseInt(searchAuthor.getText()));
+                if(searchAuthor.getText().matches("[1-9]*")) 
+                flaccount.setPredicate(p -> p.getCategoryID() == Integer.parseInt(searchAuthor.getText()));
                 else tableCate.setItems(l_cate);
             }
         }

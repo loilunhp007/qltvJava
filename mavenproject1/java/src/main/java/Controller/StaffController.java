@@ -363,9 +363,11 @@ public class StaffController implements Initializable {
         staffTable.setItems(flstaff);
         if (searchStaff.getText().isEmpty()) staffTable.setItems(staffList);            
         else {
-            if (namesearch.isSelected()==true) flstaff.setPredicate(p -> p.getStaffName().toLowerCase().contains(searchStaff.getText().toLowerCase().trim()));
+            if (namesearch.isSelected()==true) 
+            flstaff.setPredicate(p -> p.getStaffName().toLowerCase().contains(searchStaff.getText().toLowerCase().trim()));
             else {
-                if(searchStaff.getText().matches("-?([1-9][0-9]*)?")) flstaff.setPredicate(p -> p.getStaffID() == Integer.parseInt(searchStaff.getText()));
+                if(searchStaff.getText().matches("-?([1-9][0-9]*)?"))
+                flstaff.setPredicate(p -> p.getStaffID() == Integer.parseInt(searchStaff.getText()));
                 else staffTable.setItems(staffList);
             }
         }
