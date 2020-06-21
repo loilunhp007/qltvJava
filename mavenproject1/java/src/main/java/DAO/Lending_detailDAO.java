@@ -29,7 +29,7 @@ public class Lending_detailDAO {
                 l_lenddetail.add(ld);
             }
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null,"Lending book detail  error");
+            JOptionPane.showMessageDialog(null,"Lending book detail error");
         }
         db.disconnect();
         return l_lenddetail;

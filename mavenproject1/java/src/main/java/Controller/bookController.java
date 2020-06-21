@@ -339,9 +339,11 @@ public void refreshBook(){
         bookTable.setItems(flbook);
         if (bookSearch.getText().isEmpty()) bookTable.setItems(bookList);            
         else {
-            if (namesearch.isSelected()==true) flbook.setPredicate(p -> p.getBookName().toLowerCase().contains(bookSearch.getText().toLowerCase().trim()));
+            if (namesearch.isSelected()==true) 
+            flbook.setPredicate(p -> p.getBookName().toLowerCase().contains(bookSearch.getText().toLowerCase().trim()));
             else {
-                if(bookSearch.getText().matches("-?([1-9][0-9]*)?")) flbook.setPredicate(p -> p.getBookID() == Integer.parseInt(bookSearch.getText()));
+                if(bookSearch.getText().matches("-?([1-9][0-9]*)?")) 
+                flbook.setPredicate(p -> p.getBookID() == Integer.parseInt(bookSearch.getText()));
                 else bookTable.setItems(bookList);
             }
         }

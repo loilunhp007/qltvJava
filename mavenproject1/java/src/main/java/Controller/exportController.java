@@ -40,6 +40,7 @@ public class exportController implements Initializable {
     private JFXButton menuBtn;
     @FXML 
     private ComboBox<String> cbox;
+    
     ObservableList Option =FXCollections.observableArrayList();
     @Override
     public void initialize(URL url, ResourceBundle rb) {
