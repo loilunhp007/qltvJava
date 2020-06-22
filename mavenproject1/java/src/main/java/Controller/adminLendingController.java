@@ -33,6 +33,7 @@ import javafx.collections.transformation.FilteredList;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.scene.control.Alert.*;
 public class adminLendingController implements Initializable {
     
     @FXML
@@ -203,7 +204,8 @@ public class adminLendingController implements Initializable {
     //Check book
     @FXML
     public void checkBook(ActionEvent event) throws Exception{
-        int bookid1=Integer.parseInt(bookID.getText());
+        try {
+            int bookid1=Integer.parseInt(bookID.getText());
         Book b1=new Book();
         b1=bookDAO.findBookByID(bookid1);
         if(b1.getBookPages()>0){
@@ -213,36 +215,43 @@ public class adminLendingController implements Initializable {
             bookID.setText(null);
             JOptionPane.showMessageDialog(null,"Books are not Available");
         }
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null,"Empty ID");
+        }
 
     }
     @FXML
     public void checkBook1(ActionEvent event) throws Exception{
-        if(book2ID.getText()!=null){
-            int bookid=Integer.parseInt(book2ID.getText());
-            Book b=new Book();
-            b=bookDAO.findBookByID(bookid);
-            if(b.getBookPages()>0){
-                bookName1.setText(b.getBookName());
-            }
-            else{
-                book2ID.setText(null);
-                JOptionPane.showMessageDialog(null,"Books are not Available");
-            }
+        try {
+                int bookid=Integer.parseInt(book2ID.getText());
+                Book b=new Book();
+                b=bookDAO.findBookByID(bookid);
+                if(b.getBookPages()>0){
+                    bookName1.setText(b.getBookName());
+                }
+                else{
+                    book2ID.setText(null);
+                    JOptionPane.showMessageDialog(null,"Books are not Available");
+                }
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null,"Empty ID");
         }
     }
     @FXML
     public void checkBook2(ActionEvent event) throws Exception{
-        if(book2ID.getText()!=null){
-            int bookid=Integer.parseInt(book3ID.getText());
-            Book b=new Book();
-            b=bookDAO.findBookByID(bookid);
-            if(b.getBookPages()>0){
-                bookName2.setText(b.getBookName());
-            }
-            else{
-                book3ID.setText(null);
-                JOptionPane.showMessageDialog(null,"Books are not Available");
-            }
+        try {
+                int bookid=Integer.parseInt(book3ID.getText());
+                Book b=new Book();
+                b=bookDAO.findBookByID(bookid);
+                if(b.getBookPages()>0){
+                    bookName2.setText(b.getBookName());
+                }
+                else{
+                    book3ID.setText(null);
+                    JOptionPane.showMessageDialog(null,"Books are not Available");
+                }
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null,"Empty ID");
         }
     }
 //Check book end
@@ -311,7 +320,7 @@ public class adminLendingController implements Initializable {
         staff1=staffDAO.findstaffByID(staffid1);
         staffName.setText(staff1.getStaffName());    
     } catch (Exception e) {
-        JOptionPane.showMessageDialog(null,"No Student Found");
+        JOptionPane.showMessageDialog(null,"No Staff Found");
     }
     
 }
@@ -400,8 +409,10 @@ public class adminLendingController implements Initializable {
         bl.setReturnDate(date2);
         bookLendingDAO.editLend(bl);
         loadLend();
+        clearALL();
         } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(null,"Please fill textfield");
+            Alert a = new Alert(AlertType.ERROR, "Please Fill all the field\nUpdateLending Fail");
+            a.show();
         }
     }
 
@@ -419,6 +430,7 @@ public class adminLendingController implements Initializable {
             bookLendingDAO.deleteLend(idd);
             loadLend();
             loadDetail();
+            clearALL();
         }
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(null,"No lendID found");
@@ -491,7 +503,8 @@ public class adminLendingController implements Initializable {
     // return book
     @FXML
     public void ReturnBtn(ActionEvent event){
-        Lending_Detail ld1=new Lending_Detail();
+        try {
+            Lending_Detail ld1=new Lending_Detail();
         ld1=Lending_detailDAO.findLendByID(Integer.parseInt(RlendID.getText()),Integer.parseInt(RbookID.getText()));
         if(ld1.getLendStatus().equals("Lending")){
             Lending_Detail ld=new Lending_Detail();
@@ -508,14 +521,18 @@ public class adminLendingController implements Initializable {
         }
         else{
             JOptionPane.showMessageDialog(null,"This ID  already Returned");
-        }           
+        }    
+        } catch (NumberFormatException e) {
+            Alert al=new Alert(AlertType.ERROR,"Please choose a detail\nReturn Fail");
+            al.show();
+        }       
     }
     public void get_accountID(int ID){
         staffID.setText(Integer.toString(ID));
     }
     public void logoutOpen() throws Exception{
     logoutBtn.getScene().getWindow().hide();
-    Parent root = FXMLLoader.load(getClass().getResource("../View/Login.fxml"));
+    Parent root = FXMLLoader.load(getClass().getResource("../View/Function.fxml"));
             Stage mainStage=new Stage();
             Scene scene=new Scene(root);
             mainStage.setScene(scene);

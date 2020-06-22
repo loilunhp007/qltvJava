@@ -209,7 +209,8 @@ public class AuthorController implements Initializable {
                 authorDAO.deleteAuthor(idd);
                 loadAuthor();
             }}
-        catch(Exception e){e.printStackTrace();}
+        catch(NumberFormatException e){ Alert a=new Alert(AlertType.ERROR, "Please choose Author to remove!\nRemove author failed!");
+        a.show();}
     }
 //delete end    
     
