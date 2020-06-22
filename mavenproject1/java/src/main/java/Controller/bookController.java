@@ -114,7 +114,7 @@ public class bookController implements Initializable {
         bookCategoryID.setCellValueFactory(new PropertyValueFactory<>("bookCategory"));
         bookPub.setCellValueFactory(new PropertyValueFactory<>("bookPublisher"));
         bookPrice.setCellValueFactory(new PropertyValueFactory<>("bookPrice"));
-        bookQuantity.setCellValueFactory(new PropertyValueFactory<>("bookPages"));
+        bookQuantity.setCellValueFactory(new PropertyValueFactory<>("available"));
         bookTable.setItems(bookList);     
     }
     
@@ -148,11 +148,11 @@ public class bookController implements Initializable {
         try {
             Book book1= new Book();
             String Name=book.getText();
-            String publish=publisher.getText();
+            int publish=Integer.parseInt(publisher.getText());
             int cpri, avai;
             String Author, Category;
             if (Name.equals("")) throw new Exception();
-            if (publish.equals("")) throw new Exception();        
+            if (publish == 0) throw new Exception();        
             try {
                 Author=author.getSelectionModel().getSelectedItem().toString();
                 
@@ -204,7 +204,7 @@ public class bookController implements Initializable {
             Book book1 = new Book();
             String Name=book.getText();
             String Author, Category;
-            String publish=publisher.getText();
+            int publish=Integer.parseInt(publisher.getText());
             int cpri=Integer.parseInt(price.getText());
             int avai=Integer.parseInt(available.getText());
             int idd;
@@ -217,7 +217,7 @@ public class bookController implements Initializable {
                 idd=Integer.parseInt(id.getText());
             }
             if (Name.equals("")) throw new Exception();
-            if (publish.equals("")) throw new Exception(); 
+            if (publish == 0 ) throw new Exception(); 
             try {
                 Author=author.getSelectionModel().getSelectedItem().toString();
                 
@@ -301,7 +301,7 @@ public void refreshBook(){
                 this.book.setText((b.getBookName()));
                 author.setValue(b.getBookAuthor());
                 category.setValue(b.getBookCategory());
-                this.publisher.setText(b.getBookPublisher());
+                this.publisher.setText(Integer.toString(b.getBookPublisher()));
                 this.available.setText(Integer.toString(b.getBookPages()));
                 this.price.setText(Integer.toString(b.getBookPrice()));
                 InputStream input;
@@ -361,7 +361,8 @@ public void refreshBook(){
     }
 
     public void fileChooser() {
-        Stage stage=new Stage();
+        try {
+            Stage stage=new Stage();
         FileChooser fc= new FileChooser();
         fc.setTitle("Choose an image");
         fc.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Image Files", "*.jpg", "*.jpeg", "*.png"));
@@ -369,5 +370,9 @@ public void refreshBook(){
         imgURL= file.toString()/*.replaceAll("\\\\", "\\\\\\\\")*/;
         Image img = new Image(file.toURI().toString());
         bookimg.setImage(img);
+        } catch (NullPointerException e) {
+            Alert a=new Alert(AlertType.ERROR, "Image Selected fail");
+            a.show();
+        }
     }
 }

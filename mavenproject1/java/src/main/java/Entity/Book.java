@@ -7,9 +7,9 @@ import com.mysql.cj.jdbc.Blob;
 public class Book {
     private int bookID;
     private int bookPrice;
-    private int bookPages;
-    private int bookAuthorID,bookCategoryID;
-    private String bookName,bookPublisher,bookAuthor,bookCategory,bookImg;
+    private int available;
+    private int bookAuthorID,bookCategoryID,bookPublisher;
+    private String bookName,bookAuthor,bookCategory,bookImg;
     private java.sql.Blob bookBlob;
 
     public Book() {
@@ -19,36 +19,36 @@ public class Book {
         this.bookID = bookID;
     }
 
-    public Book(int bookID, String bookName, int bookAuthorID, int bookCategoryID,String bookPublisher,int bookPrice,int bookPages, String bookImg) {
+    public Book(int bookID, String bookName, int bookAuthorID, int bookCategoryID,int bookPublisher,int bookPrice,int available, String bookImg) {
         this.bookID = bookID;
         this.bookName = bookName;
         this.bookAuthorID = bookAuthorID;
         this.bookCategoryID = bookCategoryID;
         this.bookPublisher = bookPublisher;
         this.bookPrice = bookPrice;
-        this.bookPages = bookPages;
+        this.available= available;
         this.bookImg = bookImg;
     }
     
-    public Book(int bookID, String bookName, String bookAuthor, String bookCategory,String bookPublisher,int bookPrice,int bookPages, String bookImg) {
+    public Book(int bookID, String bookName, String bookAuthor, String bookCategory,int bookPublisher,int bookPrice,int available, String bookImg) {
         this.bookID = bookID;
         this.bookName = bookName;
         this.bookAuthor = bookAuthor;
         this.bookCategory = bookCategory;
         this.bookPublisher = bookPublisher;
         this.bookPrice = bookPrice;
-        this.bookPages = bookPages;
+        this.available=available;
         this.bookImg = bookImg;
     }
     
-    public Book(int bookID, String bookName, String bookAuthor, String bookCategory,String bookPublisher,int bookPrice,int bookPages, java.sql.Blob bookBlob) {
+    public Book(int bookID, String bookName, String bookAuthor, String bookCategory,int bookPublisher,int bookPrice,int available, java.sql.Blob bookBlob) {
         this.bookID = bookID;
         this.bookName = bookName;
         this.bookAuthor = bookAuthor;
         this.bookCategory = bookCategory;
         this.bookPublisher = bookPublisher;
         this.bookPrice = bookPrice;
-        this.bookPages = bookPages;
+        this.available = available;
         this.bookBlob = bookBlob;
     }
 
@@ -84,18 +84,18 @@ public class Book {
     }
 
     public int getBookPages() {
-        return bookPages;
+        return available;
     }
 
-    public void setBookPages(int bookPages) {
-        this.bookPages = bookPages;
+    public void setBookPages(int available) {
+        this.available = available;
     }
 
-    public String getBookPublisher() {
+    public int getBookPublisher() {
         return bookPublisher;
     }
 
-    public void setBookPublisher(String bookPublisher) {
+    public void setBookPublisher(int bookPublisher) {
         this.bookPublisher = bookPublisher;
     }
 
@@ -142,14 +142,14 @@ public class Book {
     @Override
     public String toString() {
         return "Book [ bookID=" + bookID + ", bookName=" + bookName + ", bookAuthorID=" + bookAuthorID + ", bookCategoryID=" + bookAuthorID
-        + ", bookPages=" + bookPages + ", bookPrice=" + bookPrice + ", bookPublisher=" + bookPublisher + "]";
+        + ", available=" + available + ", bookPrice=" + bookPrice + ", bookPublisher=" + bookPublisher + "]";
     }
 
-    public Book(int bookID, int bookPrice, int bookPages, int bookAuthorID, int bookCategoryID, String bookName,
-            String bookPublisher, String bookAuthor, String bookCategory) {
+    public Book(int bookID, int bookPrice, int available, int bookAuthorID, int bookCategoryID, String bookName,
+            int bookPublisher, String bookAuthor, String bookCategory) {
         this.bookID = bookID;
         this.bookPrice = bookPrice;
-        this.bookPages = bookPages;
+        this.available = available;
         this.bookAuthorID = bookAuthorID;
         this.bookCategoryID = bookCategoryID;
         this.bookName = bookName;
