@@ -211,7 +211,7 @@
                         </VBox>
                         <VBox alignment="CENTER" prefHeight="60.0" spacing="50.0">
                            <children>
-                              <Button fx:id="clear1" mnemonicParsing="false" onAction="#clearALL" prefHeight="66.0" prefWidth="113.0" text="CLEAR" />
+                              <Button fx:id="clear1" mnemonicParsing="false" onAction="#RclearALL" prefHeight="66.0" prefWidth="113.0" text="CLEAR" />
                               <Button fx:id="returnBook" mnemonicParsing="false" onAction="#ReturnBtn" prefHeight="66.0" prefWidth="113.0" text="Return" />
                            </children>
                            <HBox.margin>

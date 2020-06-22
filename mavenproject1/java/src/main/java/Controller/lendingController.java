@@ -499,4 +499,14 @@ public class lendingController implements Initializable {
             mainStage.setScene(scene);
             mainStage.show();
     }
+    public void RclearALL(){
+        RlendID.clear();
+        RcardID.clear();
+        RbookID.clear();
+        Rbook.clear();
+        RbookAuthor.clear();
+        Rprice.clear();
+        RstudentName.clear();
+        RstudentClass.clear();
+    }
 }
