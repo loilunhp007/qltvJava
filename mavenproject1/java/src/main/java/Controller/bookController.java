@@ -190,7 +190,7 @@ public class bookController implements Initializable {
             book1.setBookCategoryID(categoryid);
             book1.setBookPublisher(publish);
             book1.setBookPrice(cpri);
-            book1.setBookPages(avai);
+            book1.setAvailable(avai);
             book1.setBookImg(imgURL);
             bookDAO.addBook(book1);
             loadBook();
@@ -256,7 +256,7 @@ public class bookController implements Initializable {
             book1.setBookCategoryID(categoryid);
             book1.setBookPublisher(publish);
             book1.setBookPrice(cpri);
-            book1.setBookPages(avai);
+            book1.setAvailable(avai);
             book1.setBookImg(imgURL);
             System.out.println(book1);
             System.out.println(book1.getBookCategoryID());
@@ -302,7 +302,7 @@ public void refreshBook(){
                 author.setValue(b.getBookAuthor());
                 category.setValue(b.getBookCategory());
                 this.publisher.setText(Integer.toString(b.getBookPublisher()));
-                this.available.setText(Integer.toString(b.getBookPages()));
+                this.available.setText(Integer.toString(b.getAvailable()));
                 this.price.setText(Integer.toString(b.getBookPrice()));
                 InputStream input;
                 try {

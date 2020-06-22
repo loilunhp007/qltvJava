@@ -47,7 +47,7 @@ public class exportController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         fillCombobox();
     }
-    public void exportBtn(ActionEvent event){
+    public void exportBtn(ActionEvent event) throws SQLException{
         String choice=cbox.getSelectionModel().getSelectedItem();
         database db=new database();
         db.getConnect();
@@ -86,9 +86,11 @@ public class exportController implements Initializable {
             wb.write(fo);
             fo.close();
             JOptionPane.showMessageDialog(null,"Staff has been export");
-            } catch (Exception e) {
-                e.printStackTrace();
-                JOptionPane.showMessageDialog(null,"error");
+            } catch (NullPointerException e) {
+                JOptionPane.showMessageDialog(null,"Table not found");
+            }
+            catch(IOException ex){
+                JOptionPane.showMessageDialog(null,"ERROR WHILE EXPORT");
             }
         }
         if(choice.equals("account") ){

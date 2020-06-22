@@ -99,10 +99,10 @@ public class Lending_detailDAO {
     public static int newLendID(){
         database db=new database();
         db.getConnect();
-        ResultSet rs=db.execution("SELECT Max(lendID) FROM lending_detail;");
+        ResultSet rs=db.execution("SELECT Max(lendID) FROM booklending;");
         try{
             while(rs.next()){
-                int id=rs.getInt(1)+1;
+                int id=rs.getInt(1);
                 db.disconnect();
                 return id;
             }

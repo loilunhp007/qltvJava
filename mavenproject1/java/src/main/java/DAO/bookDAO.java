@@ -28,7 +28,7 @@ public class bookDAO{
                 book.setBookCategoryID(rs.getInt(4));
                 book.setBookPublisher(rs.getInt(5));
                 book.setBookPrice(rs.getInt(6));
-                book.setBookPages(rs.getInt(7));
+                book.setAvailable(rs.getInt(7));
                 book.setBookAuthor(rs.getString(8));
                 book.setBookCategory(rs.getString(9));
                 book.setBlob(rs.getBlob(10));
@@ -61,7 +61,7 @@ public class bookDAO{
             //sql +=book.getBookPublisher()+"','";
             st.setInt(5, book.getBookPrice());
             //sql +=book.getBookPrice()+"','";
-            st.setInt(6, book.getBookPages());
+            st.setInt(6, book.getAvailable());
             //sql +=book.getBookPages()+"');";
             st.setBinaryStream(7, input);
             db.updateStaff(st);
@@ -100,7 +100,7 @@ public class bookDAO{
             //sql +=book.getBookPublisher()+"','";
             st.setInt(5, book.getBookPrice());
             //sql +=book.getBookPrice()+"','";
-            st.setInt(6, book.getBookPages());
+            st.setInt(6, book.getAvailable());
             //sql +=book.getBookPages()+"');";
             if(file!=null){
                 st.setBinaryStream(7, input);
@@ -127,7 +127,7 @@ public class bookDAO{
                 book.setBookCategoryID(rs.getInt(4));
                 book.setBookPublisher(rs.getInt(5));
                 book.setBookPrice(rs.getInt(6));
-                book.setBookPages(rs.getInt(7));
+                book.setAvailable(rs.getInt(7));
                 book.setBlob(rs.getBlob(8));
                 return book;
             }
@@ -143,14 +143,11 @@ public class bookDAO{
         try {
             Book book=new Book();
             book=findBookByID(bookID);
-            int available=(book.getBookPages()-1);
+            int available=(book.getAvailable()-1);
             if(available > 0){
                 String sql="UPDATE book SET ";
                 sql+="available='"+available+"' WHERE bookID="+book.getBookID()+";";
                 db.update(sql);
-            }
-            else{
-                JOptionPane.showMessageDialog(null,"this book is over");
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null,"Error While Lending book");
@@ -163,7 +160,7 @@ public class bookDAO{
         try {
             Book book=new Book();
             book=findBookByID(bookID);
-            int available=book.getBookPages()+1;
+            int available=book.getAvailable()+1;
                 String sql="UPDATE book SET ";
                 sql+="available='"+available+"' WHERE bookID="+book.getBookID()+";";
                 db.update(sql);

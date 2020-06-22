@@ -83,11 +83,11 @@ public class Book {
         this.bookPrice = bookPrice;
     }
 
-    public int getBookPages() {
+    public int getAvailable() {
         return available;
     }
 
-    public void setBookPages(int available) {
+    public void setAvailable(int available) {
         this.available = available;
     }
 

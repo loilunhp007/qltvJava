@@ -208,12 +208,13 @@ public class adminLendingController implements Initializable {
             int bookid1=Integer.parseInt(bookID.getText());
         Book b1=new Book();
         b1=bookDAO.findBookByID(bookid1);
-        if(b1.getBookPages()>0){
-            book.setText(b1.getBookName());
-        }
-        else{
+        if(b1.getAvailable() == 0){
             bookID.setText(null);
             JOptionPane.showMessageDialog(null,"Books are not Available");
+        }
+        else{
+            book.setText(b1.getBookName());
+           
         }
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(null,"Empty ID");
@@ -226,7 +227,7 @@ public class adminLendingController implements Initializable {
                 int bookid=Integer.parseInt(book2ID.getText());
                 Book b=new Book();
                 b=bookDAO.findBookByID(bookid);
-                if(b.getBookPages()>0){
+                if(b.getAvailable()>0){
                     bookName1.setText(b.getBookName());
                 }
                 else{
@@ -243,7 +244,7 @@ public class adminLendingController implements Initializable {
                 int bookid=Integer.parseInt(book3ID.getText());
                 Book b=new Book();
                 b=bookDAO.findBookByID(bookid);
-                if(b.getBookPages()>0){
+                if(b.getAvailable()>0){
                     bookName2.setText(b.getBookName());
                 }
                 else{
