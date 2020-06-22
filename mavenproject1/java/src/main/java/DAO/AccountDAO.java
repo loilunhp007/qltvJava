@@ -156,4 +156,19 @@ public Account findAccountByName(String userName) {
     return null;
     }
 
+    public static int findIDByName(String staffName){
+        int ID=0;
+        database db = new database();
+        db.getConnect();
+        ResultSet rs = db.execution("SELECT staffID From staff WHERE staffName='"+staffName+"'");
+        try {
+            while(rs.next()){
+                ID=rs.getInt(1);
+            }
+        } catch (Exception e) {
+            
+        }
+        db.disconnect();
+        return ID;
+    }
 }

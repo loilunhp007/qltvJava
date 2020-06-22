@@ -6,12 +6,16 @@
 package Controller;
 
 import java.net.URL;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.logging.Logger;
+
+import javax.swing.JOptionPane;
 
 import DAO.AccountDAO;
 import Entity.Account;
@@ -55,7 +59,7 @@ public class AccountController implements Initializable {
     @FXML
     private DatePicker outday;
     @FXML
-    private TextField staffID;
+    private ComboBox staffID;
     @FXML
     private Button addBtn;
     @FXML
@@ -92,7 +96,7 @@ public class AccountController implements Initializable {
      * Initializes the controller class.
      */
     ObservableList<Account> l_account= FXCollections.observableArrayList();
-    
+    ObservableList optional = FXCollections.observableArrayList();
 
 
     @Override
@@ -101,7 +105,26 @@ public class AccountController implements Initializable {
         convertDate1();
         loadAccount();
         onSelect();
+        fillCombobox();
     }
+
+    public void fillCombobox() {
+        database db=new database();
+       try {
+           db.getConnect();
+            String sql="SELECT s.staffName FROM staff s join account a on s.staffID = a.staffID WHERE 1";
+            ResultSet rs=db.execution(sql);
+           while(rs.next()) {
+               optional.add(rs.getString(1));
+           }
+       } catch ( SQLException e) {
+           //e.printStackTrace();
+           JOptionPane.showMessageDialog(null,"Error while loading combobox");
+       }
+       db.disconnect();
+       staffID.setItems(optional);
+   }
+   
     public void convertDate(){
        String pattern="yyyy-MM-dd";
        createday.setPromptText(pattern.toLowerCase());
@@ -178,7 +201,7 @@ public class AccountController implements Initializable {
             if (Name.equals("")) throw new Exception();
             if (Pass.equals("")) throw new Exception();
             try {
-                staffidd=Integer.parseInt(staffID.getText());
+                staffidd=AccountDAO.findIDByName(staffID.getSelectionModel().getSelectedItem().toString());
             } catch(Exception e) {
                 Alert a=new Alert(AlertType.ERROR, "Staff ID must be number!\nAdd account failed!");
                 a.show();
@@ -212,7 +235,7 @@ public class AccountController implements Initializable {
         }
         String username=userName.getText();
         String userpass=userPass.getText();
-        int staffidd=Integer.parseInt(staffID.getText());
+        int staffidd=AccountDAO.findIDByName(staffID.getSelectionModel().getSelectedItem().toString());
         LocalDate date1=outday.getValue();
         String dob1=date1.toString();
         LocalDate date2=createday.getValue();
@@ -265,7 +288,7 @@ public class AccountController implements Initializable {
                 LocalDate dob2=LocalDate.parse(ac.getCreateday());
                 this.outday.setValue(dob1);
                 this.createday.setValue(dob2);
-                this.staffID.setText(Integer.toString(ac.getStaffID()));
+                staffID.setValue(ac.getStaffName());
             });
             return row;
         });
@@ -276,7 +299,7 @@ public class AccountController implements Initializable {
         userName.clear();
         outday.setValue(null);
         userPass.clear();
-        staffID.clear();
+        staffID.setValue(null);
     }
 
     public void searchBar(){
