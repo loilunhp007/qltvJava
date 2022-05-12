@@ -1,5 +1,6 @@
 package DAO;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,8 +16,11 @@ public class authorDAO {
         ObservableList<Author> l_Author=  FXCollections.observableArrayList();
         database db=new database();
         db.getConnect();
-        ResultSet rs = db.execution("SELECT * From author;");
+        String sql = "SELECT * From author";
+       
         try {
+        	 PreparedStatement st= db.getCon().prepareStatement(sql);
+             ResultSet rs = st.executeQuery();
             while(rs.next()){
                 Author author = new Author(rs.getInt(1));
                 author.setAuthorName(rs.getString(2));
@@ -35,12 +39,13 @@ public class authorDAO {
         database db = new database();
         db.getConnect();
         try{
-            String sql = "INSERT INTO author (authorName,authorGender,authorDOB,authorEmail ) VALUES ('";
-            sql +=Author.getAuthorName()+"','";
-            sql += Author.getAuthorGender() +"','";
-            sql += Author.getAuthorDOB() +"','";
-            sql +=Author.getAuthorEmail()+"');";
-            db.update(sql);
+            String sql = "INSERT INTO author (authorName,authorGender,authorDOB,authorEmail ) VALUES (?,?,?,?)";
+            PreparedStatement st= db.getCon().prepareStatement(sql);
+            st.setString(1,Author.getAuthorName());
+            st.setString(2,Author.getAuthorGender());
+            st.setString(3,Author.getAuthorDOB());
+            st.setString(4,Author.getAuthorEmail());
+            st.executeUpdate();
         }catch (Exception e){
             e.printStackTrace();
             e.getMessage();
@@ -62,12 +67,14 @@ public class authorDAO {
         database db=new database();
         db.getConnect();
         try {
-        String sql="UPDATE Author SET ";
-        sql+="authorName='"+ author.getAuthorName()+"',";
-        sql+="authorGender='"+ author.getAuthorGender()+"',";
-        sql+="authorDOB='"+ author.getAuthorDOB()+"',";
-        sql+="authorEmail='"+ author.getAuthorEmail() + "' WHERE authorID='"+author.getAuthorID()+"';";
-        db.update(sql);
+        	 String sql="UPDATE Author SET authorName= ?,authorGender=?,authorDOB=?,authorEmail=? WHERE authorID=? ";
+        	PreparedStatement st = db.getCon().prepareStatement(sql);
+        	st.setString(1,author.getAuthorName());
+            st.setString(2,author.getAuthorGender());
+            st.setString(3,author.getAuthorDOB());
+            st.setString(4,author.getAuthorEmail());
+            st.setInt(5, author.getAuthorID());
+            st.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(null, "Error");
@@ -77,8 +84,10 @@ public class authorDAO {
     public static Author findAuthorByID(int authorID){
         database db = new database();
         db.getConnect();
-        ResultSet rs = db.execution("SELECT * From author WHERE authorID="+authorID);
         try {
+        	PreparedStatement st  = db.getCon().prepareStatement("SELECT * From author WHERE authorID= ?");
+        	st.setInt(1, authorID);
+        	ResultSet rs = st.executeQuery();
             while(rs.next()){
                 Author author = new Author(rs.getInt(1));
                 author.setAuthorName(rs.getString(2));
@@ -98,8 +107,10 @@ public class authorDAO {
         int authorid=0;
         database db = new database();
         db.getConnect();
-        ResultSet rs = db.execution("SELECT authorID From author WHERE authorName='"+authorName+"'");
         try {
+        	PreparedStatement st  = db.getCon().prepareStatement("SELECT authorID From author WHERE authorName=?");
+        	st.setString(1, authorName);
+        	ResultSet rs = st.executeQuery();
             while(rs.next()){
                 authorid=rs.getInt(1);
             }

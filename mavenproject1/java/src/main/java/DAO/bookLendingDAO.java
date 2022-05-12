@@ -1,5 +1,6 @@
 package DAO;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -17,8 +18,11 @@ public class bookLendingDAO {
     public static ObservableList<BookLending> load(){
         ObservableList<BookLending> l_lending = FXCollections.observableArrayList();
         database db = new database();
-        ResultSet rs= db.execution("SELECT bl.lendID,st.studentName,bl.createDay,bl.returndate,s.staffName,count(*),bl.lendStudentID,bl.issued_by FROM booklending bl join student st on bl.lendStudentID = st.studentID join staff s on s.staffID=bl.issued_by join lending_detail ld on bl.lendID=ld.lendID WHERE ld.lendStatus='Lending' GROUP BY ld.lendID;");
+       
         try {
+        	String sql = "SELECT bl.lendID,st.studentName,bl.createDay,bl.returndate,s.staffName,count(*),bl.lendStudentID,bl.issued_by FROM booklending bl join student st on bl.lendStudentID = st.studentID join staff s on s.staffID=bl.issued_by join lending_detail ld on bl.lendID=ld.lendID WHERE ld.lendStatus='Lending' GROUP BY ld.lendID;";         			
+        	PreparedStatement st = db.getCon().prepareStatement(sql);
+        	 ResultSet rs= st.executeQuery();
             while(rs.next()){
                 BookLending bl=new BookLending(rs.getInt(1));
                 bl.setStudentName(rs.getString(2));
@@ -41,11 +45,12 @@ public class bookLendingDAO {
             database db = new database();
             db.getConnect();
             String sql = "INSERT INTO booklending (lendStudentID,createDay,returndate,issued_by) VALUES ('";
-            sql +=bl.getLendStudentID()+"','";
-            sql += bl.getCreateDay() +"','";
-            sql += bl.getReturnDate() +"','";
-            sql +=bl.getIssued_by()+"');";
-            db.update(sql);
+            PreparedStatement st = db.getCon().prepareStatement(sql);
+            st.setInt(1, bl.getLendStudentID());
+            st.setString(2, bl.getCreateDay());
+            st.setString(3, bl.getReturnDate());
+            st.setInt(4, bl.getIssued_by());
+            st.executeUpdate();
             db.disconnect();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null,"Student just can lend 3 books");
@@ -55,11 +60,14 @@ public class bookLendingDAO {
         database db=new database();
         db.getConnect();
         try {
-            String sql="UPDATE booklending SET ";
-        sql+="lendStudentID='"+ bl.getLendStudentID()+"',";
-        sql+="returndate='"+ bl.getReturnDate()+"',";
-        sql+="issued_by='"+bl.getIssued_by()+"' WHERE lendID="+bl.getLendID()+";";
-        db.update(sql);
+            String sql="UPDATE booklending SET lendStudentID= ? ,returndate=?,issued_by=? WHERE lendID=?";
+        PreparedStatement st = db.getCon().prepareStatement(sql);
+        st.setInt(1, bl.getLendStudentID());
+        st.setString(2, bl.getCreateDay());
+        st.setString(3, bl.getReturnDate());
+        st.setInt(4, bl.getIssued_by());
+        st.setInt(5, bl.getLendID());
+        st.executeUpdate();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Error");
         }        
@@ -81,8 +89,12 @@ public class bookLendingDAO {
     public static BookLending findLendByID(int lendID){
         database db = new database();
         db.getConnect();
-        ResultSet rs = db.execution("SELECT * From booklending WHERE lendID="+ lendID);
+        
         try {
+        	String sql = "SELECT * From booklending WHERE lendID= ?";
+        	PreparedStatement st = db.getCon().prepareStatement(sql);
+        	st.setInt(1,lendID);
+        	ResultSet rs = st.executeQuery();
             while(rs.next()){
                 BookLending bl = new BookLending(rs.getInt(1));
                 bl.setLendStudentID(rs.getInt(2));
@@ -100,8 +112,11 @@ public class bookLendingDAO {
     public static BookLending findLendByStudentID(int studentID){
         database db = new database();
         db.getConnect();
-        ResultSet rs = db.execution("SELECT * From booklending WHERE lendStudentID="+ studentID);
         try {
+        	String sql = "SELECT * From booklending WHERE lendStudentID= ?";
+        	PreparedStatement st = db.getCon().prepareStatement(sql);
+        	st.setInt(1,studentID);
+        	ResultSet rs = st.executeQuery();
             while(rs.next()){
                 BookLending bl = new BookLending(rs.getInt(1));
                 bl.setLendStudentID(rs.getInt(2));

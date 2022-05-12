@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package Controller;
 
 import java.net.URL;
@@ -19,6 +15,9 @@ import javax.swing.JOptionPane;
 
 import DAO.AccountDAO;
 import Entity.Account;
+import Secure.AES;
+import Secure.md5Func;
+
 import com.jfoenix.controls.JFXButton;
 import com.mysql.cj.result.LocalDateValueFactory;
 
@@ -115,7 +114,10 @@ public class AccountController implements Initializable {
             String sql="SELECT s.staffName FROM staff s join account a on s.staffID = a.staffID WHERE 1";
             ResultSet rs=db.execution(sql);
            while(rs.next()) {
-               optional.add(rs.getString(1));
+        	   if(!optional.contains(AES.decrypt(rs.getString(1)))) {
+        		   optional.add(AES.decrypt(rs.getString(1)));
+        	   }
+               
            }
        } catch ( SQLException e) {
            //e.printStackTrace();
@@ -193,6 +195,7 @@ public class AccountController implements Initializable {
             Account ac= new Account();
             String Name=userName.getText();
             String Pass=userPass.getText();
+            Pass = md5Func.getMd5(Pass);
             LocalDate date1= LocalDate.now();
             LocalDate date2= outday.getValue();
             String dob1=date1.toString();
@@ -235,7 +238,9 @@ public class AccountController implements Initializable {
         }
         String username=userName.getText();
         String userpass=userPass.getText();
+        userpass = md5Func.getMd5(userpass);
         int staffidd=AccountDAO.findIDByName(staffID.getSelectionModel().getSelectedItem().toString());
+        System.out.println(staffidd);
         LocalDate date1=outday.getValue();
         String dob1=date1.toString();
         LocalDate date2=createday.getValue();
@@ -283,7 +288,7 @@ public class AccountController implements Initializable {
                 Account ac = this.tableAccount.getSelectionModel().getSelectedItem();
                 this.id.setText(Integer.toString(ac.getUserID()));
                 this.userName.setText(ac.getUserName());
-                this.userPass.setText(ac.getUserPassword());
+                //this.userPass.setText(ac.getUserPassword());
                 LocalDate dob1=LocalDate.parse(ac.getOutofday());
                 LocalDate dob2=LocalDate.parse(ac.getCreateday());
                 this.outday.setValue(dob1);

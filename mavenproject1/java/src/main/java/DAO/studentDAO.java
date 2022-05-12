@@ -7,6 +7,7 @@ import java.util.Observable;
 import javax.swing.JOptionPane;
 import Controller.database;
 import Entity.Student;
+import Secure.AES;
 import javafx.scene.control.*;
 import javafx.collections.*;
 public class studentDAO {
@@ -18,9 +19,9 @@ public class studentDAO {
         try {
             while(rs.next()){
                 Student student = new Student(rs.getInt(1));
-                student.setStudentName(rs.getString(2));
+                student.setStudentName(AES.decrypt(rs.getString(2)));
                 student.setStudentDOB(rs.getString(3));
-                student.setStudentEmail(rs.getString(4));
+                student.setStudentEmail(AES.decrypt(rs.getString(4)));
                 student.setStudentClass(rs.getString(5));
                 l_student.add(student);
             }

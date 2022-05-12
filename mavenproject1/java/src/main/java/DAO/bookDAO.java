@@ -4,14 +4,18 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
+import java.sql.Blob;
 import java.sql.PreparedStatement;
 import java.io.File;
 import java.io.FileInputStream;
 import javafx.scene.control.Alert.*;
+
+import javax.sql.rowset.serial.SerialBlob;
 import javax.swing.JOptionPane;
 import javafx.scene.control.*;
 import Controller.database;
 import Entity.Book;
+import Secure.AES;
 import javafx.collections.*;
 public class bookDAO{
 
@@ -23,13 +27,13 @@ public class bookDAO{
         try {
             while(rs.next()){
                 Book book = new Book(rs.getInt(1));
-                book.setBookName(rs.getString(2));
+                book.setBookName(AES.decryptFromAES(rs.getString(2)));
                 book.setBookAuthorID(rs.getInt(3));
                 book.setBookCategoryID(rs.getInt(4));
                 book.setBookPublisher(rs.getInt(5));
                 book.setBookPrice(rs.getInt(6));
                 book.setAvailable(rs.getInt(7));
-                book.setBookAuthor(rs.getString(8));
+                book.setBookAuthor(AES.decrypt(rs.getString(8)));
                 book.setBookCategory(rs.getString(9));
                 book.setBlob(rs.getBlob(10));
                 l_book.add(book);
@@ -47,8 +51,7 @@ public class bookDAO{
         database db = new database();
         db.getConnect();
         try {
-            File file= new File(book.getBookImg());
-            FileInputStream input= new FileInputStream(file);            
+                      
             String sql = "INSERT INTO book (bookName,bookAuthorID,bookCategoryID,bookPublisher,bookPrice,available,bookImg) VALUES (?,?,?,?,?,?,?)";
             PreparedStatement st= db.getCon().prepareStatement(sql);
             st.setString(1, book.getBookName());
@@ -62,8 +65,10 @@ public class bookDAO{
             st.setInt(5, book.getBookPrice());
             //sql +=book.getBookPrice()+"','";
             st.setInt(6, book.getAvailable());
+            byte[] buff = book.getBookImg().getBytes();
+            Blob blob = new SerialBlob(buff);
             //sql +=book.getBookPages()+"');";
-            st.setBinaryStream(7, input);
+            st.setBlob(7, blob);
             db.updateStaff(st);
         } catch (NullPointerException e) {
             Alert a=new Alert(AlertType.ERROR,"Please fill all field before Add book");
@@ -86,8 +91,6 @@ public class bookDAO{
         database db=new database();
         db.getConnect();
         try {
-            File file=new File(book.getBookImg());
-            FileInputStream input= new FileInputStream(file);
             String sql="UPDATE book SET bookName=?, bookAuthorID=?, bookCategoryID=?, bookPublisher=?, bookPrice=?, available=?, bookImg=? WHERE bookID="+book.getBookID()+";";
             PreparedStatement st = db.getCon().prepareStatement(sql);
             st.setString(1, book.getBookName());
@@ -102,12 +105,9 @@ public class bookDAO{
             //sql +=book.getBookPrice()+"','";
             st.setInt(6, book.getAvailable());
             //sql +=book.getBookPages()+"');";
-            if(file!=null){
-                st.setBinaryStream(7, input);
-            }
-            else{
-                st.setBinaryStream(7, null);
-            }
+            byte[] buff = book.getBookImg().getBytes();
+            Blob blob = new SerialBlob(buff);
+            st.setBlob(7, blob);
             db.updateStaff(st);
         } catch (Exception e) {
             e.printStackTrace();
@@ -122,7 +122,7 @@ public class bookDAO{
         try {
             while(rs.next()){
                 Book book = new Book(rs.getInt(1));
-                book.setBookName(rs.getString(2));
+                book.setBookName(AES.decrypt(rs.getString(2)));
                 book.setBookAuthorID(rs.getInt(3));
                 book.setBookCategoryID(rs.getInt(4));
                 book.setBookPublisher(rs.getInt(5));

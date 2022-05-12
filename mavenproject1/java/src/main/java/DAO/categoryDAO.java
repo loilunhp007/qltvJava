@@ -1,5 +1,6 @@
 package DAO;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -16,8 +17,10 @@ public class categoryDAO {
         ObservableList<Categories> l_cate = FXCollections.observableArrayList();
         database db=new database();
         db.getConnect();
-        ResultSet rs = db.execution("SELECT * FROM categories");
         try {
+        	String sql="SELECT * FROM categories";
+        	PreparedStatement st = db.getCon().prepareStatement(sql);
+        	ResultSet rs = st.executeQuery();
             while(rs.next()){
                 Categories cate = new Categories(rs.getInt(1));
                 cate.setCategoryName(rs.getString(2));
@@ -34,9 +37,10 @@ public class categoryDAO {
         database db = new database();
         db.getConnect();
        try{
-        String sql = "INSERT INTO `categories` (categoryName) VALUES ('";
-        sql +=cate.getCategoryName()+"');";
-        db.update(sql);
+        String sql = "INSERT INTO `categories` (categoryName) VALUES (?)";
+    	PreparedStatement st = db.getCon().prepareStatement(sql);
+        st.setString(1, cate.getCategoryName());
+        st.executeUpdate();
        }catch(Exception e){
         e.printStackTrace();
         e.getMessage();        
@@ -57,9 +61,11 @@ public class categoryDAO {
         database db=new database();
         db.getConnect();
         try {
-            String sql="UPDATE categories SET ";
-        sql+="categoryName='"+ cate.getCategoryName()+"' WHERE categoryID='"+cate.getCategoryID()+"';";
-        db.update(sql);
+            String sql="UPDATE categories SET categoryName=? WHERE categoryID=?";
+        PreparedStatement st = db.getCon().prepareStatement(sql);
+        st.setString(1, cate.getCategoryName());
+        st.setInt(2, cate.getCategoryID());
+        st.executeUpdate();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Error");
         }        
@@ -68,8 +74,12 @@ public class categoryDAO {
     public static Categories findcategoriesByID(int categoryID){
         database db = new database();
         db.getConnect();
-        ResultSet rs = db.execution("SELECT * From categories WHERE categoryID="+categoryID);
+        
         try {
+        	String sql="SELECT * From categories WHERE categoryID=?";
+            PreparedStatement st = db.getCon().prepareStatement(sql);
+            st.setInt(1, categoryID);
+            ResultSet rs =st.executeQuery();
             while(rs.next()){
                 Categories cate = new Categories(rs.getInt(1));
                 cate.setCategoryName(rs.getString(2));
@@ -86,13 +96,15 @@ public class categoryDAO {
         int categoryid=0;
         database db = new database();
         db.getConnect();
-        ResultSet rs = db.execution("SELECT categoryID From categories WHERE categoryName='"+categoryName+"'");
         try {
+        	String sql="SELECT categoryID From categories WHERE categoryName=? LIMIT 1";
+            PreparedStatement st = db.getCon().prepareStatement(sql);
+            st.setString(1, categoryName);
+            ResultSet rs =st.executeQuery();
             while(rs.next()){
                 categoryid=rs.getInt(1);
             }
         } catch (Exception e) {
-            e.printStackTrace();
             JOptionPane.showMessageDialog(null,"Can't find anything about this");
         }
         db.disconnect();

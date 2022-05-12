@@ -2,6 +2,7 @@ package DAO;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.sql.Blob;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -10,11 +11,13 @@ import java.util.List;
 import java.util.Observable;
 
 import javax.sound.sampled.SourceDataLine;
+import javax.sql.rowset.serial.SerialBlob;
 import javax.swing.JOptionPane;
 import javax.xml.transform.SourceLocator;
 
 import Controller.database;
 import Entity.Staff;
+import Secure.AES;
 import javafx.scene.control.*;
 import javafx.collections.*;
 public class staffDAO {
@@ -26,11 +29,11 @@ public class staffDAO {
         try {
             while(rs.next()){
                 Staff staff = new Staff(rs.getInt(1));
-                staff.setStaffName(rs.getString(2));
+                staff.setStaffName(AES.decrypt(rs.getString(2)));
                 staff.setStaffDOB(rs.getString(3));
-                staff.setStaffAddr(rs.getString(4));
+                staff.setStaffAddr(AES.decrypt(rs.getString(4)));
                 staff.setStaffGender(rs.getString(5));
-                staff.setStaffPhone(rs.getInt(6));
+                staff.setStaffPhone(AES.decrypt(rs.getString(6)));
                 staff.setRole_name(rs.getString(7));
                 staff.setStaffSalary(rs.getInt(8));
                 staff.setBlob(rs.getBlob(9));
@@ -45,18 +48,18 @@ public class staffDAO {
         database db = new database();
         db.getConnect();
         try {
-            File file= new File(staff.getStaffImg());
-            FileInputStream input= new FileInputStream(file);
             String sql = "INSERT INTO staff (staffName,staffdob,staffAddr,staffGender,staffPhone,staff_roleID,staffSalary,staffImg) VALUES (?,?,?,?,?,?,?,?)";
             PreparedStatement st= db.getCon().prepareStatement(sql);
             st.setString(1, staff.getStaffName());
             st.setString(2, staff.getStaffDOB());
             st.setString(3, staff.getStaffAddr());
             st.setString(4, staff.getStaffGender());
-            st.setInt(5, staff.getStaffPhone());
+            st.setString(5, staff.getStaffPhone());
             st.setInt(6, staff.getStaff_role());
             st.setInt(7, staff.getStaffSalary());
-            st.setBinaryStream(8, input);
+            byte[] buff = staff.getStaffImg().getBytes();
+            Blob blob = new SerialBlob(buff);
+            st.setBlob(8, blob);
             db.updateStaff(st);
         } catch (Exception e) {
             return;
@@ -73,20 +76,21 @@ public class staffDAO {
         database db=new database();
         db.getConnect();
         try {
-            File file=new File(staff.getStaffImg());
-            FileInputStream input= new FileInputStream(file);
             String sql="UPDATE staff SET staffName=?, staffdob=?, staffAddr=?, staffGender=?, staffPhone=?, staff_roleID=?, staffSalary=?, staffImg=? WHERE staffID="+staff.getStaffID()+";";
             PreparedStatement st = db.getCon().prepareStatement(sql);
             st.setString(1, staff.getStaffName());
             st.setString(2, staff.getStaffDOB());
             st.setString(3, staff.getStaffAddr());
             st.setString(4, staff.getStaffGender());
-            st.setInt(5, staff.getStaffPhone());
+            st.setString(5, staff.getStaffPhone());
             st.setInt(6, staff.getStaff_role());
             st.setInt(7, staff.getStaffSalary());
-            st.setBinaryStream(8, input);
+            byte[] buff = staff.getStaffImg().getBytes();
+            Blob blob = new SerialBlob(buff);
+            st.setBlob(8, blob);
             db.updateStaff(st);
         } catch (Exception e) {
+        	e.printStackTrace();
             JOptionPane.showMessageDialog(null, "Error");
         }        
         db.disconnect();
@@ -123,7 +127,7 @@ public class staffDAO {
                 staff.setStaffDOB(rs.getString(3));
                 staff.setStaffAddr(rs.getString(4));
                 staff.setStaffGender(rs.getString(5));
-                staff.setStaffPhone(rs.getInt(6));
+                staff.setStaffPhone(rs.getString(6));
                 staff.setStaff_role(rs.getInt(7));
                 staff.setStaffSalary(rs.getInt(8));
                 staff.setBlob(rs.getBlob(9));

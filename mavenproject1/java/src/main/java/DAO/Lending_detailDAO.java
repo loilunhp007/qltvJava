@@ -1,5 +1,6 @@
 package DAO;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -17,8 +18,11 @@ public class Lending_detailDAO {
     public static ObservableList<Lending_Detail> load(){
         ObservableList<Lending_Detail> l_lenddetail = FXCollections.observableArrayList();
         database db = new database();
-        ResultSet rs= db.execution("SELECT ld.lendID,b.bookName,ld.dueDay,ld.lendStatus,ld.bookID FROM lending_detail ld join booklending bl on ld.lendID=bl.lendID join book b on ld.bookID=b.bookID WHERE 1 ORDER BY lendID ASC;");
+        db.getConnect();
         try {
+        	String sql = "SELECT ld.lendID,b.bookName,ld.dueDay,ld.lendStatus,ld.bookID FROM lending_detail ld join booklending bl on ld.lendID=bl.lendID join book b on ld.bookID=b.bookID WHERE 1 ORDER BY lendID ASC;";
+        	PreparedStatement st = db.getCon().prepareStatement(sql);
+        	ResultSet rs = st.executeQuery();
             while(rs.next()){
                 Lending_Detail ld=new Lending_Detail();
                 ld.setLendID(rs.getInt(1));
@@ -38,12 +42,13 @@ public class Lending_detailDAO {
         try {
             database db = new database();
             db.getConnect();
-            String sql = "INSERT INTO lending_detail (lendID,bookID,dueDay,lendStatus) VALUES ('";
-            sql +=ld.getLendID()+"','";
-            sql += ld.getBookID() +"','";
-            sql += ld.getDueDay() +"','";
-            sql +=ld.getLendStatus()+"');";
-            db.update(sql);
+            String sql = "INSERT INTO lending_detail (lendID,bookID,dueDay,lendStatus) VALUES (?,?,?,?)";
+            PreparedStatement st = db.getCon().prepareStatement(sql);
+            st.setInt(1,ld.getLendID());
+            st.setInt(2, ld.getBookID());
+            st.setString(3, ld.getDueDay());
+            st.setString(4, ld.getLendStatus());
+            st.executeUpdate();
             db.disconnect();     
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null,"Error to add borrow");
@@ -55,9 +60,13 @@ public class Lending_detailDAO {
         database db=new database();
         db.getConnect();
         try {
-            String sql="UPDATE lending_detail SET ";
-        sql+="dueDay='"+ ld.getDueDay()+"',";
-        sql+="lendStatus='"+ ld.getLendStatus()+"' WHERE lendID='"+ld.getLendID()+"' AND bookID='"+ld.getBookID()+"';";
+            String sql="UPDATE lending_detail SET dueDay=?,lendStatus=? WHERE lendID=? AND bookID=?";
+            PreparedStatement st = db.getCon().prepareStatement(sql);
+            st.setString(1,ld.getDueDay());
+            st.setString(2, ld.getLendStatus());
+            st.setInt(3,ld.getLendID());
+            st.setInt(4, ld.getBookID());
+            st.executeUpdate();
         db.update(sql);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Error");

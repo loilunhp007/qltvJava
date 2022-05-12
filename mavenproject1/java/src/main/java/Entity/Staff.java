@@ -5,8 +5,8 @@ import java.io.FileInputStream;
 import com.mysql.cj.jdbc.Blob;
 
 public class Staff {
-    private String staffName,staffdob,staffAddr,staffGender, role_name, staffImg;
-    private int staffID,staff_role, staffSalary, staffPhone;
+    private String staffName,staffdob,staffAddr,staffGender, role_name, staffImg,staffPhone;
+    private int staffID,staff_role, staffSalary ;
     private java.sql.Blob staffBlob;
     public Staff() {
     }
@@ -15,7 +15,7 @@ public class Staff {
         this.staffID = staffID;
     }
 
-    public Staff(int staffID, String staffName, String staffDOB, String staffAddr,String staffGender,int staffPhone, int staff_role, int staffSalary, String staffImg) {
+    public Staff(int staffID, String staffName, String staffDOB, String staffAddr,String staffGender,String staffPhone, int staff_role, int staffSalary, String staffImg) {
         this.staffID = staffID;
         this.staffName = staffName;
         this.staffdob = staffDOB;
@@ -26,7 +26,7 @@ public class Staff {
         this.staffSalary = staffSalary;
         this.staffImg = staffImg;
     }
-    public Staff(int staffID, String staffName, String staffDOB, String staffAddr,String staffGender,int staffPhone, String role_name, int staffSalary, String staffImg) {
+    public Staff(int staffID, String staffName, String staffDOB, String staffAddr,String staffGender,String staffPhone, String role_name, int staffSalary, String staffImg) {
         this.staffID = staffID;
         this.staffName = staffName;
         this.staffdob = staffDOB;
@@ -37,7 +37,7 @@ public class Staff {
         this.staffSalary=staffSalary;
         this.staffImg = staffImg;
     }
-    public Staff(int staffID, String staffName, String staffDOB, String staffAddr,String staffGender,int staffPhone, int staff_role, int staffSalary, java.sql.Blob staffBlob) {
+    public Staff(int staffID, String staffName, String staffDOB, String staffAddr,String staffGender,String staffPhone, int staff_role, int staffSalary, java.sql.Blob staffBlob) {
         this.staffID = staffID;
         this.staffName = staffName;
         this.staffdob = staffDOB;
@@ -111,11 +111,11 @@ public class Staff {
         this.staffGender = staffGender;
     }
 
-    public int getStaffPhone() {
+    public String getStaffPhone() {
         return staffPhone;
     }
 
-    public void setStaffPhone(int staffPhone) {
+    public void setStaffPhone(String staffPhone) {
         this.staffPhone = staffPhone;
     }
 

@@ -5,6 +5,7 @@ import java.sql.*;
 import java.util.*;
 import java.util.logging.Logger;
 
+import javax.sql.rowset.serial.SerialBlob;
 import javax.swing.ImageIcon;
 
 import Controller.database;
@@ -12,6 +13,8 @@ import DAO.authorDAO;
 import DAO.bookDAO;
 import DAO.categoryDAO;
 import Entity.*;
+import Secure.AES;
+
 import com.jfoenix.controls.JFXButton;
 import javafx.fxml.*;
 import javafx.scene.control.*;
@@ -25,9 +28,16 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.scene.control.Alert.AlertType; 
 import javafx.stage.FileChooser;
+
+import java.io.ByteArrayInputStream;
+import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.UnsupportedEncodingException;
 
 public class bookController implements Initializable {
     @FXML
@@ -85,10 +95,13 @@ public class bookController implements Initializable {
     ObservableList optional = FXCollections.observableArrayList();
     ObservableList optional1 = FXCollections.observableArrayList();
     String imgURL;
-     
+    public static final int keyA = 5;
+    public static final int keyB = 7;
+    public static AES aes;
     @Override
     public void initialize( URL url, ResourceBundle rb){
         fillCombobox();
+        aes = new AES();
         loadBook();
         onSelect();
     }
@@ -108,6 +121,7 @@ public class bookController implements Initializable {
             Logger.getLogger(bookController.class.getName());
         }
         db.disconnect();
+        
         bookID.setCellValueFactory(new PropertyValueFactory<>("bookID"));
         bookName.setCellValueFactory(new PropertyValueFactory<>("bookName"));
         bookAuthorID.setCellValueFactory(new PropertyValueFactory<>("bookAuthor"));
@@ -120,8 +134,9 @@ public class bookController implements Initializable {
     
     public void fillCombobox() {
         database db=new database();
+        db.getConnect();
         try {
-            db.getConnect();
+            
             String sql="SELECT authorName FROM author WHERE 1";
             ResultSet rs=db.execution(sql);
             while(rs.next()) {
@@ -185,16 +200,21 @@ public class bookController implements Initializable {
             }
             int authorid= authorDAO.findRoleByName(author.getSelectionModel().getSelectedItem().toString());
             int categoryid= categoryDAO.findRoleByName(category.getSelectionModel().getSelectedItem().toString());
-            book1.setBookName(Name);
+            book1.setBookName(AES.encrypt(Name));
             book1.setBookAuthorID(authorid);
             book1.setBookCategoryID(categoryid);
             book1.setBookPublisher(publish);
             book1.setBookPrice(cpri);
             book1.setAvailable(avai);
-            book1.setBookImg(imgURL);
+            File file= new File(imgURL);
+            FileInputStream fileInputStreamReader = new FileInputStream(file);
+            byte[] bytes = new byte[(int)file.length()];
+            fileInputStreamReader.read(bytes);
+            book1.setBookImg(AES.encryptFromAES(Base64.getEncoder().encodeToString(bytes)));
             bookDAO.addBook(book1);
             loadBook();
         } catch (Exception e) {
+        	e.printStackTrace();
             Alert a=new Alert(AlertType.ERROR, "Please make sure that you have filled all the information!\nAdd book failed!");
             a.show();
         }
@@ -251,13 +271,17 @@ public class bookController implements Initializable {
             int authorid= authorDAO.findRoleByName(author.getSelectionModel().getSelectedItem().toString());
             int categoryid= categoryDAO.findRoleByName(category.getSelectionModel().getSelectedItem().toString());
             book1.setBookID(idd);
-            book1.setBookName(Name);
+            book1.setBookName(AES.encrypt(Name));
             book1.setBookAuthorID(authorid);
             book1.setBookCategoryID(categoryid);
             book1.setBookPublisher(publish);
             book1.setBookPrice(cpri);
             book1.setAvailable(avai);
-            book1.setBookImg(imgURL);
+            File file= new File(imgURL);
+            FileInputStream fileInputStreamReader = new FileInputStream(file);
+            byte[] bytes = new byte[(int)file.length()];
+            fileInputStreamReader.read(bytes);
+            book1.setBookImg(AES.encryptFromAES(Base64.getEncoder().encodeToString(bytes)));
             System.out.println(book1);
             System.out.println(book1.getBookCategoryID());
             bookDAO.editBook(book1);
@@ -306,19 +330,36 @@ public void refreshBook(){
                 this.price.setText(Integer.toString(b.getBookPrice()));
                 InputStream input;
                 try {
-                    input = b.getBlob().getBinaryStream();
+                	Blob blob = b.getBlob();
+                	byte[] bdata = blob.getBytes(1, (int) blob.length());
+                	String s = new String(bdata);
+                	
+                	byte[] s2 = Base64.getDecoder().decode(AES.decryptFromAES(s));
+                	
+                    input = new ByteArrayInputStream(s2);
+                    File targetFile = new File("src/test/targetFile.jpg");
+                    OutputStream outStream = new FileOutputStream(targetFile);
+                    outStream.write(s2);
                     Image bkimg=new Image(input);
-                    if(b.getBlob().getBinaryStream()!=null){
+                    bookimg.setImage(bkimg);
+                   /* if(bkimg !=null){
+                    	
                         bookimg.setImage(bkimg);
                     }
                     else{
                         bookimg.setImage(null);
-                    }
+                    }*/
                 } catch (SQLException e) {
                     return;
                 }catch(NullPointerException ex){
                     return;
-                }
+                } catch (UnsupportedEncodingException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
             });
             return row;
         });

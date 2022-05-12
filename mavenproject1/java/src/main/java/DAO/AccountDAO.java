@@ -1,5 +1,6 @@
 package DAO;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
@@ -10,6 +11,7 @@ import javax.swing.JOptionPane;
 import java.sql.SQLException;
 import Controller.database;
 import Entity.Account;
+import Secure.AES;
 import javafx.collections.*;
 public class AccountDAO  {
     public static ObservableList<Account> loadAccount(){
@@ -25,7 +27,7 @@ public class AccountDAO  {
                 ac.setCreateday(rs.getString(4));
                 ac.setOutofday(rs.getString(5));
                 ac.setStaffID(rs.getInt(6));
-                ac.setStaffName(rs.getString(7));
+                ac.setStaffName(AES.decrypt(rs.getString(7)));
                 list_ac.add(ac);
             }
         } catch (Exception e) {
@@ -58,15 +60,17 @@ public class AccountDAO  {
     }
     public static void addAccount(Account ac){
         database db=new database();
+        System.out.println("s:"+ac.getUserPassword()+ " idd:"+ac.getStaffID());
         try {
             db.getConnect();
-            String sql= "INSERT INTO account(userName,userPassword,startDay,outofDay,staffID) VALUES ('";
-            sql +=ac.getUserName()+"','";
-            sql +=ac.getUserPassword()+"','";
-            sql +=ac.getCreateday()+"','";
-            sql +=ac.getOutofday()+"','";
-            sql +=ac.getStaffID()+"');";
-            db.update(sql);
+            String sql= "INSERT INTO account(userName,userPassword,startDay,outofDay,staffID) VALUES (?,?,?,?,?)";
+            PreparedStatement st= db.getCon().prepareStatement(sql);
+            st.setString(1, ac.getUserName());
+            st.setString(2, ac.getUserPassword());
+            st.setString(3, ac.getCreateday());
+            st.setString(4, ac.getOutofday());
+            st.setInt(5, ac.getStaffID());
+            st.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
             e.getMessage();
@@ -77,7 +81,10 @@ public class AccountDAO  {
         database db=new database();
         try {
         db.getConnect();
-        db.update("DELETE FROM account WHERE account.userID="+acID);
+        String sql = "DELETE FROM account WHERE account.userID= ?";
+        PreparedStatement st= db.getCon().prepareStatement(sql);
+        st.setInt(1, acID);
+        st.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(null, "Error");
@@ -88,14 +95,18 @@ public class AccountDAO  {
         database db=new database();
         try {
             db.getConnect();
-            String sql="UPDATE account SET ";
-            sql+="userName='"+ac.getUserName()+"',userPassword='"+ac.getUserPassword()+
-            "',staffID='"+ac.getStaffID()+"',startDay='"+ac.getCreateday()+"',outofDay='"+ac.getOutofday()+
-            "' WHERE account.userID='"+ac.getUserID()+"';";
-            db.update(sql);
+            String sql="UPDATE account SET userName= ?,userPassword=?, staffID=?,startDay=?,outofDay=? WHERE account.userID=?";
+            PreparedStatement st= db.getCon().prepareStatement(sql);
+            st.setString(1, ac.getUserName());
+            st.setString(2, ac.getUserPassword());
+            st.setString(4, ac.getCreateday());
+            st.setString(5, ac.getOutofday());
+            st.setInt(3, ac.getStaffID());
+            st.setInt(6,ac.getUserID());
+            st.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
-            JOptionPane.showMessageDialog(null, "Error");
+           // JOptionPane.showMessageDialog(null, "Error");
         }
         db.disconnect();
     }
@@ -157,6 +168,7 @@ public Account findAccountByName(String userName) {
     }
 
     public static int findIDByName(String staffName){
+    	staffName = AES.encrypt(staffName);
         int ID=0;
         database db = new database();
         db.getConnect();

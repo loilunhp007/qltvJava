@@ -19,6 +19,9 @@ import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 
 import Controller.database;
+import Entity.Staff;
+import Secure.AES;
+import Secure.md5Func;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -70,28 +73,22 @@ public class LoginController implements Initializable {
             Boolean check=false;
             String txtName=username.getText();
             String txtPass=password.getText();
+            txtPass = md5Func.getMd5(txtPass);
             ResultSet rs=db.execution("SELECT ac.userName,ac.userPassword,ac.staffID,s.staff_roleID FROM account ac join staff s on ac.staffID=s.staffID WHERE ac.username='"+txtName+"' and ac.userPassword='"+txtPass+"';");
             while(rs.next()){
                 check=true;
-                int role=rs.getInt(4);
-                if(role==2){
+                AES.generatorKey(AES.k);
+                FunctionController.user = new Staff();
+                FunctionController.user.setStaffID(rs.getInt(3));
+                FunctionController.user.setStaff_role(rs.getInt(4));
                 loginBtn.getScene().getWindow().hide();
                 Parent root = FXMLLoader.load(getClass().getResource("../View/Function.fxml"));
                 Stage mainStage=new Stage();
                 Scene scene=new Scene(root);
                 mainStage.setScene(scene);
                 mainStage.show();
-                }
-                else{
-                    if(role==1){
-                        loginBtn.getScene().getWindow().hide();
-                        Parent root = FXMLLoader.load(getClass().getResource("../View/Lending.fxml"));
-                        Stage mainStage=new Stage();
-                        Scene scene=new Scene(root);
-                        mainStage.setScene(scene);
-                        mainStage.show();
-                        }
-                }
+                        
+                
             }
             if(check==false){
                 JOptionPane.showMessageDialog(null,"Incorrect username or password");

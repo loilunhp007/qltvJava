@@ -9,10 +9,14 @@ import Controller.database;
 import DAO.bookDAO;
 import DAO.staffDAO;
 import Entity.*;
+import Secure.AES;
 
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.net.URL;
 import java.sql.*;
 import java.text.*;
@@ -169,7 +173,8 @@ public class StaffController implements Initializable {
             if (Addr.equals(""))
                 throw new Exception();
             String gender1, rolename;
-            int sal, phone1;
+            int sal;
+            String phone1;
             try {
                 rolename = cbox.getSelectionModel().getSelectedItem().toString();
 
@@ -179,7 +184,7 @@ public class StaffController implements Initializable {
                 return;
             }
             try {
-                phone1 = Integer.parseInt(phone.getText());
+                phone1 = phone.getText();
             } catch (Exception e) {
                 Alert a = new Alert(AlertType.ERROR, "Phone must be number!\nAdd staff failed!");
                 a.show();
@@ -200,14 +205,18 @@ public class StaffController implements Initializable {
             }
             if (imgURL.equals(""))
                 throw new Exception();
-            staff.setStaffName(Name);
+            staff.setStaffName(AES.encrypt(Name));
             staff.setStaffDOB(date1);
-            staff.setStaffAddr(Addr);
+            staff.setStaffAddr(AES.encrypt(Addr));
             staff.setStaffGender(gender1);
-            staff.setStaffPhone(phone1);
+            staff.setStaffPhone(AES.encrypt(phone1));
             staff.setStaff_role(role1);
             staff.setStaffSalary(sal);
-            staff.setStaffImg(imgURL);
+            File file= new File(imgURL);
+            FileInputStream fileInputStreamReader = new FileInputStream(file);
+            byte[] bytes = new byte[(int)file.length()];
+            fileInputStreamReader.read(bytes);
+            staff.setStaffImg(AES.encryptFromAES(Base64.getEncoder().encodeToString(bytes)));
             staffDAO.addStaff(staff);
             loadStaff();
         } catch (Exception e) {
@@ -228,14 +237,15 @@ public class StaffController implements Initializable {
             if (Addr.equals(""))
                 throw new Exception();
             String gender1;
-            int sal, phone1;
+            int sal; 
+            String phone1;
             if (txtID.getText().equals("")) {
                 Alert a = new Alert(AlertType.ERROR, "Please choose a staff to make changes!\nUpdate staff failed!");
                 a.show();
                 return;
             }
             try {
-                phone1 = Integer.parseInt(phone.getText());
+                phone1 = phone.getText();
             } catch (Exception e) {
                 Alert a = new Alert(AlertType.ERROR, "Phone must be number!\nAdd staff failed!");
                 a.show();
@@ -256,14 +266,18 @@ public class StaffController implements Initializable {
             String role = cbox.getSelectionModel().getSelectedItem().toString();
             int role1 = staffDAO.findRoleByName(role);
             staff.setStaffID(idd);
-            staff.setStaffName(Name);
+            staff.setStaffName(AES.encrypt(Name));
             staff.setStaffDOB(dob1);
-            staff.setStaffAddr(Addr);
+            staff.setStaffAddr(AES.encrypt(Addr));
             staff.setStaffGender(gender1);
-            staff.setStaffPhone(phone1);
+            staff.setStaffPhone(AES.encrypt(phone1));
             staff.setStaff_role(role1);
             staff.setStaffSalary(sal);
-            staff.setStaffImg(imgURL);
+            File file= new File(imgURL);
+            FileInputStream fileInputStreamReader = new FileInputStream(file);
+            byte[] bytes = new byte[(int)file.length()];
+            fileInputStreamReader.read(bytes);
+            staff.setStaffImg(AES.encryptFromAES(Base64.getEncoder().encodeToString(bytes)));
             staffDAO.editStaff(staff);
             loadStaff();
         } catch (Exception e) {
@@ -300,7 +314,7 @@ public class StaffController implements Initializable {
             ResultSet rs = db.execution("SELECT * FROM Staff");
             while (rs.next()) {
                 staffList.add(new Staff(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4),
-                        rs.getString(5), rs.getInt(6), rs.getInt(7), rs.getInt(8), rs.getString(9)));
+                        rs.getString(5), rs.getString(6), rs.getInt(7), rs.getInt(8), rs.getString(9)));
             }
         } catch (SQLException e) {
             Logger.getLogger(StaffController.class.getName());
@@ -333,17 +347,23 @@ public class StaffController implements Initializable {
                     female.setSelected(true);
                 cbox.setValue(s.getRole_name());
                 // this.role.setText(Integer.toString(staffDAO.findRoleByName(s.getRole_name())));
-                this.phone.setText(Integer.toString(s.getStaffPhone()));
+                this.phone.setText(s.getStaffPhone());
                 this.address.setText(s.getStaffAddr());
                 this.salary.setText(Integer.toString(s.getStaffSalary()));
                 InputStream input;
                 try {
-                    input = s.getBlob().getBinaryStream();
+                	Blob blob = s.getBlob();
+                	byte[] bdata = blob.getBytes(1, (int) blob.length());
+                	String ss = new String(bdata);	
+                	byte[] s2 = Base64.getDecoder().decode(AES.decryptFromAES(ss));              	
+                    input = new ByteArrayInputStream(s2);
+                    Image bkimg=new Image(input);
+                    staffimg.setImage(bkimg);
                 } catch (SQLException e) {
                     return;
                 }
-                Image usrimg=new Image (input);
-                staffimg.setImage(usrimg);
+                
+                
             });
 			return row;
         });

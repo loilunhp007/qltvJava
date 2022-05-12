@@ -24,7 +24,7 @@ public class database {
     public void getConnect(){
         try {
             Class.forName("com.mysql.cj.jdbc.Driver").newInstance();
-            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/qltv1","root","7826");
+            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/qltv1","root","277997aa");
             stmt=con.createStatement();
         } catch (Exception e) {
             System.out.println("Kết nối không thành công");
@@ -49,7 +49,7 @@ public class database {
             stmt.executeUpdate(sql);
         }
         catch(Exception e){
-            e.printStackTrace();;
+            e.printStackTrace();
         }
     }
     public void updateStaff(PreparedStatement st){
@@ -71,7 +71,7 @@ public class database {
             }
         }
         catch(Exception e){
-            e.printStackTrace();
+          //  e.printStackTrace();
         }
     }
 }

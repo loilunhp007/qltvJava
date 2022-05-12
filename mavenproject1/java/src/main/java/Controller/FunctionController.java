@@ -5,9 +5,13 @@
  */
 package Controller;
 import Entity.Book;
+import Entity.Staff;
+
 import java.net.URL;
 import java.util.ResourceBundle;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -26,6 +30,7 @@ import javafx.stage.Stage;
  * @author Anh Quan
  */
 public class FunctionController implements Initializable {
+	public static Staff user;
     ObservableList<Book> bookList = FXCollections.observableArrayList();
     @FXML
     private Button bookBtn;
@@ -79,12 +84,17 @@ public class FunctionController implements Initializable {
         log.setText(Integer.toString(ID));
     }
     public void staffOpen() throws Exception{
-        staffBtn.getScene().getWindow().hide();
-        Parent root = FXMLLoader.load(getClass().getResource("../View/StaffManagement.fxml"));
-                Stage mainStage=new Stage();
-                Scene scene=new Scene(root);
-                mainStage.setScene(scene);
-                mainStage.show();
+    	if(user.getStaff_role()==2) {
+    		staffBtn.getScene().getWindow().hide();
+            Parent root = FXMLLoader.load(getClass().getResource("../View/StaffManagement.fxml"));
+            Stage mainStage=new Stage();
+            Scene scene=new Scene(root);
+            mainStage.setScene(scene);
+            mainStage.show();
+    	}else {
+    		JOptionPane.showMessageDialog(null,"You do not have permission to access");
+    	}
+        
     }
     
     public void bookOpen() throws Exception{
@@ -97,12 +107,17 @@ public class FunctionController implements Initializable {
     }
     
     public void accountOpen() throws Exception{
-        accountBtn.getScene().getWindow().hide();
-        Parent root = FXMLLoader.load(getClass().getResource("../View/Account.fxml"));
-                Stage mainStage=new Stage();
-                Scene scene=new Scene(root);
-                mainStage.setScene(scene);
-                mainStage.show();
+    	if(user.getStaff_role()==2) {
+    		 accountBtn.getScene().getWindow().hide();
+    	        Parent root = FXMLLoader.load(getClass().getResource("../View/Account.fxml"));
+    	                Stage mainStage=new Stage();
+    	                Scene scene=new Scene(root);
+    	                mainStage.setScene(scene);
+    	                mainStage.show();
+    	}else {
+    		JOptionPane.showMessageDialog(null,"You do not have permission to access");
+    	}
+       
     }
     
     public void cardOpen() throws Exception{

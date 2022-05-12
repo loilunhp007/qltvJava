@@ -13,6 +13,8 @@ import java.util.logging.Logger;
 import Controller.database;
 import DAO.studentDAO;
 import Entity.*;
+import Secure.AES;
+
 import com.jfoenix.controls.JFXButton;
 import javafx.fxml.*;
 import javafx.scene.control.*;
@@ -120,9 +122,9 @@ public class cardController implements Initializable {
         String dob1=date1.toString();
         String  email1=email.getText();
         String class1=studentclass.getText();
-        student.setStudentName(Name);
+        student.setStudentName(AES.encrypt(Name));
         student.setStudentDOB(dob1);
-        student.setStudentEmail(email1);
+        student.setStudentEmail(AES.encrypt(email1));
         student.setStudentClass(class1);
         studentDAO.addStudent(student);
         clearALL();
@@ -143,9 +145,9 @@ public class cardController implements Initializable {
         String  email1=email.getText();
         String class1=studentclass.getText();
         student.setStudentID(idd);
-        student.setStudentName(Name);
+        student.setStudentName(AES.encrypt(Name));
         student.setStudentDOB(dob1);
-        student.setStudentEmail(email1);
+        student.setStudentEmail(AES.encrypt(email1));
         student.setStudentClass(class1);
         studentDAO.editStudent(student);
         loadCard();

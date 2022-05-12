@@ -14,6 +14,8 @@ import java.util.logging.Logger;
 
 import DAO.authorDAO;
 import Entity.Author;
+import Secure.AES;
+
 import com.jfoenix.controls.JFXButton;
 import javafx.event.ActionEvent;
 import javafx.fxml.*;
@@ -147,7 +149,7 @@ public class AuthorController implements Initializable {
             else {
                 gender1="Female";
             }
-            aut.setAuthorName(Name);
+            aut.setAuthorName(AES.encrypt(Name));
             aut.setAuthorGender(gender1);
             aut.setAuthorDOB(dob1);
             aut.setAuthorEmail(email1);
@@ -184,7 +186,7 @@ public class AuthorController implements Initializable {
                 gender1="Female";
             }
             aut.setAuthorID(idd);
-            aut.setAuthorName(Name);
+            aut.setAuthorName(AES.encrypt(Name));
             aut.setAuthorDOB(dob1);
             aut.setAuthorEmail(email1);
             aut.setAuthorGender(gender1);
