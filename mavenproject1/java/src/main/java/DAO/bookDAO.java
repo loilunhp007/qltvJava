@@ -73,7 +73,10 @@ public class bookDAO{
         } catch (NullPointerException e) {
             Alert a=new Alert(AlertType.ERROR,"Please fill all field before Add book");
             a.show();
+        }catch(Exception e) {
+        	e.printStackTrace();
         }
+        
         db.disconnect();
     }
     public static void deleteBook(int bookID){
@@ -91,7 +94,7 @@ public class bookDAO{
         database db=new database();
         db.getConnect();
         try {
-            String sql="UPDATE book SET bookName=?, bookAuthorID=?, bookCategoryID=?, bookPublisher=?, bookPrice=?, available=?, bookImg=? WHERE bookID="+book.getBookID()+";";
+            String sql="UPDATE book SET bookName=?, bookAuthorID=?, bookCategoryID=?, bookPublisher=?, bookPrice=?, available=?, bookImg=? WHERE bookID=?";
             PreparedStatement st = db.getCon().prepareStatement(sql);
             st.setString(1, book.getBookName());
             //sql +=book.getBookName()+"','";
@@ -108,7 +111,8 @@ public class bookDAO{
             byte[] buff = book.getBookImg().getBytes();
             Blob blob = new SerialBlob(buff);
             st.setBlob(7, blob);
-            db.updateStaff(st);
+            st.setInt(8, book.getBookID());
+            st.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(null, "Error");

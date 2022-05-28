@@ -81,9 +81,9 @@ public class studentDAO {
         try {
             while(rs.next()){
                 Student student = new Student(rs.getInt(1));
-                student.setStudentName(rs.getString(2));
+                student.setStudentName(AES.decrypt(rs.getString(2)));
                 student.setStudentDOB(rs.getString(3));
-                student.setStudentEmail(rs.getString(4));
+                student.setStudentEmail(AES.decrypt(rs.getString(4)));
                 student.setStudentClass(rs.getString(5));
                 return student;
             }

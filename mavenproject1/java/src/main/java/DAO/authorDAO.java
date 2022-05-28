@@ -10,6 +10,7 @@ import javax.swing.JOptionPane;
 
 import Controller.database;
 import Entity.Author;
+import Secure.AES;
 import javafx.collections.*;
 public class authorDAO {
     public static ObservableList<Author> load(){
@@ -90,7 +91,7 @@ public class authorDAO {
         	ResultSet rs = st.executeQuery();
             while(rs.next()){
                 Author author = new Author(rs.getInt(1));
-                author.setAuthorName(rs.getString(2));
+                author.setAuthorName(AES.decrypt(rs.getString(2)));
                 author.setAuthorGender(rs.getString(3));
                 author.setAuthorDOB(rs.getString(4));
                 author.setAuthorEmail(rs.getString(5));

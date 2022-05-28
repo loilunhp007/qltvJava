@@ -12,6 +12,7 @@ import javax.swing.JOptionPane;
 import Controller.database;
 import Entity.Book;
 import Entity.BookLending;
+import Secure.AES;
 import javafx.collections.*;
 
 public class bookLendingDAO {
@@ -25,10 +26,10 @@ public class bookLendingDAO {
         	 ResultSet rs= st.executeQuery();
             while(rs.next()){
                 BookLending bl=new BookLending(rs.getInt(1));
-                bl.setStudentName(rs.getString(2));
+                bl.setStudentName(AES.decrypt(rs.getString(2)));
                 bl.setCreateDay(rs.getString(3));
                 bl.setReturnDate(rs.getString(4));
-                bl.setStaffName(rs.getString(5));
+                bl.setStaffName(AES.decrypt(rs.getString(5)));
                 bl.setTotal(rs.getInt(6));
                 bl.setLendStudentID(rs.getInt(7));
                 bl.setIssued_by(rs.getInt(8));

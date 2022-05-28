@@ -136,11 +136,11 @@ public class bookController implements Initializable {
         database db=new database();
         db.getConnect();
         try {
-            
+            	
             String sql="SELECT authorName FROM author WHERE 1";
             ResultSet rs=db.execution(sql);
             while(rs.next()) {
-                optional.add(rs.getString(1));
+                optional.add(aes.decrypt(rs.getString(1)));
             }
         } catch ( SQLException e) {
             e.printStackTrace();
@@ -198,7 +198,7 @@ public class bookController implements Initializable {
                 a.show();
                 return;
             }
-            int authorid= authorDAO.findRoleByName(author.getSelectionModel().getSelectedItem().toString());
+            int authorid= authorDAO.findRoleByName(aes.encrypt(author.getSelectionModel().getSelectedItem().toString()));
             int categoryid= categoryDAO.findRoleByName(category.getSelectionModel().getSelectedItem().toString());
             book1.setBookName(AES.encrypt(Name));
             book1.setBookAuthorID(authorid);
@@ -268,7 +268,7 @@ public class bookController implements Initializable {
                 a.show();
                 return;
             }
-            int authorid= authorDAO.findRoleByName(author.getSelectionModel().getSelectedItem().toString());
+            int authorid= authorDAO.findRoleByName(aes.encrypt(author.getSelectionModel().getSelectedItem().toString()));
             int categoryid= categoryDAO.findRoleByName(category.getSelectionModel().getSelectedItem().toString());
             book1.setBookID(idd);
             book1.setBookName(AES.encrypt(Name));

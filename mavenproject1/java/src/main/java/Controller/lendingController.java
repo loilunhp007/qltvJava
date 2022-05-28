@@ -22,6 +22,7 @@ import DAO.bookLendingDAO;
 import DAO.staffDAO;
 import DAO.studentDAO;
 import Entity.*;
+import Secure.AES;
 import javafx.fxml.*;
 import javafx.scene.control.*;
 import javafx.collections.*;
@@ -202,7 +203,7 @@ public class lendingController implements Initializable {
         Book b1=new Book();
         b1=bookDAO.findBookByID(bookid1);
         if(b1.getAvailable()>0){
-            book.setText(b1.getBookName());
+            book.setText(AES.decrypt(b1.getBookName()));
         }
         else{
             bookID.setText(null);
@@ -220,7 +221,7 @@ public class lendingController implements Initializable {
                 Book b=new Book();
                 b=bookDAO.findBookByID(bookid);
                 if(b.getAvailable()>0){
-                    bookName1.setText(b.getBookName());
+                    bookName1.setText(AES.decrypt(b.getBookName()));
                 }
                 else{
                     book2ID.setText(null);
@@ -237,7 +238,7 @@ public class lendingController implements Initializable {
                 Book b=new Book();
                 b=bookDAO.findBookByID(bookid);
                 if(b.getAvailable()>0){
-                    bookName2.setText(b.getBookName());
+                    bookName2.setText(AES.decrypt(b.getBookName()));
                 }
                 else{
                     book3ID.setText(null);
@@ -311,7 +312,7 @@ public class lendingController implements Initializable {
         int staffid1=Integer.parseInt(staffID.getText());
         Staff staff1=new Staff();
         staff1=staffDAO.findstaffByID(staffid1);
-        staffName.setText(staff1.getStaffName());    
+        staffName.setText(staff1.getStaffName()); 
     } catch (Exception e) {
         JOptionPane.showMessageDialog(null,"No Staff Found");
     }

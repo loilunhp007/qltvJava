@@ -13,6 +13,7 @@ import Controller.database;
 import Entity.Book;
 import Entity.BookLending;
 import Entity.Lending_Detail;
+import Secure.AES;
 import javafx.collections.*;
 public class Lending_detailDAO {
     public static ObservableList<Lending_Detail> load(){
@@ -26,7 +27,7 @@ public class Lending_detailDAO {
             while(rs.next()){
                 Lending_Detail ld=new Lending_Detail();
                 ld.setLendID(rs.getInt(1));
-                ld.setBookName(rs.getString(2));
+                ld.setBookName(AES.decrypt(rs.getString(2)));
                 ld.setDueDay(rs.getString(3));
                 ld.setLendStatus(rs.getString(4));
                 ld.setBookID(rs.getInt(5));

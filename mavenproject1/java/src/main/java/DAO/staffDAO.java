@@ -123,11 +123,11 @@ public class staffDAO {
         try {
             while(rs.next()){
                 Staff staff = new Staff(rs.getInt(1));
-                staff.setStaffName(rs.getString(2));
+                staff.setStaffName(AES.decrypt(rs.getString(2)));
                 staff.setStaffDOB(rs.getString(3));
-                staff.setStaffAddr(rs.getString(4));
+                staff.setStaffAddr(AES.decrypt(rs.getString(4)));
                 staff.setStaffGender(rs.getString(5));
-                staff.setStaffPhone(rs.getString(6));
+                staff.setStaffPhone(AES.decrypt(rs.getString(6)));
                 staff.setStaff_role(rs.getInt(7));
                 staff.setStaffSalary(rs.getInt(8));
                 staff.setBlob(rs.getBlob(9));
